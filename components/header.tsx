@@ -4,11 +4,13 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 export default function Header() {
   const pathname = usePathname()
   const [activeSection, setActiveSection] = useState<string>("about")
   const isHomePage = pathname === "/"
+  const isMobile = useIsMobile()
 
   const isActive = (path: string) => {
     if (path === "/") return pathname === "/"
@@ -86,8 +88,8 @@ export default function Header() {
   
   return (
     <header className="border-b border-border py-4 sticky top-0 z-50 bg-background">
-      <div className="container flex flex-col md:flex-row justify-between items-center">
-        <div className="flex items-center text-xl font-bold mb-4 md:mb-0">
+      <div className="container flex justify-between items-center">
+        <div className="flex items-center text-xl font-bold">
           <Link href="/" className="transition-colors">
             Harry Chang
           </Link>
@@ -115,69 +117,71 @@ export default function Header() {
             )}
           </AnimatePresence>
         </div>
-        <nav className="flex space-x-8">
-          {isHomePage ? (
-            <>
-              <button
-                onClick={() => scrollToSection("about")}
-                className={`relative ${activeSection === "about" ? "text-primary" : "text-secondary hover:text-primary transition-colors"} cursor-pointer`}
-              >
-                {activeSection === "about" && (
-                  <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
-                )}
-                About
-              </button>
-              <button
-                onClick={() => scrollToSection("projects")}
-                className={`relative ${activeSection === "projects" ? "text-primary" : "text-secondary hover:text-primary transition-colors"} cursor-pointer`}
-              >
-                {activeSection === "projects" && (
-                  <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
-                )}
-                Projects
-              </button>
-              <button
-                onClick={() => scrollToSection("gallery")}
-                className={`relative ${activeSection === "gallery" ? "text-primary" : "text-secondary hover:text-primary transition-colors"} cursor-pointer`}
-              >
-                {activeSection === "gallery" && (
-                  <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
-                )}
-                Gallery
-              </button>
-            </>
-          ) : (
-            <>
-              <Link 
-                href="/#about"
-                className={`relative ${activeSection === "about" ? "text-primary" : "text-secondary hover:text-primary transition-colors"}`}
-              >
-                {activeSection === "about" && (
-                  <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
-                )}
-                About
-              </Link>
-              <Link 
-                href={isActive("/projects") ? "/projects" : "/#projects"}
-                className={`relative ${activeSection === "projects" ? "text-primary" : "text-secondary hover:text-primary transition-colors"}`}
-              >
-                {activeSection === "projects" && (
-                  <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
-                )}
-                Projects
-              </Link>
-              <Link 
-                href={isActive("/gallery") ? "/gallery" : "/#gallery"}
-                className={`relative ${activeSection === "gallery" ? "text-primary" : "text-secondary hover:text-primary transition-colors"}`}
-              >
-                {activeSection === "gallery" && (
-                  <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
-                )}
-                Gallery
-              </Link>
-            </>
-          )}
-        </nav>
+        {!isMobile && (
+          <nav className="flex space-x-8">
+            {isHomePage ? (
+              <>
+                <button
+                  onClick={() => scrollToSection("about")}
+                  className={`relative ${activeSection === "about" ? "text-primary" : "text-secondary hover:text-primary transition-colors"} cursor-pointer`}
+                >
+                  {activeSection === "about" && (
+                    <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
+                  )}
+                  About
+                </button>
+                <button
+                  onClick={() => scrollToSection("projects")}
+                  className={`relative ${activeSection === "projects" ? "text-primary" : "text-secondary hover:text-primary transition-colors"} cursor-pointer`}
+                >
+                  {activeSection === "projects" && (
+                    <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
+                  )}
+                  Projects
+                </button>
+                <button
+                  onClick={() => scrollToSection("gallery")}
+                  className={`relative ${activeSection === "gallery" ? "text-primary" : "text-secondary hover:text-primary transition-colors"} cursor-pointer`}
+                >
+                  {activeSection === "gallery" && (
+                    <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
+                  )}
+                  Gallery
+                </button>
+              </>
+            ) : (
+              <>
+                <Link 
+                  href="/#about"
+                  className={`relative ${activeSection === "about" ? "text-primary" : "text-secondary hover:text-primary transition-colors"}`}
+                >
+                  {activeSection === "about" && (
+                    <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
+                  )}
+                  About
+                </Link>
+                <Link 
+                  href={isActive("/projects") ? "/projects" : "/#projects"}
+                  className={`relative ${activeSection === "projects" ? "text-primary" : "text-secondary hover:text-primary transition-colors"}`}
+                >
+                  {activeSection === "projects" && (
+                    <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
+                  )}
+                  Projects
+                </Link>
+                <Link 
+                  href={isActive("/gallery") ? "/gallery" : "/#gallery"}
+                  className={`relative ${activeSection === "gallery" ? "text-primary" : "text-secondary hover:text-primary transition-colors"}`}
+                >
+                  {activeSection === "gallery" && (
+                    <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
+                  )}
+                  Gallery
+                </Link>
+              </>
+            )}
+          </nav>
+        )}
       </div>
     </header>
   )

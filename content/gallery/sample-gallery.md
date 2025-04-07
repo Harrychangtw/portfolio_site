@@ -1,7 +1,7 @@
 ---
 title: "Urban Architecture"
 description: "A collection exploring modern urban architecture and geometric patterns found in city environments."
-imageUrl: "/placeholder.svg"
+imageUrl: "/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp" 
 quote: "Finding geometry in the concrete jungle"
 date: "2023-04-10"
 camera: "Sony A7III"
@@ -10,15 +10,15 @@ location: "Various Cities"
 tags: ["Architecture", "Urban", "Geometry"]
 featured: true
 gallery:
-  - url: "/placeholder.svg"
+  - url: "/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp"
     caption: "Office building facade with repeating patterns"
     width: 1920
     height: 1080
-  - url: "/placeholder.svg"
+  - url: "/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp"
     caption: "Spiral staircase viewed from below"
     width: 1080
     height: 1920
-  - url: "/placeholder.svg"
+  - url: "/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp"
     caption: "Geometric shadows cast by skyscrapers"
     width: 1920
     height: 1080
@@ -40,4 +40,4 @@ All images were shot with a Sony A7III camera paired with a 24-70mm f/2.8 GM len
 
 The photographs span several locations including New York, Chicago, and San Francisco. Each city offers its own architectural character - from New York's mixture of historic and ultra-modern, to Chicago's pioneering skyscrapers, to San Francisco's unique blend of styles influenced by its geography.
 
-![Looking up at a glass skyscraper](/placeholder.svg)
+![Looking up at a glass skyscraper](/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp)q
