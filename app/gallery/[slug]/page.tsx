@@ -3,30 +3,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
-
-// This would normally come from a database or CMS
-const galleryItems = [
-  {
-    slug: "cursor-ai",
-    title: "Cursor AI",
-    description: "Exploring the future of AI-assisted coding",
-    content: "Detailed gallery item description would go here...",
-    imageUrl: "/placeholder.svg?height=800&width=1200",
-    date: "2023-05-15",
-  },
-  {
-    slug: "thinkspace",
-    title: "Thinkspace",
-    description: "Artificial AI agents for creative exploration",
-    content: "Detailed gallery item description would go here...",
-    imageUrl: "/placeholder.svg?height=800&width=1200",
-    date: "2023-03-22",
-  },
-  // Add more gallery items here
-]
+import { getGalleryItemData, getAllGallerySlugs } from "@/lib/markdown"
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const item = galleryItems.find((i) => i.slug === params.slug)
+  const item = await getGalleryItemData(params.slug)
 
   if (!item) {
     return {
@@ -41,13 +21,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export async function generateStaticParams() {
-  return galleryItems.map((item) => ({
-    slug: item.slug,
-  }))
+  const paths = getAllGallerySlugs()
+  return paths
 }
 
-export default function GalleryItemPage({ params }: { params: { slug: string } }) {
-  const item = galleryItems.find((i) => i.slug === params.slug)
+export default async function GalleryItemPage({ params }: { params: { slug: string } }) {
+  const item = await getGalleryItemData(params.slug)
 
   if (!item) {
     notFound()
@@ -83,13 +62,34 @@ export default function GalleryItemPage({ params }: { params: { slug: string } }
           </div>
 
           <div className="relative aspect-video w-full overflow-hidden bg-muted mb-12">
-            <Image src={item.imageUrl || "/placeholder.svg"} alt={item.title} fill className="object-cover" priority />
+            <Image 
+              src={item.imageUrl || "/placeholder.svg"} 
+              alt={item.title} 
+              fill 
+              className="object-cover" 
+              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px" 
+            />
           </div>
 
-          <div className="prose prose-lg max-w-none">
-            <p>{item.content}</p>
-            {/* More content would go here */}
-          </div>
+          {/* Display additional images if available */}
+          {item.gallery && item.gallery.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+              {item.gallery.map((image, index) => (
+                <div key={index} className="relative aspect-square overflow-hidden bg-muted">
+                  <Image
+                    src={image.url}
+                    alt={image.caption || `${item.title} image ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className="prose prose-lg max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: item.contentHtml }} />
         </div>
       </div>
     </div>

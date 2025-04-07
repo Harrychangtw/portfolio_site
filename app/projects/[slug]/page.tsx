@@ -3,33 +3,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
-
-// This would normally come from a database or CMS
-const projects = [
-  {
-    slug: "anime-com",
-    title: "Anime.com",
-    category: "Project",
-    description: "Building beautiful tools for your life's work.",
-    content: "Detailed project description would go here...",
-    imageUrl: "/placeholder.svg?height=800&width=1200",
-    year: "2023",
-  },
-  {
-    slug: "multimodal-search",
-    title: "Multimodal Search",
-    category: "Brain Technologies",
-    subcategory: "Conversational AI",
-    description: "Exploring new ways to search and discover content through multimodal interfaces.",
-    content: "Detailed project description would go here...",
-    imageUrl: "/placeholder.svg?height=800&width=1200",
-    year: "2022",
-  },
-  // Add more projects here
-]
+import { getProjectData, getAllProjectSlugs } from "@/lib/markdown"
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const project = projects.find((p) => p.slug === params.slug)
+  const project = await getProjectData(params.slug)
 
   if (!project) {
     return {
@@ -44,13 +21,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export async function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }))
+  const paths = getAllProjectSlugs()
+  return paths
 }
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = projects.find((p) => p.slug === params.slug)
+export default async function ProjectPage({ params }: { params: { slug: string } }) {
+  const project = await getProjectData(params.slug)
 
   if (!project) {
     notFound()
@@ -79,10 +55,12 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                   <p className="uppercase text-xs mb-1">Year</p>
                   <p>{project.year}</p>
                 </div>
-                <div>
-                  <p className="uppercase text-xs mb-1">Role</p>
-                  <p>Design Lead</p>
-                </div>
+                {project.role && (
+                  <div>
+                    <p className="uppercase text-xs mb-1">Role</p>
+                    <p>{project.role}</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -94,13 +72,11 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               fill
               className="object-cover"
               priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
             />
           </div>
 
-          <div className="prose prose-lg max-w-none">
-            <p>{project.content}</p>
-            {/* More content would go here */}
-          </div>
+          <div className="prose prose-lg max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: project.contentHtml }} />
         </div>
       </div>
     </div>
