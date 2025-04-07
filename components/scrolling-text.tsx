@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { motion } from "framer-motion"
 
 export default function ScrollingText() {
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -18,50 +19,63 @@ export default function ScrollingText() {
 
     // Adjust animation duration based on content width
     const contentWidth = content.offsetWidth
-    const duration = contentWidth / 35 // Slightly faster for a more dynamic feel
+    const duration = contentWidth / 40 // Slightly faster for a more dynamic feel
 
     content.style.animationDuration = `${duration}s`
     clone.style.animationDuration = `${duration}s`
   }, [])
 
   return (
-    <div className="border-t border-border py-6 overflow-hidden bg-gradient-to-r from-[#0a0a0a] via-[#12120f] to-[#0a0a0a]">
+    <div className="border-t border-border py-3 overflow-hidden bg-background">
       <div ref={scrollRef} className="scrolling-text">
         <div className="scrolling-text-content flex items-center">
-          <div className="fancy-block"></div>
-          <span className="mx-3 fancy-text text-secondary">HARRY CHANG</span>
-          <span className="fancy-separator">
-            <span className="fancy-diamond"></span>
-          </span>
-          <span className="mx-3 fancy-text text-secondary">DESIGN</span>
-          <span className="fancy-separator">
-            <span className="fancy-dot"></span>
-            <span className="fancy-dot accent"></span>
-            <span className="fancy-dot"></span>
-          </span>
-          <span className="mx-3 fancy-text text-secondary">DEVELOPMENT</span>
-          <span className="fancy-separator">
-            <span className="fancy-diamond"></span>
-          </span>
-          <span className="mx-3 fancy-text text-secondary">INTERACTION</span>
-          <div className="fancy-block"></div>
-          <span className="mx-3 fancy-text text-secondary">HARRY CHANG</span>
-          <span className="fancy-separator">
-            <span className="fancy-dot"></span>
-            <span className="fancy-dot accent"></span>
-            <span className="fancy-dot"></span>
-          </span>
-          <span className="mx-3 fancy-text text-secondary">DESIGN</span>
-          <span className="fancy-separator">
-            <span className="fancy-diamond"></span>
-          </span>
-          <span className="mx-3 fancy-text text-secondary">DEVELOPMENT</span>
-          <span className="fancy-separator">
-            <span className="fancy-dot"></span>
-            <span className="fancy-dot accent"></span>
-            <span className="fancy-dot"></span>
-          </span>
-          <span className="mx-3 fancy-text text-secondary">INTERACTION</span>
+          <motion.span 
+            className="ascii-text"
+            whileHover={{ y: -2 }}
+            transition={{ duration: 0.2 }}
+          >|====| HARRY CHANG |====|</motion.span>
+          <span className="ascii-separator">··</span>
+          <motion.span 
+            className="ascii-text"
+            whileHover={{ y: -2 }}
+            transition={{ duration: 0.2 }}
+          >|==| VIDEO EDITING |==|</motion.span>
+          <span className="ascii-separator">··</span>
+          <motion.span 
+            className="ascii-text"
+            whileHover={{ y: -2 }}
+            transition={{ duration: 0.2 }}
+          >|==| DESIGN |==|</motion.span>
+          <span className="ascii-separator">··</span>
+          <motion.span 
+            className="ascii-text"
+            whileHover={{ y: -2 }}
+            transition={{ duration: 0.2 }}
+          >|==| DEVELOPMENT |==|</motion.span>
+          <span className="ascii-separator">··</span>
+          <motion.span 
+            className="ascii-text"
+            whileHover={{ y: -2 }}
+            transition={{ duration: 0.2 }}
+          >|====| HARRY CHANG |====|</motion.span>
+          <span className="ascii-separator">··</span>
+          <motion.span 
+            className="ascii-text"
+            whileHover={{ y: -2 }}
+            transition={{ duration: 0.2 }}
+          >|==| EDITING |==|</motion.span>
+          <span className="ascii-separator">··</span>
+          <motion.span 
+            className="ascii-text"
+            whileHover={{ y: -2 }}
+            transition={{ duration: 0.2 }}
+          >|==| DESIGN |==|</motion.span>
+          <span className="ascii-separator">··</span>
+          <motion.span 
+            className="ascii-text"
+            whileHover={{ y: -2 }}
+            transition={{ duration: 0.2 }}
+          >|==| DEVELOPMENT |==|</motion.span>
         </div>
       </div>
     </div>

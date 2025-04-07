@@ -46,7 +46,7 @@ export default function ClientLayout({
             <div className="container">
               <div className="flex flex-col md:flex-row justify-between items-center">
                 <div className="text-sm text-secondary mb-4 md:mb-0">v1.0.0 | Last updated: 2023-02-28</div>
-                <div className="flex space-x-4">
+                <div className="flex space-x-4 mx-auto md:mx-0 md:ml-auto">
                   <a href="https://www.instagram.com/pomelo_chang_08/" className="relative text-secondary hover:text-primary transition-colors group px-2 py-1">
                     <span className="absolute inset-0 bg-[#D8F600]/0 group-hover:bg-[#D8F600]/10 rounded transition-all duration-300"></span>
                     <span className="relative z-10">Instagram</span>
@@ -66,12 +66,6 @@ export default function ClientLayout({
                     <span className="absolute inset-0 bg-[#D8F600]/0 group-hover:bg-[#D8F600]/10 rounded transition-all duration-300"></span>
                     <span className="relative z-10">Gmail</span>
                     <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#D8F600] group-hover:w-full transition-all duration-300"></span>
-                  </a>
-                </div>
-                <div className="mt-4 md:mt-0 text-right">
-                  <p className="text-sm text-secondary">Let's build something together.</p>
-                  <a href="mailto:pomelo.cw@gmail.com" className="text-primary hover:underline">
-                  pomelo.cw@gmail.com
                   </a>
                 </div>
               </div>

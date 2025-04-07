@@ -90,9 +90,11 @@ export default function Header() {
     <header className="border-b border-border py-4 sticky top-0 z-50 bg-background">
       <div className="container flex justify-between items-center">
         <div className="flex items-center text-xl font-bold">
-          <Link href="/" className="transition-colors">
-            Harry Chang
-          </Link>
+          <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+            <Link href="/" className="transition-colors hover:text-[#D8F600]">
+              Harry Chang
+            </Link>
+          </motion.div>
           <AnimatePresence mode="wait">
             {showSectionTitle && (
               <motion.div 

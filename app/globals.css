@@ -119,9 +119,20 @@
 .scrolling-text-content {
   animation: scroll 20s linear infinite;
   padding-right: 50px;
-  font-family: var(--font-press-start-2p, monospace);
-  image-rendering: pixelated;
+  font-family: monospace;
   letter-spacing: 1px;
+}
+
+/* ASCII style text */
+.ascii-text {
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.ascii-separator {
+  margin: 0 8px;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* Fancy scrolling text styles */
