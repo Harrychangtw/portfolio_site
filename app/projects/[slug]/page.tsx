@@ -34,49 +34,101 @@ export default async function ProjectPage({ params }: { params: { slug: string }
 
   return (
     <div className="page-transition-enter">
-      <div className="container py-12">
-        <Link href="/" className="inline-flex items-center text-secondary hover:text-primary mb-12 transition-colors">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to projects
-        </Link>
+      <div className="pb-12">
+        {/* Full-width image section at the top */}
+        <div className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden bg-muted mb-8 md:mb-12">
+          <Image
+            src={project.imageUrl || "/placeholder.svg"}
+            alt={project.title}
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+        </div>
 
-        <div className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <div>
-              <h1 className="text-4xl font-heading font-bold mb-2">{project.title}</h1>
-              <p className="text-secondary uppercase text-sm">{project.category}</p>
-              {project.subcategory && <p className="text-secondary uppercase text-sm">{project.subcategory}</p>}
-            </div>
+        <div className="container px-4 md:px-6">
+          <Link 
+            href="/projects" 
+            className="inline-flex items-center text-secondary hover:text-primary mb-8 md:mb-12 transition-colors"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to projects
+          </Link>
 
-            <div className="md:col-span-2">
-              <p className="text-xl mb-4">{project.description}</p>
-              <div className="flex space-x-8 text-secondary">
-                <div>
-                  <p className="uppercase text-xs mb-1">Year</p>
-                  <p>{project.year}</p>
-                </div>
-                {project.role && (
-                  <div>
-                    <p className="uppercase text-xs mb-1">Role</p>
-                    <p>{project.role}</p>
-                  </div>
-                )}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-12">
+            {/* Left column - full width on mobile, 1/4 on desktop */}
+            <div className="md:col-span-1 mb-10 md:mb-0">
+              <div className="md:sticky md:top-24">
+                <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4 md:mb-8">{project.title}</h1>
+                <p className="text-secondary uppercase text-sm mb-6 md:mb-12">{project.category}</p>
+                {/* Intentional negative space below */}
               </div>
             </div>
-          </div>
 
-          <div className="relative aspect-video w-full overflow-hidden bg-muted mb-12">
-            <Image
-              src={project.imageUrl || "/placeholder.svg"}
-              alt={project.title}
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
-            />
-          </div>
+            {/* Right column - full width on mobile, 3/4 on desktop */}
+            <div className="md:col-span-3">
+              {/* Description area */}
+              <div className="mb-16 md:mb-24">
+                <p className="text-lg md:text-xl mb-10 md:mb-16">{project.description}</p>
+                
+                {/* Additional attributes in a grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8 md:gap-x-12 mb-16 md:mb-24 text-secondary">
+                  {project.year && (
+                    <div>
+                      <p className="uppercase text-xs mb-1">Year</p>
+                      <p>{project.year}</p>
+                    </div>
+                  )}
+                  {project.role && (
+                    <div>
+                      <p className="uppercase text-xs mb-1">Role</p>
+                      <p>{project.role}</p>
+                    </div>
+                  )}
+                  {project.client && (
+                    <div>
+                      <p className="uppercase text-xs mb-1">Client</p>
+                      <p>{project.client}</p>
+                    </div>
+                  )}
+                  {project.subcategory && (
+                    <div>
+                      <p className="uppercase text-xs mb-1">Subcategory</p>
+                      <p>{project.subcategory}</p>
+                    </div>
+                  )}
+                  {project.website && (
+                    <div>
+                      <p className="uppercase text-xs mb-1">Website</p>
+                      <p>
+                        <a 
+                          href={project.website} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="hover:underline"
+                        >
+                          {project.website.replace(/^https?:\/\//, '')}
+                        </a>
+                      </p>
+                    </div>
+                  )}
+                  {project.technologies && project.technologies.length > 0 && (
+                    <div className="sm:col-span-2">
+                      <p className="uppercase text-xs mb-1">Technologies</p>
+                      <p>{project.technologies.join(", ")}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
 
-          <div className="prose prose-lg max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: project.contentHtml }} />
+              {/* Main content */}
+              <div 
+                className="prose prose-lg max-w-none dark:prose-invert mb-16 md:mb-24" 
+                dangerouslySetInnerHTML={{ __html: project.contentHtml }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
