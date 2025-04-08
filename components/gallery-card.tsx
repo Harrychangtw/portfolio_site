@@ -90,8 +90,8 @@ export default function GalleryCard({ title, slug, imageUrl, pinned, locked }: G
             <div 
               className={`absolute inset-0 z-10 pointer-events-none ${
                 isPortrait 
-                  ? "border-t-2 border-b-2 border-white" 
-                  : "border-l-2 border-r-2 border-white"
+                  ? "border-t-4 border-b-4 border-white" 
+                  : "border-l-4 border-r-4 border-white"
               }`}
             ></div>
             

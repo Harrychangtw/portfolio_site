@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { motion } from "framer-motion" // Import motion from framer-motion
 
 export default function RevealFooter() {
   const [isVisible, setIsVisible] = useState(false)
@@ -42,18 +43,26 @@ export default function RevealFooter() {
           
           {/* Contact links - white color */}
           <div className="flex space-x-5">
-            <a href="https://www.instagram.com/pomelo_chang_08/" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1">
-              <span className="relative z-10">Instagram</span>
-            </a>
-            <a href="https://discord.com/users/836567989209661481" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1">
-              <span className="relative z-10">Discord</span>
-            </a>
-            <a href="https://github.com/Harrychangtw" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1">
-              <span className="relative z-10">GitHub</span>
-            </a>
-            <a href="mailto:pomelo.cw@gmail.com" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1">
-              <span className="relative z-10">Gmail</span>
-            </a>
+            <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+              <a href="https://www.instagram.com/pomelo_chang_08/" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1">
+                <span className="relative z-10">Instagram</span>
+              </a>
+            </motion.div>
+            <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+              <a href="https://discord.com/users/836567989209661481" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1">
+                <span className="relative z-10">Discord</span>
+              </a>
+            </motion.div>
+            <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+              <a href="https://github.com/Harrychangtw" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1">
+                <span className="relative z-10">GitHub</span>
+              </a>
+            </motion.div>
+            <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+              <a href="mailto:pomelo.cw@gmail.com" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1">
+                <span className="relative z-10">Gmail</span>
+              </a>
+            </motion.div>
           </div>
         </div>
       </div>

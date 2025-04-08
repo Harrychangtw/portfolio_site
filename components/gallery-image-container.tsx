@@ -73,21 +73,39 @@ export function GalleryImageContainer({
   // Determine orientation
   const isPortrait = rawAspectRatio < 1;
   
-  // Calculate appropriate padding based on orientation
-  const containerPadding = `${(1 / rawAspectRatio) * 100}%`;
+  // Check if this is a cinematic 2.35:1 aspect ratio (or similar ultra-wide)
+  const isCinematic = rawAspectRatio >= 2.2 && rawAspectRatio <= 2.4;
   
-  // For portrait images, calculate the horizontal padding needed to make
-  // the container width consistent with landscape images
-  // The reference width-to-height ratio is 1.5 (3:2 landscape)
-  const referenceRatio = 1.5;
+  // Target aspect ratio for the container frame (3:2)
+  const targetRatio = 1.5;
   
-  // Get the percentage width the portrait image would occupy in the container
-  // compared to a landscape image
-  const relativeWidth = isPortrait ? (rawAspectRatio / referenceRatio) * 100 : 100;
+  // Different handling based on image type
+  let containerPadding;
+  let horizontalPadding = '0px';
+  let verticalPadding = '0px';
+  let containerClass = "";
   
-  // Calculate the horizontal padding needed on each side to center the image
-  // This only applies to portrait images
-  const horizontalPadding = isPortrait ? `${(100 - relativeWidth) / 2}%` : '0px';
+  if (isPortrait) {
+    // Portrait image handling (existing logic)
+    containerPadding = `${(1 / rawAspectRatio) * 100}%`;
+    const relativeWidth = (rawAspectRatio / targetRatio) * 100;
+    horizontalPadding = `${(100 - relativeWidth) / 2}%`;
+    containerClass = "border-t-2 border-b-2 border-white";
+  } else if (isCinematic) {
+    // Cinematic image handling (new logic)
+    // Container has 3:2 aspect ratio
+    containerPadding = `${(1 / targetRatio) * 100}%`;
+    
+    // Calculate vertical padding needed to center the image
+    // For a cinematic image in a 3:2 container, we need padding above and below
+    const cinematic_height_percentage = (targetRatio / rawAspectRatio) * 100;
+    verticalPadding = `${(100 - cinematic_height_percentage) / 2}%`;
+    containerClass = "border-l-2 border-r-2 border-white";
+  } else {
+    // Normal landscape image
+    containerPadding = `${(1 / rawAspectRatio) * 100}%`;
+    containerClass = "border-l-2 border-r-2 border-white";
+  }
 
   return (
     <figure className="w-full">
@@ -110,16 +128,45 @@ export function GalleryImageContainer({
                 paddingBottom: containerPadding,
               }}
             >
+              {/* Border overlay */}
+              {!noInsetPadding && (
+                <div className={`absolute inset-0 z-10 pointer-events-none ${containerClass}`}></div>
+              )}
+              
               <div className="absolute inset-0">
-                <Image
-                  src={src}
-                  alt={alt}
-                  fill
-                  className="object-contain object-center"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  priority={priority}
-                  quality={quality}
-                />
+                {isCinematic ? (
+                  // For cinematic images, don't use fill prop, use specific positioning
+                  <div 
+                    className="absolute w-full" 
+                    style={{
+                      top: verticalPadding,
+                      bottom: verticalPadding,
+                      height: `calc(100% - ${verticalPadding} - ${verticalPadding})`
+                    }}
+                  >
+                    <Image
+                      src={src}
+                      alt={alt}
+                      className="object-contain w-full h-full"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      priority={priority}
+                      quality={quality}
+                      width={dimensions.width}
+                      height={dimensions.height}
+                    />
+                  </div>
+                ) : (
+                  // For normal and portrait images, use fill prop
+                  <Image
+                    src={src}
+                    alt={alt}
+                    fill
+                    className="object-contain object-center"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={priority}
+                    quality={quality}
+                  />
+                )}
               </div>
             </div>
           )}

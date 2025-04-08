@@ -1,45 +1,35 @@
 ---
-title: "Gallery Entry Title"
-description: "A description of this photo collection or project."
-imageUrl: "/images/gallery/gallery-slug/cover.jpg"
-quote: "A short quote that will appear on hover in the gallery grid."
-date: "2023-01-01"
-camera: "Sony A7IV"
-lens: "24-70mm f/2.8"
-location: "New York, NY"
-tags: ["Architecture", "Black and White", "Urban"]
+title: ""
+description: ""
+imageUrl: ""
+date: ""
+camera: "FUJIFILM XT-5"
+lens: ""
+location: ""
+tags: [""]
 featured: true
+pinned: false
+locked: false
 gallery:
-  - url: "/images/gallery/gallery-slug/image1.jpg"
-    caption: "Caption for image 1"
-    width: 1920
-    height: 1080
-  - url: "/images/gallery/gallery-slug/image2.jpg"
-    caption: "Caption for image 2"
-    width: 1920
-    height: 1080
-  - url: "/images/gallery/gallery-slug/image3.jpg"
-    caption: "Caption for image 3"
-    width: 1080
-    height: 1920
+    - url: ""
+
+
 ---
 
-## About This Collection
+<!-- ## About This Collection
 
-Write about this photo collection or series. You can use Markdown formatting for **bold**, *italic*, and other text styling.
+This collection explores the geometric patterns, lines, and shapes found in modern urban architecture. Through careful framing and composition, I aim to highlight the mathematical precision and artistic elements present in structures we often pass by without notice.
 
 ## The Story Behind the Photos
 
-Describe the context, inspiration, or story behind these photos.
+Walking through cities with a camera forces you to look up, down, and around in ways that daily commuters rarely do. These photographs were taken over a period of six months across several major metropolitan areas. Each image represents a moment where the built environment revealed its underlying design principles.
 
 ## Technical Details
 
-Explain any specific photographic techniques, post-processing, or unique aspects of how these photos were created.
+All images were shot with a Sony A7III camera paired with a 24-70mm f/2.8 GM lens. I primarily used apertures between f/8 and f/11 to maintain sharpness across the frame, often employing a tripod for the lowest ISO possible. Post-processing was minimal, focusing on contrast adjustment and perspective correction to emphasize the geometric elements.
 
 ## Location Notes
 
-If relevant, share details about where these photos were taken and any interesting information about the location.
+The photographs span several locations including New York, Chicago, and San Francisco. Each city offers its own architectural character - from New York's mixture of historic and ultra-modern, to Chicago's pioneering skyscrapers, to San Francisco's unique blend of styles influenced by its geography.
 
-You can embed additional images within the content like this:
-
-![Image description](/images/gallery/gallery-slug/detail.jpg)
+![Looking up at a glass skyscraper](/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp) -->

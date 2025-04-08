@@ -1,23 +1,17 @@
 ---
-title: "Find Your Peak..."
+title: "Against the Unknown"
 description: ""
-imageUrl: "/images/optimized/gallery/2024_01_06_hehuanshan/DSCF0206.webp" 
-date: "2024-01-06"
+imageUrl: "images/optimized/gallery/2023_12_30_against_the_unknown/154BA3D2-BF8E-4723-B427-E4ACB33B14A1-8577-000006A57CC6F050.webp" 
+date: "2023-12-30"
 camera: "FUJIFILM XT-5"
-lens: "VILTROX 75mm f/1.2"
-location: "Hehuanshan Mountain"
-tags: ["Landscape", "Nature"]
+lens: "FUJINON 100-400mm f/4.5-5.6"
+location: "Ruifang, New Taipei City"
+tags: ["Landscape", "Ocean"]
 featured: true
 pinned: false
 locked: false
 gallery:
-  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0038.webp"
-    caption: ""
-  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0182.webp"
-    caption: ""
-  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0037.webp"
-     # Portrait orientation (2:3)
-  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0008.webp"
+
 
 ---
 

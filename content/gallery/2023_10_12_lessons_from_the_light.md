@@ -1,23 +1,17 @@
 ---
-title: "Find Your Peak..."
+title: "Lessons from the Light"
 description: ""
-imageUrl: "/images/optimized/gallery/2024_01_06_hehuanshan/DSCF0206.webp" 
-date: "2024-01-06"
+imageUrl: "images/optimized/gallery/2023_10_12_lessons_from_the_light/DSCF0004.webp" 
+date: "2023-12-30"
 camera: "FUJIFILM XT-5"
-lens: "VILTROX 75mm f/1.2"
-location: "Hehuanshan Mountain"
-tags: ["Landscape", "Nature"]
+lens: "SIGMA 18-50mm f/2.8"
+location: "Chingshin, Taipei"
+tags: ["Street Photography"]
 featured: true
 pinned: false
 locked: false
 gallery:
-  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0038.webp"
-    caption: ""
-  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0182.webp"
-    caption: ""
-  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0037.webp"
-     # Portrait orientation (2:3)
-  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0008.webp"
+
 
 ---
 
