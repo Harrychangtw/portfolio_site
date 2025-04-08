@@ -47,7 +47,7 @@ export default async function ProjectPage({ params }: { params: { slug: string }
           />
         </div>
 
-        <div className="container px-4 md:px-6">
+        <div className="container">
           <Link 
             href="/projects" 
             className="inline-flex items-center text-secondary hover:text-primary mb-8 md:mb-12 transition-colors"
@@ -72,8 +72,8 @@ export default async function ProjectPage({ params }: { params: { slug: string }
               <div className="mb-16 md:mb-24">
                 <p className="text-lg md:text-xl mb-10 md:mb-16">{project.description}</p>
                 
-                {/* Additional attributes in a grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8 md:gap-x-12 mb-16 md:mb-24 text-secondary">
+                {/* Additional attributes in a single row grid layout */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-6 gap-x-8 md:gap-x-4 mb-16 md:mb-24 text-secondary">
                   {project.year && (
                     <div>
                       <p className="uppercase text-xs mb-1">Year</p>
@@ -86,16 +86,16 @@ export default async function ProjectPage({ params }: { params: { slug: string }
                       <p>{project.role}</p>
                     </div>
                   )}
+                  {project.technologies && project.technologies.length > 0 && (
+                    <div>
+                      <p className="uppercase text-xs mb-1">Technologies</p>
+                      <p>{project.technologies.join(", ")}</p>
+                    </div>
+                  )}
                   {project.client && (
                     <div>
                       <p className="uppercase text-xs mb-1">Client</p>
                       <p>{project.client}</p>
-                    </div>
-                  )}
-                  {project.subcategory && (
-                    <div>
-                      <p className="uppercase text-xs mb-1">Subcategory</p>
-                      <p>{project.subcategory}</p>
                     </div>
                   )}
                   {project.website && (
@@ -111,12 +111,6 @@ export default async function ProjectPage({ params }: { params: { slug: string }
                           {project.website.replace(/^https?:\/\//, '')}
                         </a>
                       </p>
-                    </div>
-                  )}
-                  {project.technologies && project.technologies.length > 0 && (
-                    <div className="sm:col-span-2">
-                      <p className="uppercase text-xs mb-1">Technologies</p>
-                      <p>{project.technologies.join(", ")}</p>
                     </div>
                   )}
                 </div>

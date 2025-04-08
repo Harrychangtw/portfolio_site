@@ -47,7 +47,7 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
           />
         </div>
         
-        <div className="container px-4 md:px-6">
+        <div className="container">
           <Link
             href="/gallery"
             className="inline-flex items-center text-secondary hover:text-primary mb-8 md:mb-12 transition-colors"

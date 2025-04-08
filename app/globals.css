@@ -48,6 +48,7 @@
 }
 
 .container {
+  width: 100%;
   max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
@@ -93,11 +94,11 @@
 }
 
 .page-transition-enter {
-  animation: fade-in 0.3s ease forwards, slide-up 0.3s ease forwards;
+  animation: fade-in 0.5s ease-out;
 }
 
 .page-transition-exit {
-  animation: fade-out 0.2s ease forwards;
+  animation: fade-out 0.3s ease-in;
 }
 
 /* Scrolling text animation */
