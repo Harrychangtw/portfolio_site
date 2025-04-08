@@ -1,12 +1,20 @@
 "use client"
 
 import type React from "react"
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { Inter, Space_Grotesk, Press_Start_2P } from "next/font/google"
+import dynamic from "next/dynamic"
 import "./globals.css"
 import Header from "@/components/header"
-import RevealFooter from "@/components/reveal-footer"
 import { Analytics } from "@vercel/analytics/react"
+
+// Dynamically import RevealFooter with specific settings
+const RevealFooter = dynamic(() => import("@/components/reveal-footer"), {
+  ssr: false,
+  loading: () => (
+    <div className="fixed bottom-0 left-0 right-0 z-10 bg-[#1a1a1a] h-[100px]"></div>
+  ),
+})
 
 const inter = Inter({
   subsets: ["latin"],
