@@ -8,8 +8,8 @@ lens: "Viltrox 75mm f/1.2"
 location: "Hehuanshan Mountain"
 tags: ["Landscape", "Nature"]
 featured: true
-pinned: true
-locked: true
+pinned: false
+locked: false
 gallery:
   - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0038.webp"
     caption: ""

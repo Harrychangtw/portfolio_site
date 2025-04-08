@@ -44,17 +44,15 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
     <div className="page-transition-enter">
       <div className="pb-12">
         {/* Cover image section with original aspect ratio, aligned with global margins */}
-        <div className="w-full bg-muted mb-8 md:mb-12">
-          <div className="container"> {/* Using container class for global margins */}
-            <GalleryImageContainer 
-              src={fullImageUrl} 
-              alt={item.title} 
-              priority={true}
-              quality={95} // Using higher quality for cover images
-              aspectRatio={item.aspectRatio} // Use aspect ratio if provided in metadata
-              noInsetPadding={true} /* Add this prop to remove outline */
-            />
-          </div>
+        <div className="container mb-8 md:mb-12"> {/* Removed w-full bg-muted and moved container class up */}
+          <GalleryImageContainer 
+            src={fullImageUrl} 
+            alt={item.title} 
+            priority={true}
+            quality={95} // Using higher quality for cover images
+            aspectRatio={item.aspectRatio} // Use aspect ratio if provided in metadata
+            noInsetPadding={true} /* Add this prop to remove outline */
+          />
         </div>
         
         <div className="container">
