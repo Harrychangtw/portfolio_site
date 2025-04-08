@@ -3,10 +3,41 @@ import path from "path"
 import matter from "gray-matter"
 import { remark } from "remark"
 import html from "remark-html"
+import { visit } from "unist-util-visit"
 
 // Define the directories
 const projectsDirectory = path.join(process.cwd(), "content/projects")
 const galleryDirectory = path.join(process.cwd(), "content/gallery")
+
+// Helper function to check if a thumbnail exists and return the appropriate path
+function getThumbnailPath(originalPath: string): string {
+  // If path already contains "-thumb", just return it
+  if (originalPath.includes("-thumb")) {
+    return originalPath;
+  }
+  
+  // Create the potential thumbnail path by adding -thumb before the extension
+  const thumbPath = originalPath.replace(/(\.[^.]+)$/, '-thumb$1');
+  
+  // For server-side file existence check
+  const publicPath = path.join(process.cwd(), 'public', originalPath.startsWith('/') 
+    ? originalPath.substring(1) 
+    : originalPath
+  );
+  
+  const thumbPublicPath = path.join(process.cwd(), 'public', thumbPath.startsWith('/') 
+    ? thumbPath.substring(1) 
+    : thumbPath
+  );
+  
+  // Check if thumbnail exists, return it if it does
+  if (fs.existsSync(thumbPublicPath)) {
+    return thumbPath;
+  }
+  
+  // Return original path if no thumbnail exists
+  return originalPath;
+}
 
 export interface ProjectMetadata {
   slug: string
@@ -28,6 +59,7 @@ export interface ProjectMetadata {
 
 export interface GalleryImage {
   url: string
+  thumbnailUrl?: string // Added thumbnailUrl field
   caption?: string
   width?: number
   height?: number
@@ -129,11 +161,17 @@ export function getAllProjectsMetadata(): ProjectMetadata[] {
 
         // Use gray-matter to parse the post metadata section
         const matterResult = matter(fileContents)
+        
+        // Process imageUrl to add thumbnail for cards/previews
+        const data = matterResult.data as Omit<ProjectMetadata, "slug">;
+        if (data.imageUrl) {
+          data.imageUrl = getThumbnailPath(data.imageUrl);
+        }
 
         // Combine the data with the slug
         return {
           slug,
-          ...(matterResult.data as Omit<ProjectMetadata, "slug">),
+          ...data,
         }
       })
 
@@ -177,11 +215,17 @@ export function getAllGalleryMetadata(): GalleryItemMetadata[] {
 
         // Use gray-matter to parse the post metadata section
         const matterResult = matter(fileContents)
+        
+        // Process imageUrl to add thumbnail for cards/previews
+        const data = matterResult.data as Omit<GalleryItemMetadata, "slug">;
+        if (data.imageUrl) {
+          data.imageUrl = getThumbnailPath(data.imageUrl);
+        }
 
         // Combine the data with the slug
         return {
           slug,
-          ...(matterResult.data as Omit<GalleryItemMetadata, "slug">),
+          ...data,
         }
       })
 
@@ -223,11 +267,14 @@ export async function getProjectData(slug: string) {
     const processedContent = await remark().use(html).process(matterResult.content)
     const contentHtml = processedContent.toString()
 
+    // Get the full data for detail view (don't use thumbnails for hero image)
+    const data = matterResult.data as Omit<ProjectMetadata, "slug">;
+
     // Combine the data with the slug and contentHtml
     return {
       slug,
       contentHtml,
-      ...(matterResult.data as Omit<ProjectMetadata, "slug">),
+      ...data,
     }
   } catch (error) {
     console.error(`Error getting project data for slug ${slug}:`, error)
@@ -250,15 +297,64 @@ export async function getGalleryItemData(slug: string) {
     // Use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents)
 
+    // Process the gallery images to add thumbnailUrl if available
+    const data = matterResult.data as Omit<GalleryItemMetadata, "slug">;
+    
+    // Ensure the main imageUrl has a leading slash for absolute path
+    if (data.imageUrl && !data.imageUrl.startsWith('/') && !data.imageUrl.startsWith('http')) {
+      data.imageUrl = '/' + data.imageUrl;
+    }
+    
+    // Process gallery images to include thumbnailUrl and ensure consistent URL format
+    if (data.gallery && Array.isArray(data.gallery)) {
+      data.gallery = data.gallery.map(image => {
+        // Add leading slash if it's a relative path and doesn't start with http(s)
+        if (image.url && !image.url.startsWith('/') && !image.url.startsWith('http')) {
+          image.url = '/' + image.url;
+        }
+        
+        // Only return thumbnails for card views, not for individual item pages
+        return { 
+          ...image,
+          thumbnailUrl: getThumbnailPath(image.url)
+        };
+      });
+    }
+
     // Use remark to convert markdown into HTML string
-    const processedContent = await remark().use(html).process(matterResult.content)
-    const contentHtml = processedContent.toString()
+    // Process image URLs in markdown content to use full resolution paths
+    const processedContent = await remark()
+      .use(() => (tree) => {
+        // Process the tree to find image nodes and fix URLs
+        visit(tree, 'image', (node) => {
+          // Ensure image URLs use the correct path format
+          if (node.url) {
+            // Remove -thumb suffix if present to ensure full resolution
+            node.url = node.url.replace('-thumb.webp', '.webp');
+            
+            // Ensure URL starts with / for absolute paths from root
+            if (!node.url.startsWith('/') && !node.url.startsWith('http')) {
+              node.url = '/' + node.url;
+            }
+            
+            // If the URL points to images/gallery but not to optimized, update path
+            if (node.url.includes('/images/gallery/') && !node.url.includes('/optimized/')) {
+              node.url = node.url.replace('/images/gallery/', '/images/optimized/gallery/');
+            }
+          }
+          return node;
+        });
+      })
+      .use(html)
+      .process(matterResult.content);
+    
+    const contentHtml = processedContent.toString();
 
     // Combine the data with the slug and contentHtml
     return {
       slug,
       contentHtml,
-      ...(matterResult.data as Omit<GalleryItemMetadata, "slug">),
+      ...data,
     }
   } catch (error) {
     console.error(`Error getting gallery item data for slug ${slug}:`, error)

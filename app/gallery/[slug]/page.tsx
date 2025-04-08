@@ -32,18 +32,26 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
     notFound()
   }
 
+  // Extract the full image URL (not thumbnail) for the main hero image
+  // The thumbnails are only used in list/grid views, not in the detail page
+  const fullImageUrl = item.imageUrl?.replace('-thumb.webp', '.webp') || '/placeholder.svg';
+
+  // Check if description exists to adjust layout
+  const hasDescription = item.description && item.description.trim() !== '';
+
   return (
     <div className="page-transition-enter">
       <div className="pb-12">
-        {/* Full-width image section at the top */}
+        {/* Full-width image section at the top - using full resolution */}
         <div className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden bg-muted mb-8 md:mb-12">
           <Image 
-            src={item.imageUrl || "/placeholder.svg"} 
+            src={fullImageUrl} 
             alt={item.title} 
             fill 
             className="object-cover" 
             priority
             sizes="100vw" 
+            quality={90} // Using higher quality for hero images
           />
         </div>
         
@@ -74,12 +82,16 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
 
             {/* Right column - full width on mobile, now 8/12 (2/3) on desktop */}
             <div className="md:col-span-8">
-              {/* Description area */}
+              {/* Description area and attributes - restructured to handle missing description */}
               <div className="mb-16 md:mb-24">
-                <p className="text-lg md:text-xl mb-10 md:mb-16">{item.description}</p>
+                {hasDescription && (
+                  <p className="text-lg md:text-xl mb-10 md:mb-16">{item.description}</p>
+                )}
                 
-                {/* Additional attributes in a grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8 md:gap-x-12 mb-16 md:mb-24 text-secondary">
+                {/* Additional attributes in a grid - adjusted margins when no description */}
+                <div className={`grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8 md:gap-x-12 ${
+                  hasDescription ? 'mb-16 md:mb-24' : 'mt-0'
+                } text-secondary`}>
                   {item.camera && (
                     <div>
                       <p className="uppercase text-xs mb-1">Camera</p>
@@ -104,30 +116,6 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
                       <p>{item.tags.join(", ")}</p>
                     </div>
                   )}
-                  {/* Display pinned status if it exists */}
-                  {item.pinned && (
-                    <div>
-                      <p className="uppercase text-xs mb-1">Status</p>
-                      <p className="flex items-center">
-                        <span className="inline-flex items-center">
-                          <span className="h-2 w-2 rounded-full bg-[#D8F600] mr-2"></span>
-                          Pinned
-                        </span>
-                      </p>
-                    </div>
-                  )}
-                  {/* Display locked status if it exists */}
-                  {item.locked && (
-                    <div>
-                      <p className="uppercase text-xs mb-1">{item.pinned ? "" : "Status"}</p>
-                      <p className="flex items-center">
-                        <span className="inline-flex items-center">
-                          <span className="h-2 w-2 rounded-full bg-secondary mr-2"></span>
-                          Locked
-                        </span>
-                      </p>
-                    </div>
-                  )}
                 </div>
               </div>
               
@@ -135,25 +123,66 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
               <div className="prose prose-lg max-w-none dark:prose-invert mb-16 md:mb-24" 
                   dangerouslySetInnerHTML={{ __html: item.contentHtml }} />
 
-              {/* Gallery grid with generous spacing */}
+              {/* Gallery grid with generous spacing - always use full resolution images */}
               {item.gallery && item.gallery.length > 0 && (
                 <div className="grid grid-cols-1 gap-12 md:gap-24 mb-16 md:mb-24">
-                  {item.gallery.map((image, index) => (
-                    <div key={index} className="relative h-[60vh] md:h-[80vh] w-full overflow-hidden bg-muted">
-                      <Image
-                        src={image.url}
-                        alt={image.caption || `${item.title} image ${index + 1}`}
-                        fill
-                        className="object-cover"
-                        sizes="100vw"
-                      />
-                      {image.caption && (
-                        <p className="absolute bottom-0 left-0 p-4 md:p-6 text-sm text-white bg-black/30 w-full">
-                          {image.caption}
-                        </p>
-                      )}
-                    </div>
-                  ))}
+                  {item.gallery.map((image, index) => {
+                    // Always use the full resolution image URL for the detail view
+                    const fullUrl = image.url.replace('-thumb.webp', '.webp');
+                    
+                    // Calculate aspect ratio to determine if image is landscape, portrait, or square
+                    const aspectRatio = image.width && image.height 
+                      ? image.width / image.height 
+                      : 16/9; // Default if dimensions not available
+                    
+                    const isPortrait = aspectRatio < 0.9;
+                    const isSquare = aspectRatio >= 0.9 && aspectRatio <= 1.1;
+                    
+                    return (
+                      <div key={index} className="relative w-full">
+                        {/* Photo container with responsive sizing based on aspect ratio */}
+                        <div className={`mx-auto ${
+                          // For portrait images, limit width to avoid excessive height
+                          isPortrait ? 'max-w-[70%] md:max-w-[60%] lg:max-w-[50%]' : 
+                          // For square images, set appropriate width
+                          isSquare ? 'max-w-[85%] md:max-w-[80%]' : 
+                          // For landscape, use full width
+                          'w-full'
+                        }`}>
+                          <div className="overflow-hidden bg-background">
+                            {/* Dynamic aspect ratio container */}
+                            <div className={`relative w-full ${
+                              image.width && image.height 
+                                ? `pb-[${(image.height / image.width) * 100}%]` 
+                                : "pb-[56.25%]" // Default 16:9 aspect ratio if dimensions not available
+                            }`}>
+                              <div className="absolute inset-0">
+                                <Image
+                                  src={fullUrl}
+                                  alt={image.caption || `${item.title} image ${index + 1}`}
+                                  fill
+                                  className="object-cover" // Changed from object-contain to object-cover
+                                  sizes={isPortrait ? 
+                                    "(max-width: 768px) 70vw, 50vw" : 
+                                    "(max-width: 768px) 100vw, 90vw"
+                                  }
+                                  quality={90}
+                                  loading={index === 0 ? "eager" : "lazy"}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Optional caption with improved styling */}
+                        {image.caption && (
+                          <p className="mt-3 text-sm text-secondary italic text-center max-w-prose mx-auto">
+                            {image.caption}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>

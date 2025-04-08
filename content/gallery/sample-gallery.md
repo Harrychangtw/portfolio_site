@@ -1,22 +1,21 @@
 ---
-title: "Urban Architecture"
-description: "A collection exploring modern urban architecture and geometric patterns found in city environments."
-imageUrl: "/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp" 
-quote: "Finding geometry in the concrete jungle"
-date: "2023-04-10"
-camera: "Sony A7III"
-lens: "24-70mm f/2.8 GM"
-location: "Various Cities"
+title: "Find Your Peak..."
+description: ""
+imageUrl: "/images/optimized/gallery/2024_01_06_hehuanshan/DSCF0206.webp" 
+date: "2024-01-06"
+camera: "FUJIFILM XT-5"
+lens: "Viltrox 75mm f/1.2"
+location: "Hehuanshan Mountain"
 tags: ["Architecture", "Urban", "Geometry"]
 featured: true
 pinned: true
 locked: true
 gallery:
-  - url: "/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp"
-    caption: "Office building facade with repeating patterns"
+  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0038.webp"
+    caption: ""
     width: 1920
     height: 1080
-  - url: "/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp"
+  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0038.webp"
     caption: "Spiral staircase viewed from below"
     width: 1080
     height: 1920
@@ -42,4 +41,4 @@ All images were shot with a Sony A7III camera paired with a 24-70mm f/2.8 GM len
 
 The photographs span several locations including New York, Chicago, and San Francisco. Each city offers its own architectural character - from New York's mixture of historic and ultra-modern, to Chicago's pioneering skyscrapers, to San Francisco's unique blend of styles influenced by its geography.
 
-![Looking up at a glass skyscraper](/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp)q
+![Looking up at a glass skyscraper](/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp) 

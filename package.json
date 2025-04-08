@@ -71,6 +71,7 @@
     "tailwind-merge": "^2.5.5",
     "tailwindcss": "latest",
     "tailwindcss-animate": "^1.0.7",
+    "unist-util-visit": "^5.0.0",
     "vaul": "^0.9.6",
     "vue": "latest",
     "vue-router": "latest",

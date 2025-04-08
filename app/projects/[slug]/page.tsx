@@ -31,19 +31,24 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   if (!project) {
     notFound()
   }
+  
+  // Extract the full image URL (not thumbnail) for the main hero image
+  // The thumbnails are only used in list/grid views, not in the detail page
+  const fullImageUrl = project.imageUrl?.replace('-thumb.webp', '.webp') || '/placeholder.svg';
 
   return (
     <div className="page-transition-enter">
       <div className="pb-12">
-        {/* Full-width image section at the top */}
+        {/* Full-width image section at the top - using full resolution */}
         <div className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden bg-muted mb-8 md:mb-12">
           <Image
-            src={project.imageUrl || "/placeholder.svg"}
+            src={fullImageUrl}
             alt={project.title}
             fill
             className="object-cover"
             priority
             sizes="100vw"
+            quality={90}
           />
         </div>
 
@@ -113,37 +118,18 @@ export default async function ProjectPage({ params }: { params: { slug: string }
                       </p>
                     </div>
                   )}
-                  {/* Display pinned status if it exists */}
-                  {project.pinned && (
-                    <div>
-                      <p className="uppercase text-xs mb-1">Status</p>
-                      <p className="flex items-center">
-                        <span className="inline-flex items-center">
-                          <span className="h-2 w-2 rounded-full bg-[#D8F600] mr-2"></span>
-                          Pinned
-                        </span>
-                      </p>
-                    </div>
-                  )}
-                  {/* Display locked status if it exists */}
-                  {project.locked && (
-                    <div>
-                      <p className="uppercase text-xs mb-1">{project.pinned ? "" : "Status"}</p>
-                      <p className="flex items-center">
-                        <span className="inline-flex items-center">
-                          <span className="h-2 w-2 rounded-full bg-secondary mr-2"></span>
-                          Locked
-                        </span>
-                      </p>
-                    </div>
-                  )}
                 </div>
               </div>
 
-              {/* Main content */}
+              {/* Main content - Transforms any markdown image references to use full-res versions */}
               <div 
                 className="prose prose-lg max-w-none dark:prose-invert mb-16 md:mb-24" 
-                dangerouslySetInnerHTML={{ __html: project.contentHtml }}
+                dangerouslySetInnerHTML={{ 
+                  __html: project.contentHtml.replace(
+                    /-thumb\.webp/g, 
+                    '.webp'
+                  ) 
+                }}
               />
             </div>
           </div>

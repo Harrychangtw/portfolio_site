@@ -24,14 +24,20 @@ export default function GalleryCard({ title, slug, imageUrl, pinned, locked }: G
       }}
     >
       <Link href={`/gallery/${slug}`} className="block">
-        <div className="relative aspect-square overflow-hidden bg-muted">
-          <Image
-            src={imageUrl || "/placeholder.svg"}
-            alt={title}
-            fill
-            className="object-cover transition-all duration-700 ease-in-out group-hover:brightness-95"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+        <div className="relative overflow-hidden bg-muted">
+          {/* Using a container with specific aspect ratio constraints */}
+          <div className="relative w-full pb-[66.67%]"> {/* 3:2 aspect ratio */}
+            <div className="absolute inset-0 w-full h-full overflow-hidden">
+              <Image
+                src={imageUrl || "/placeholder.svg"}
+                alt={title}
+                fill
+                className="object-cover object-center transition-all duration-700 ease-in-out group-hover:brightness-95"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </div>
+          </div>
+          
           {/* Status indicators in the top-right corner */}
           {(pinned || locked) && (
             <div className="absolute top-3 right-3 flex gap-2 z-10">

@@ -7,34 +7,32 @@ export default function AboutSection() {
           <div className="col-span-12 md:col-span-6 pr-0 md:pr-12">
             <h2 className="text-lg uppercase tracking-wider text-secondary mb-4">About</h2>
             <p className="text-primary">
-              Jo (He/Him) designs interfaces. He thrives in complex, ambiguous problem spaces focused around interactive
-              media, digital tooling, and intelligence augmentation. He is currently studying Design and Human-Computer
-              Interaction at Carnegie Mellon University, where someone he holds fondly and will cherish for the rest of
-              his life. If you have an interesting idea, please get in touch.
+              Hi, I’m Harry Chang, a student from Taiwan with a deep passion for AI, robotics, design, and storytelling. Growing up surrounded by tools and technology—from LEGO to factory machinery—I developed a hands-on curiosity that shaped my love for building and creating. Whether it’s designing a robotics mechanism, directing a film, or building an AI chatbot from scratch, I enjoy diving deep and connecting ideas across fields.
             </p>
           </div>
 
           {/* Team column - spans 1/4 of the width on desktop */}
           <div className="col-span-6 md:col-span-3 mt-8 md:mt-0">
-            <h2 className="text-lg uppercase tracking-wider text-secondary mb-4">Team</h2>
+            <h2 className="text-lg uppercase tracking-wider text-secondary mb-4">Roles</h2>
             <div className="space-y-4">
               <div>
-                <h3 className="font-medium">Notion</h3>
-                <p className="text-secondary">2023 - Present</p>
+                <h3 className="font-medium">LLM Researcher</h3>
+                <p className="text-secondary">2024 - Present</p>
               </div>
               <div>
-                <h3 className="font-medium">Azuki</h3>
-                <p className="text-secondary">2023 - 2025</p>
+                <h3 className="font-medium">Speaker – AIGO, SITCON</h3>
+                <p className="text-secondary">2024</p>
               </div>
               <div>
-                <h3 className="font-medium">Independent Practice</h3>
+                <h3 className="font-medium">Designer & VP – Student Council</h3>
+                <p className="text-secondary">2023 - 2024</p>  
               </div>
               <div>
-                <h3 className="font-medium">Skiff</h3>
-                <p className="text-secondary">2022 - 2023</p>
+                <h3 className="font-medium">Developer - Chingshin RAG</h3>
+                <p className="text-secondary">2023 - 2024</p>
               </div>
               <div>
-                <h3 className="font-medium">Apple</h3>
+                <h3 className="font-medium">Photographer & Editor</h3>
                 <p className="text-secondary">2020 - 2021</p>
               </div>
             </div>
