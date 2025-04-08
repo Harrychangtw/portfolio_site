@@ -15,11 +15,13 @@ gallery:
     caption: ""
   - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0182.webp"
     caption: ""
-  - url: "/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp"
-    caption: "Geometric shadows cast by skyscrapers"
+  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0037.webp"
+    aspectRatio: 0.667 # Portrait orientation (2:3)
+  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0008.webp"
+
 ---
 
-## About This Collection
+<!-- ## About This Collection
 
 This collection explores the geometric patterns, lines, and shapes found in modern urban architecture. Through careful framing and composition, I aim to highlight the mathematical precision and artistic elements present in structures we often pass by without notice.
 
@@ -35,4 +37,4 @@ All images were shot with a Sony A7III camera paired with a 24-70mm f/2.8 GM len
 
 The photographs span several locations including New York, Chicago, and San Francisco. Each city offers its own architectural character - from New York's mixture of historic and ultra-modern, to Chicago's pioneering skyscrapers, to San Francisco's unique blend of styles influenced by its geography.
 
-![Looking up at a glass skyscraper](/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp)
+![Looking up at a glass skyscraper](/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp) -->

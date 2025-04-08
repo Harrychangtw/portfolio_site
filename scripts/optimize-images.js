@@ -19,22 +19,12 @@ const sharp = require('sharp');
 // Configuration
 const config = {
   projects: {
-    cover: {
-      width: 1200,
-      height: 800,
-      quality: 80,
-    },
     content: {
       width: 2000,  // Increased for high-DPI displays
       quality: 85,
     }
   },
   gallery: {
-    cover: {
-      width: 1200,
-      height: 1200,
-      quality: 85,
-    },
     landscape: {
       width: 2560,  // Increased for high-DPI displays
       height: 1440,
@@ -66,6 +56,14 @@ function ensureDirectoriesExist() {
       fs.mkdirSync(dir, { recursive: true });
     }
   });
+}
+
+// Helper function to check if file exists and log replacement
+function checkFileReplacement(outputFilename) {
+  if (fs.existsSync(outputFilename)) {
+    return ' (replacing existing file)';
+  }
+  return '';
 }
 
 // Process project images
@@ -100,33 +98,20 @@ async function processProjectImages() {
         fs.mkdirSync(outputPath, { recursive: true });
       }
       
-      // Determine if this is a cover image
-      const isCover = image.includes('cover') || image === images[0];
       const outputFilename = path.join(outputPath, image.replace(/\.[^.]+$/, '.webp'));
+      const replacementMsg = checkFileReplacement(outputFilename);
       
       try {
-        if (isCover) {
-          await sharp(imagePath)
-            .resize({
-              width: config.projects.cover.width,
-              height: config.projects.cover.height,
-              fit: 'cover'
-            })
-            .webp({ quality: config.projects.cover.quality })
-            .toFile(outputFilename);
-            
-          console.log(`  Optimized cover: ${image} -> ${path.basename(outputFilename)}`);
-        } else {
-          await sharp(imagePath)
-            .resize({
-              width: config.projects.content.width,
-              withoutEnlargement: true
-            })
-            .webp({ quality: config.projects.content.quality })
-            .toFile(outputFilename);
-            
-          console.log(`  Optimized content: ${image} -> ${path.basename(outputFilename)}`);
-        }
+        // Standard processing for all project images
+        await sharp(imagePath)
+          .resize({
+            width: config.projects.content.width,
+            withoutEnlargement: true
+          })
+          .webp({ quality: config.projects.content.quality })
+          .toFile(outputFilename);
+          
+        console.log(`  Optimized: ${image} -> ${path.basename(outputFilename)}${replacementMsg}`);
       } catch (error) {
         console.error(`  Error processing ${image}:`, error);
       }
@@ -166,28 +151,16 @@ async function processGalleryImages() {
         fs.mkdirSync(outputPath, { recursive: true });
       }
       
-      const isCover = image.includes('cover') || image === images[0];
       const isFullscreen = image.includes('fullscreen') || image.includes('hero');
       const outputFilename = path.join(outputPath, image.replace(/\.[^.]+$/, '.webp'));
+      const replacementMsg = checkFileReplacement(outputFilename);
       
       try {
         // Determine image dimensions
         const metadata = await sharp(imagePath).metadata();
         const isPortrait = metadata.height > metadata.width;
         
-        if (isCover) {
-          // Cover images are always square
-          await sharp(imagePath)
-            .resize({
-              width: config.gallery.cover.width,
-              height: config.gallery.cover.height,
-              fit: 'cover'
-            })
-            .webp({ quality: config.gallery.cover.quality })
-            .toFile(outputFilename);
-            
-          console.log(`  Optimized cover: ${image} -> ${path.basename(outputFilename)}`);
-        } else if (isFullscreen) {
+        if (isFullscreen) {
           // Fullscreen images need to be high resolution
           await sharp(imagePath)
             .resize({
@@ -198,7 +171,7 @@ async function processGalleryImages() {
             .webp({ quality: config.gallery.fullscreen.quality })
             .toFile(outputFilename);
             
-          console.log(`  Optimized fullscreen: ${image} -> ${path.basename(outputFilename)}`);
+          console.log(`  Optimized fullscreen: ${image} -> ${path.basename(outputFilename)}${replacementMsg}`);
         } else if (isPortrait) {
           // Portrait orientation
           await sharp(imagePath)
@@ -211,7 +184,7 @@ async function processGalleryImages() {
             .webp({ quality: config.gallery.portrait.quality })
             .toFile(outputFilename);
             
-          console.log(`  Optimized portrait: ${image} -> ${path.basename(outputFilename)}`);
+          console.log(`  Optimized portrait: ${image} -> ${path.basename(outputFilename)}${replacementMsg}`);
         } else {
           // Landscape orientation
           await sharp(imagePath)
@@ -224,12 +197,13 @@ async function processGalleryImages() {
             .webp({ quality: config.gallery.landscape.quality })
             .toFile(outputFilename);
             
-          console.log(`  Optimized landscape: ${image} -> ${path.basename(outputFilename)}`);
+          console.log(`  Optimized landscape: ${image} -> ${path.basename(outputFilename)}${replacementMsg}`);
         }
         
         // Generate a smaller version for thumbnails/previews when needed
-        if (!isCover && !image.includes('thumb') && (metadata.width > 1200 || metadata.height > 1200)) {
+        if (!image.includes('thumb') && (metadata.width > 1200 || metadata.height > 1200)) {
           const thumbFilename = path.join(outputPath, image.replace(/\.[^.]+$/, '-thumb.webp'));
+          const thumbReplacementMsg = checkFileReplacement(thumbFilename);
           
           await sharp(imagePath)
             .resize({
@@ -241,7 +215,7 @@ async function processGalleryImages() {
             .webp({ quality: 75 })
             .toFile(thumbFilename);
             
-          console.log(`  Generated thumbnail: ${image} -> ${path.basename(thumbFilename)}`);
+          console.log(`  Generated thumbnail: ${image} -> ${path.basename(thumbFilename)}${thumbReplacementMsg}`);
         }
       } catch (error) {
         console.error(`  Error processing ${image}:`, error);
@@ -253,6 +227,7 @@ async function processGalleryImages() {
 // Main function
 async function main() {
   console.log('Image optimization starting...');
+  console.log('Note: Existing optimized files will be replaced if they exist.');
   ensureDirectoriesExist();
   
   await processProjectImages();

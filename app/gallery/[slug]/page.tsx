@@ -4,6 +4,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
 import { getGalleryItemData, getAllGallerySlugs } from "@/lib/markdown"
+import { GalleryImageContainer } from "@/components/gallery-image-container"
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const item = await getGalleryItemData(params.slug)
@@ -130,56 +131,21 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
                     // Always use the full resolution image URL for the detail view
                     const fullUrl = image.url.replace('-thumb.webp', '.webp');
                     
-                    // Calculate aspect ratio to determine if image is landscape, portrait, or square
-                    const aspectRatio = image.width && image.height 
-                      ? image.width / image.height 
-                      : 1.5; // Default to 3:2 photography standard instead of 16:9
-                    
-                    const isPortrait = aspectRatio < 0.9;
-                    const isSquare = aspectRatio >= 0.9 && aspectRatio <= 1.1;
+                    // Calculate aspect ratio from width/height if provided, or let component handle it
+                    const aspectRatio = image.aspectRatio || 
+                      (image.width && image.height ? image.width / image.height : undefined);
                     
                     return (
                       <div key={index} className="relative w-full">
-                        {/* Photo container with responsive sizing based on aspect ratio */}
-                        <div className={`mx-auto ${
-                          // For portrait images, limit width to avoid excessive height
-                          isPortrait ? 'max-w-[70%] md:max-w-[60%] lg:max-w-[50%]' : 
-                          // For square images, set appropriate width
-                          isSquare ? 'max-w-[85%] md:max-w-[80%]' : 
-                          // For landscape, use full width
-                          'w-full'
-                        }`}>
-                          <div className="overflow-hidden bg-background">
-                            {/* Dynamic aspect ratio container */}
-                            <div className="relative w-full" style={{ 
-                              paddingBottom: image.width && image.height 
-                                ? `${(image.height / image.width) * 100}%` 
-                                : "66.67%" // Default to 3:2 aspect ratio (66.67%) instead of 16:9 (56.25%)
-                            }}>
-                              <div className="absolute inset-0">
-                                <Image
-                                  src={fullUrl}
-                                  alt={image.caption || `${item.title} image ${index + 1}`}
-                                  fill
-                                  className="object-cover" // Changed from object-contain to object-cover
-                                  sizes={isPortrait ? 
-                                    "(max-width: 768px) 70vw, 50vw" : 
-                                    "(max-width: 768px) 100vw, 90vw"
-                                  }
-                                  quality={90}
-                                  loading={index === 0 ? "eager" : "lazy"}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        {/* Optional caption with improved styling */}
-                        {image.caption && (
-                          <p className="mt-3 text-sm text-secondary italic text-center max-w-prose mx-auto">
-                            {image.caption}
-                          </p>
-                        )}
+                        {/* Using the new client component to properly handle image dimensions */}
+                        <GalleryImageContainer
+                          src={fullUrl}
+                          alt={image.caption || `${item.title} image ${index + 1}`}
+                          caption={image.caption}
+                          priority={index === 0}
+                          quality={90}
+                          aspectRatio={aspectRatio}
+                        />
                       </div>
                     );
                   })}
