@@ -29,13 +29,13 @@ export default function GallerySection() {
       <div className="container">
         <h2 className="text-3xl font-bold mb-8">Gallery</h2>
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 md:gap-2">
             {[...Array(6)].map((_, i) => (
               <div key={i} className="aspect-square bg-muted animate-pulse rounded-md"></div>
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 md:gap-2">
             {galleryItems.map((item) => (
               <GalleryCard
                 key={item.slug}

@@ -123,9 +123,9 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
               <div className="prose prose-lg max-w-none dark:prose-invert mb-16 md:mb-24" 
                   dangerouslySetInnerHTML={{ __html: item.contentHtml }} />
 
-              {/* Gallery grid with generous spacing - always use full resolution images */}
+              {/* Gallery grid with reduced spacing - always use full resolution images */}
               {item.gallery && item.gallery.length > 0 && (
-                <div className="grid grid-cols-1 gap-12 md:gap-24 mb-16 md:mb-24">
+                <div className="grid grid-cols-1 gap-6 md:gap-12 mb-16 md:mb-24">
                   {item.gallery.map((image, index) => {
                     // Always use the full resolution image URL for the detail view
                     const fullUrl = image.url.replace('-thumb.webp', '.webp');
@@ -133,7 +133,7 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
                     // Calculate aspect ratio to determine if image is landscape, portrait, or square
                     const aspectRatio = image.width && image.height 
                       ? image.width / image.height 
-                      : 16/9; // Default if dimensions not available
+                      : 1.5; // Default to 3:2 photography standard instead of 16:9
                     
                     const isPortrait = aspectRatio < 0.9;
                     const isSquare = aspectRatio >= 0.9 && aspectRatio <= 1.1;
@@ -151,11 +151,11 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
                         }`}>
                           <div className="overflow-hidden bg-background">
                             {/* Dynamic aspect ratio container */}
-                            <div className={`relative w-full ${
-                              image.width && image.height 
-                                ? `pb-[${(image.height / image.width) * 100}%]` 
-                                : "pb-[56.25%]" // Default 16:9 aspect ratio if dimensions not available
-                            }`}>
+                            <div className="relative w-full" style={{ 
+                              paddingBottom: image.width && image.height 
+                                ? `${(image.height / image.width) * 100}%` 
+                                : "66.67%" // Default to 3:2 aspect ratio (66.67%) instead of 16:9 (56.25%)
+                            }}>
                               <div className="absolute inset-0">
                                 <Image
                                   src={fullUrl}

@@ -42,31 +42,27 @@ export default function AboutSection() {
           <div className="col-span-6 md:col-span-3 mt-8 md:mt-0">
             <h2 className="text-lg uppercase tracking-wider text-secondary mb-4">Description</h2>
             <div className="space-y-4">
-              <div>
-                <p className="text-primary">Building beautiful tools for your life's work.</p>
+            <div>
+                <p className="text-primary">Tinkerer turned maker. Grew up around locks, LEGOs, and robotics. Lifelong passion for building and storytelling.</p>
               </div>
               <div>
                 <p className="text-primary">
-                  First full-time design hire. Scaled design team to 5 people. Built Anime.com, Anime, and interactive
-                  experiences for the Axial IP.
+                  Involved in robtotics development (VEX, Robofest), winning 1st place globally. Built innovative mechanisms and developed advanced C++ codebases.
                 </p>
               </div>
               <div>
                 <p className="text-primary">
-                  Design consulting for emerging AI and productivity companies. Notable clients: Superhuman, Rewind
-                  (Corner AI) · Blit · JetBrain
+                  Core member of AI Research Team. Built a school RAG system that won 1st prize in GenAI Star Competition.
                 </p>
               </div>
               <div>
                 <p className="text-primary">
-                  First full-time design hire. 0-1 design for Email Editor, Drive, Calendar, Board and 1M+ users.
-                  Recently acquired by Notion HQ.
+                  Directed school design initiatives. Branded 5th Student Council, led clothing line launches, and taught creative workflows across teams.
                 </p>
               </div>
               <div>
                 <p className="text-primary">
-                  Two summers at Apple working on conversational AI interfaces for Siri in the AI/ML Organization.
-                  Explored multimodal patterns and new behaviors empowered by natural language input.
+                  Passionate visual storyteller. Produced award-winning videos, from montages to global AI campaigns for AAAI .
                 </p>
               </div>
             </div>
