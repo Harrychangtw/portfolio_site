@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import { useIsMobile } from "../hooks/use-mobile"
 
 interface GalleryImageContainerProps {
   src: string
@@ -10,6 +11,7 @@ interface GalleryImageContainerProps {
   priority?: boolean
   quality?: number
   aspectRatio?: number // Optional aspect ratio override (width/height)
+  noInsetPadding?: boolean // Option to remove the inset padding (outline effect)
 }
 
 export function GalleryImageContainer({ 
@@ -18,14 +20,16 @@ export function GalleryImageContainer({
   caption, 
   priority = false, 
   quality = 80,
-  aspectRatio: providedAspectRatio
+  aspectRatio: providedAspectRatio,
+  noInsetPadding = false
 }: GalleryImageContainerProps) {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [loading, setLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
+  const isMobile = useIsMobile();
 
-  // Consistent internal padding in pixels 
-  const insetPadding = 7;
+  // Responsive internal padding in pixels
+  const insetPadding = noInsetPadding ? 0 : (isMobile ? 4 : 7); // Use 0 padding when noInsetPadding is true
 
   useEffect(() => {
     // Only run in the browser
@@ -89,9 +93,9 @@ export function GalleryImageContainer({
     <figure className="w-full">
       {/* All images get the same container width for consistent column layout */}
       <div className="w-full">
-        {/* Container with consistent 7px top/bottom padding, but dynamic horizontal padding for portrait images */}
+        {/* Container with consistent padding or no padding based on prop */}
         <div 
-          className="relative w-full bg-white" 
+          className={`relative w-full ${noInsetPadding ? '' : 'bg-white'}`}
           style={{ 
             paddingTop: `${insetPadding}px`, 
             paddingBottom: `${insetPadding}px`,

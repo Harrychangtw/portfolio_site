@@ -1,23 +1,17 @@
 ---
-title: "Find Your Peak..."
+title: "Intersection"
 description: ""
-imageUrl: "/images/optimized/gallery/2024_01_06_hehuanshan/DSCF0206.webp" 
+imageUrl: "images/optimized/gallery/2023_08_10_intersection/DSCF0009.webp" 
 date: "2024-01-06"
 camera: "FUJIFILM XT-5"
-lens: "Viltrox 75mm f/1.2"
+lens: "TTARTISAN 50mm f/0.95"
 location: "Hehuanshan Mountain"
 tags: ["Landscape", "Nature"]
 featured: true
 pinned: true
 locked: true
 gallery:
-  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0038.webp"
-    caption: ""
-  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0182.webp"
-    caption: ""
-  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0037.webp"
-     # Portrait orientation (2:3)
-  - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0008.webp"
+
 
 ---
 
