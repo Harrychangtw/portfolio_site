@@ -56,9 +56,9 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
             Back to gallery
           </Link>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-12">
-            {/* Left column - full width on mobile, 1/4 on desktop */}
-            <div className="md:col-span-1 mb-10 md:mb-0">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12">
+            {/* Left column - full width on mobile, now 4/12 (1/3) on desktop */}
+            <div className="md:col-span-4 mb-10 md:mb-0">
               <div className="md:sticky md:top-24">
                 <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4 md:mb-8">{item.title}</h1>
                 <p className="text-secondary mb-6 md:mb-12">
@@ -72,8 +72,8 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
               </div>
             </div>
 
-            {/* Right column - full width on mobile, 3/4 on desktop */}
-            <div className="md:col-span-3">
+            {/* Right column - full width on mobile, now 8/12 (2/3) on desktop */}
+            <div className="md:col-span-8">
               {/* Description area */}
               <div className="mb-16 md:mb-24">
                 <p className="text-lg md:text-xl mb-10 md:mb-16">{item.description}</p>
