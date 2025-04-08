@@ -1,0 +1,27 @@
+/* Minimal LCP optimization styles - focused on performance */
+.lcp-bio {
+  /* Optimize text rendering for faster paint */
+  text-rendering: optimizeSpeed;
+  
+  /* Ensure high paint priority */
+  content-visibility: visible;
+  
+  /* Reduce layout calculations */
+  contain: paint;
+  
+  /* Ensure fast font display */
+  font-display: block;
+}
+
+/* Pre-connect to common font origins to speed up font loading */
+:root {
+  text-size-adjust: 100%;
+}
+
+/* Force the browser to assign high priority to paint */
+@supports (content-visibility: auto) {
+  .page-transition-enter {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 1000px;
+  }
+}

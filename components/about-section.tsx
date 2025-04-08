@@ -6,8 +6,12 @@ export default function AboutSection() {
           {/* About column - spans half the width on desktop */}
           <div className="col-span-12 md:col-span-6 pr-0 md:pr-12">
             <h2 className="text-lg uppercase tracking-wider text-secondary mb-4">About</h2>
-            <p className="text-primary">
-              Hi, I’m Harry Chang, a student from Taiwan with a deep passion for AI, robotics, design, and storytelling. Growing up surrounded by tools and technology—from LEGO to factory machinery—I developed a hands-on curiosity that shaped my love for building and creating. Whether it’s designing a robotics mechanism, directing a film, or building an AI chatbot from scratch, I enjoy diving deep and connecting ideas across fields.
+            <p 
+              className="text-primary lcp-bio" 
+              // Use priority rendering attributes
+              style={{contain: "paint"}}
+            >
+              Hi, I'm Harry Chang, a student from Taiwan with a deep passion for AI, robotics, design, and storytelling. Growing up surrounded by tools and technology—from LEGO to factory machinery—I developed a hands-on curiosity that shaped my love for building and creating. Whether it's designing a robotics mechanism, directing a film, or building an AI chatbot from scratch, I enjoy diving deep and connecting ideas across fields.
             </p>
           </div>
 
