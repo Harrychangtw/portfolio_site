@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { PinIcon, LockIcon } from "lucide-react"
+import { LockIcon } from "lucide-react"
 
 interface GalleryCardProps {
   title: string
@@ -115,22 +115,17 @@ export default function GalleryCard({ title, slug, imageUrl, pinned, locked }: G
             </div>
           </div>
           
-          {/* Status indicators in the top-right corner */}
-          {((typeof pinned === 'number' && pinned >= 0) || locked) && (
+          {/* Status indicators in the top-right corner - Only showing lock icon */}
+          {locked && (
             <div className="absolute top-3 right-3 flex gap-2 z-20">
-              {typeof pinned === 'number' && pinned >= 0 && (
-                <div className="bg-[#D8F600] text-black p-1.5 rounded-full shadow-md">
-                  <PinIcon className="h-4 w-4" />
-                </div>
-              )}
-              {locked && (
-                <div className="bg-secondary text-white p-1.5 rounded-full shadow-md">
-                  <LockIcon className="h-4 w-4" />
-                </div>
-              )}
+              <div className="bg-secondary text-white p-1.5 rounded-full shadow-md">
+                <LockIcon className="h-4 w-4" />
+              </div>
             </div>
           )}
-          <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/50 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
+          
+          {/* Increased opacity from from-black/50 to from-black/70 */}
+          <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
             <h3 className="text-lg font-medium text-white">{title}</h3>
           </div>
         </div>

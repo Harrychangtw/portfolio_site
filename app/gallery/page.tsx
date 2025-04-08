@@ -44,9 +44,9 @@ export default function GalleryPage() {
         {galleryItems.length === 0 ? (
           <p className="text-muted-foreground">No gallery items found. Create some in the content/gallery directory.</p>
         ) : (
-          <div className="flex flex-col lg:flex-row w-full gap-4 md:gap-6">
+          <div className="flex flex-col lg:flex-row w-full gap-2 md:gap-4">
             {layoutResult.columns.map((column, colIndex) => (
-              <div key={colIndex} className="flex-1 space-y-4 md:space-y-6">
+              <div key={colIndex} className="flex-1 space-y-2 md:space-y-4">
                 {column.map((layoutItem) => (
                   <GalleryCard
                     key={layoutItem.item.slug}

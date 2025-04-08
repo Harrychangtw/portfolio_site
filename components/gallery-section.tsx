@@ -56,15 +56,15 @@ export default function GallerySection() {
       <div className="container">
         <h2 className="text-3xl font-bold mb-8">Gallery</h2>
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
             {[...Array(6)].map((_, i) => (
               <div key={i} className="aspect-square bg-muted animate-pulse rounded-md"></div>
             ))}
           </div>
         ) : (
-          <div className="flex flex-col lg:flex-row w-full gap-4 md:gap-6">
+          <div className="flex flex-col lg:flex-row w-full gap-2 md:gap-4">
             {layoutResult && layoutResult.columns.map((column, colIndex) => (
-              <div key={colIndex} className="flex-1 space-y-4 md:space-y-6">
+              <div key={colIndex} className="flex-1 space-y-2 md:space-y-4">
                 {column.map((layoutItem) => (
                   <GalleryCard
                     key={layoutItem.item.slug}
