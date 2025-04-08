@@ -51,15 +51,56 @@ export default function GallerySection() {
   // Create a balanced layout using our new algorithm
   const layoutResult = isLoading ? null : createBalancedLayout(galleryItems, getPinnedItemsMap(galleryItems));
 
+  // Helper function to create a placeholder with a specific aspect ratio
+  const renderPlaceholderCard = (aspectRatio: string, index: number) => (
+    <div key={index} className="mb-2 md:mb-4">
+      <div className="relative overflow-hidden bg-white">
+        <div className="relative">
+          {/* Border overlay - using horizontal borders as default */}
+          <div className="absolute inset-0 z-10 pointer-events-none border-l-4 border-r-4 border-white"></div>
+          
+          {/* Image container with specified aspect ratio */}
+          <div 
+            className="relative w-full overflow-hidden" 
+            style={{ paddingBottom: aspectRatio }}
+          >
+            <div className="absolute inset-0 w-full h-full">
+              <div className="w-full h-full bg-muted animate-pulse rounded-md"></div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Title placeholder */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+          <div className="h-5 w-3/4 bg-muted animate-pulse rounded-md"></div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <section id="gallery" className="py-12 md:py-16">
       <div className="container">
         <h2 className="text-3xl font-bold mb-8">Gallery</h2>
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="aspect-square bg-muted animate-pulse rounded-md"></div>
-            ))}
+          <div className="flex flex-col lg:flex-row w-full gap-2 md:gap-4">
+            {/* First column - mix of landscape and portrait cards */}
+            <div className="flex-1 space-y-2 md:space-y-4">
+              {renderPlaceholderCard("80%", 1)} {/* 5:4 landscape */}
+              {renderPlaceholderCard("125%", 2)} {/* 4:5 portrait */}
+            </div>
+            
+            {/* Second column - mix of landscape and portrait cards */}
+            <div className="flex-1 space-y-2 md:space-y-4">
+              {renderPlaceholderCard("125%", 3)} {/* 4:5 portrait */}
+              {renderPlaceholderCard("80%", 4)} {/* 5:4 landscape */}
+            </div>
+            
+            {/* Third column - mix of landscape and portrait cards */}
+            <div className="flex-1 space-y-2 md:space-y-4">
+              {renderPlaceholderCard("80%", 5)} {/* 5:4 landscape */}
+              {renderPlaceholderCard("125%", 6)} {/* 4:5 portrait */}
+            </div>
           </div>
         ) : (
           <div className="flex flex-col lg:flex-row w-full gap-2 md:gap-4">

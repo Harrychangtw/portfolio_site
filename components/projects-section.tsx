@@ -31,7 +31,19 @@ export default function ProjectsSection() {
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="aspect-square bg-muted animate-pulse rounded-md"></div>
+              <div key={i} className="relative w-full mb-3 overflow-hidden">
+                {/* Use the same aspect ratio container as in ProjectCard component (3:2) */}
+                <div className="relative w-full pb-[66.67%]">
+                  <div className="absolute inset-0 w-full h-full overflow-hidden">
+                    <div className="w-full h-full bg-muted animate-pulse rounded-md"></div>
+                  </div>
+                </div>
+                {/* Placeholder for text content */}
+                <div className="px-1 mt-3">
+                  <div className="h-5 w-3/4 bg-muted animate-pulse rounded-md mb-1"></div>
+                  <div className="h-3 w-1/2 bg-muted animate-pulse rounded-md"></div>
+                </div>
+              </div>
             ))}
           </div>
         ) : (
