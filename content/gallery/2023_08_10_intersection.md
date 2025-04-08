@@ -8,7 +8,7 @@ lens: "TTARTISAN 50mm f/0.95"
 location: "Hehuanshan Mountain"
 tags: ["Landscape", "Nature"]
 featured: true
-pinned: false
+pinned: 1
 locked: false
 gallery:
 

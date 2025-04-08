@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import GalleryCard from "@/components/gallery-card"
 import { getAllGalleryMetadata } from "@/lib/markdown"
+import { createBalancedLayout } from "@/components/AspectRatioBalancedLayout"
 
 export const metadata: Metadata = {
   title: "Gallery | Harry Chang",
@@ -9,6 +10,32 @@ export const metadata: Metadata = {
 
 export default function GalleryPage() {
   const galleryItems = getAllGalleryMetadata()
+  
+  // Handle pinned items (maintain their positions in the layout)
+  const getPinnedItemsMap = (items: typeof galleryItems) => {
+    const pinnedMap = new Map<number, { rowIndex: number, columnIndex: number }>();
+    
+    items.forEach((item, index) => {
+      // Check if item is pinned (pinned value is a number >= 0)
+      if (typeof item.pinned === 'number' && item.pinned >= 0) {
+        // Calculate position based on pin order
+        // Pin order starts at 1, rows are 0-indexed
+        const pinOrder = item.pinned - 1; // Convert 1-based to 0-based
+        const naturalRow = Math.floor(pinOrder / 3);
+        const naturalColumn = pinOrder % 3;
+        
+        pinnedMap.set(index, {
+          rowIndex: naturalRow,
+          columnIndex: naturalColumn
+        });
+      }
+    });
+    
+    return pinnedMap;
+  };
+
+  // Create a balanced layout
+  const layoutResult = createBalancedLayout(galleryItems, getPinnedItemsMap(galleryItems));
 
   return (
     <div className="page-transition-enter">
@@ -17,15 +44,21 @@ export default function GalleryPage() {
         {galleryItems.length === 0 ? (
           <p className="text-muted-foreground">No gallery items found. Create some in the content/gallery directory.</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
-            {galleryItems.map((item) => (
-              <GalleryCard
-                key={item.slug}
-                title={item.title}
-                quote={item.quote}
-                slug={item.slug}
-                imageUrl={item.imageUrl}
-              />
+          <div className="flex flex-col lg:flex-row w-full gap-4 md:gap-6">
+            {layoutResult.columns.map((column, colIndex) => (
+              <div key={colIndex} className="flex-1 space-y-4 md:space-y-6">
+                {column.map((layoutItem) => (
+                  <GalleryCard
+                    key={layoutItem.item.slug}
+                    title={layoutItem.item.title}
+                    quote={layoutItem.item.quote}
+                    slug={layoutItem.item.slug}
+                    imageUrl={layoutItem.item.imageUrl}
+                    pinned={layoutItem.item.pinned}
+                    locked={layoutItem.item.locked}
+                  />
+                ))}
+              </div>
             ))}
           </div>
         )}

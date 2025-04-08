@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import GalleryCard from "./gallery-card"
 import { GalleryItemMetadata } from "@/lib/markdown"
+import { createBalancedLayout } from "./AspectRatioBalancedLayout"
 
 export default function GallerySection() {
   const [galleryItems, setGalleryItems] = useState<GalleryItemMetadata[]>([])
@@ -24,20 +25,31 @@ export default function GallerySection() {
     fetchGalleryItems()
   }, [])
 
-  // Organize gallery items into three columns
-  const organizeInColumns = (items: GalleryItemMetadata[]) => {
-    const columns = [[], [], []] as GalleryItemMetadata[][];
+  // Handle pinned items (maintain their positions in the layout)
+  const getPinnedItemsMap = (items: GalleryItemMetadata[]) => {
+    const pinnedMap = new Map<number, { rowIndex: number, columnIndex: number }>();
     
-    // Distribute items into columns sequentially
     items.forEach((item, index) => {
-      const columnIndex = index % 3;
-      columns[columnIndex].push(item);
+      // Check if item is pinned (pinned value is a number >= 0)
+      if (typeof item.pinned === 'number' && item.pinned >= 0) {
+        // Calculate position based on pin order
+        // Pin order starts at 1, rows are 0-indexed
+        const pinOrder = item.pinned - 1; // Convert 1-based to 0-based
+        const naturalRow = Math.floor(pinOrder / 3);
+        const naturalColumn = pinOrder % 3;
+        
+        pinnedMap.set(index, {
+          rowIndex: naturalRow,
+          columnIndex: naturalColumn
+        });
+      }
     });
     
-    return columns;
+    return pinnedMap;
   };
 
-  const columns = organizeInColumns(galleryItems);
+  // Create a balanced layout using our new algorithm
+  const layoutResult = isLoading ? null : createBalancedLayout(galleryItems, getPinnedItemsMap(galleryItems));
 
   return (
     <section id="gallery" className="py-12 md:py-16">
@@ -51,17 +63,17 @@ export default function GallerySection() {
           </div>
         ) : (
           <div className="flex flex-col lg:flex-row w-full gap-4 md:gap-6">
-            {columns.map((column, colIndex) => (
+            {layoutResult && layoutResult.columns.map((column, colIndex) => (
               <div key={colIndex} className="flex-1 space-y-4 md:space-y-6">
-                {column.map((item) => (
+                {column.map((layoutItem) => (
                   <GalleryCard
-                    key={item.slug}
-                    title={item.title}
-                    quote={item.quote}
-                    slug={item.slug}
-                    imageUrl={item.imageUrl}
-                    pinned={item.pinned}
-                    locked={item.locked}
+                    key={layoutItem.item.slug}
+                    title={layoutItem.item.title}
+                    quote={layoutItem.item.quote}
+                    slug={layoutItem.item.slug}
+                    imageUrl={layoutItem.item.imageUrl}
+                    pinned={layoutItem.item.pinned}
+                    locked={layoutItem.item.locked}
                   />
                 ))}
               </div>

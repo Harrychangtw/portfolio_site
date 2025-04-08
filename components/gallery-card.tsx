@@ -11,7 +11,7 @@ interface GalleryCardProps {
   quote: string
   slug: string
   imageUrl: string
-  pinned?: boolean
+  pinned?: number  // Changed from boolean to number (-1 for not pinned, positive for pin order)
   locked?: boolean
 }
 
@@ -116,9 +116,9 @@ export default function GalleryCard({ title, slug, imageUrl, pinned, locked }: G
           </div>
           
           {/* Status indicators in the top-right corner */}
-          {(pinned || locked) && (
+          {((typeof pinned === 'number' && pinned >= 0) || locked) && (
             <div className="absolute top-3 right-3 flex gap-2 z-20">
-              {pinned && (
+              {typeof pinned === 'number' && pinned >= 0 && (
                 <div className="bg-[#D8F600] text-black p-1.5 rounded-full shadow-md">
                   <PinIcon className="h-4 w-4" />
                 </div>

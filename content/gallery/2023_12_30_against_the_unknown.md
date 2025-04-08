@@ -8,7 +8,7 @@ lens: "FUJINON 100-400mm f/4.5-5.6"
 location: "Ruifang, New Taipei City"
 tags: ["Landscape", "Ocean"]
 featured: true
-pinned: false
+pinned: 2
 locked: false
 gallery:
 
