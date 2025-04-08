@@ -1,11 +1,11 @@
 "use client"
 
 import type React from "react"
-
+import { useEffect, useState } from "react"
 import { Inter, Space_Grotesk, Press_Start_2P } from "next/font/google"
 import "./globals.css"
 import Header from "@/components/header"
-import ScrollingText from "@/components/scrolling-text"
+import RevealFooter from "@/components/reveal-footer"
 import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({
@@ -30,6 +30,26 @@ export default function ClientLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const [isAtBottom, setIsAtBottom] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + window.innerHeight
+      const threshold = document.documentElement.scrollHeight - 50
+      
+      if (scrollPosition >= threshold) {
+        setIsAtBottom(true)
+      } else {
+        setIsAtBottom(false)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    handleScroll()
+    
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+  
   return (
     <html lang="en" className={`dark ${pressStart2P.variable}`}>
       <body className={`${inter.className} bg-background text-primary antialiased`}>
@@ -38,40 +58,21 @@ export default function ClientLayout({
             font-family: ${spaceGrotesk.style.fontFamily};
           }
         `}</style>
-        <div className="flex flex-col min-h-screen">
-          <Header />
+        
+        {/* Header stays fixed and separate from the sliding content */}
+        <Header />
+        
+        {/* The main content slides up */}
+        <div
+          className={`relative z-20 bg-background min-h-screen pt-16 transition-transform duration-500 ${
+            isAtBottom ? 'transform -translate-y-[100px]' : ''
+          }`}
+        >
           <main className="flex-1">{children}</main>
-          <ScrollingText />
-          <footer className="border-t border-border py-6">
-            <div className="container">
-              <div className="flex flex-col md:flex-row justify-between items-center">
-                <div className="text-sm text-secondary mb-4 md:mb-0">v1.0.0 | Last updated: 2023-02-28</div>
-                <div className="flex space-x-4 mx-auto md:mx-0 md:ml-auto">
-                  <a href="https://www.instagram.com/pomelo_chang_08/" className="relative text-secondary hover:text-primary transition-colors group px-2 py-1">
-                    <span className="absolute inset-0 bg-[#D8F600]/0 group-hover:bg-[#D8F600]/10 rounded transition-all duration-300"></span>
-                    <span className="relative z-10">Instagram</span>
-                    <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#D8F600] group-hover:w-full transition-all duration-300"></span>
-                  </a>
-                  <a href="https://discord.com/users/836567989209661481" className="relative text-secondary hover:text-primary transition-colors group px-2 py-1">
-                    <span className="absolute inset-0 bg-[#D8F600]/0 group-hover:bg-[#D8F600]/10 rounded transition-all duration-300"></span>
-                    <span className="relative z-10">Discord</span>
-                    <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#D8F600] group-hover:w-full transition-all duration-300"></span>
-                  </a>
-                  <a href="https://github.com/Harrychangtw" className="relative text-secondary hover:text-primary transition-colors group px-2 py-1">
-                    <span className="absolute inset-0 bg-[#D8F600]/0 group-hover:bg-[#D8F600]/10 rounded transition-all duration-300"></span>
-                    <span className="relative z-10">GitHub</span>
-                    <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#D8F600] group-hover:w-full transition-all duration-300"></span>
-                  </a>
-                  <a href="mailto:pomelo.cw@gmail.com" className="relative text-secondary hover:text-primary transition-colors group px-2 py-1">
-                    <span className="absolute inset-0 bg-[#D8F600]/0 group-hover:bg-[#D8F600]/10 rounded transition-all duration-300"></span>
-                    <span className="relative z-10">Gmail</span>
-                    <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#D8F600] group-hover:w-full transition-all duration-300"></span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </footer>
+          <div className="h-[100px]"></div> {/* Spacer to account for footer height */}
         </div>
+        
+        <RevealFooter />
         <Analytics />
       </body>
     </html>
