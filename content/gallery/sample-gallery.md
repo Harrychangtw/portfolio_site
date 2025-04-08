@@ -9,6 +9,8 @@ lens: "24-70mm f/2.8 GM"
 location: "Various Cities"
 tags: ["Architecture", "Urban", "Geometry"]
 featured: true
+pinned: true
+locked: true
 gallery:
   - url: "/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp"
     caption: "Office building facade with repeating patterns"

@@ -44,6 +44,8 @@ export default function ProjectsSection() {
                 subcategory={project.subcategory || ""}
                 slug={project.slug}
                 imageUrl={project.imageUrl}
+                pinned={project.pinned}
+                locked={project.locked}
               />
             ))}
           </div>

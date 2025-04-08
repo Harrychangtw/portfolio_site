@@ -3,15 +3,18 @@
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { PinIcon, LockIcon } from "lucide-react"
 
 interface GalleryCardProps {
   title: string
   quote: string
   slug: string
   imageUrl: string
+  pinned?: boolean
+  locked?: boolean
 }
 
-export default function GalleryCard({ title, slug, imageUrl }: GalleryCardProps) {
+export default function GalleryCard({ title, slug, imageUrl, pinned, locked }: GalleryCardProps) {
   return (
     <motion.div 
       className="group relative"
@@ -29,6 +32,21 @@ export default function GalleryCard({ title, slug, imageUrl }: GalleryCardProps)
             className="object-cover transition-all duration-700 ease-in-out group-hover:brightness-95"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
+          {/* Status indicators in the top-right corner */}
+          {(pinned || locked) && (
+            <div className="absolute top-3 right-3 flex gap-2 z-10">
+              {pinned && (
+                <div className="bg-[#D8F600] text-black p-1.5 rounded-full shadow-md">
+                  <PinIcon className="h-4 w-4" />
+                </div>
+              )}
+              {locked && (
+                <div className="bg-secondary text-white p-1.5 rounded-full shadow-md">
+                  <LockIcon className="h-4 w-4" />
+                </div>
+              )}
+            </div>
+          )}
           <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/50 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
             <h3 className="text-lg font-medium text-white">{title}</h3>
           </div>

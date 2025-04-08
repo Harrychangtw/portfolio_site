@@ -113,6 +113,30 @@ export default async function ProjectPage({ params }: { params: { slug: string }
                       </p>
                     </div>
                   )}
+                  {/* Display pinned status if it exists */}
+                  {project.pinned && (
+                    <div>
+                      <p className="uppercase text-xs mb-1">Status</p>
+                      <p className="flex items-center">
+                        <span className="inline-flex items-center">
+                          <span className="h-2 w-2 rounded-full bg-[#D8F600] mr-2"></span>
+                          Pinned
+                        </span>
+                      </p>
+                    </div>
+                  )}
+                  {/* Display locked status if it exists */}
+                  {project.locked && (
+                    <div>
+                      <p className="uppercase text-xs mb-1">{project.pinned ? "" : "Status"}</p>
+                      <p className="flex items-center">
+                        <span className="inline-flex items-center">
+                          <span className="h-2 w-2 rounded-full bg-secondary mr-2"></span>
+                          Locked
+                        </span>
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
 

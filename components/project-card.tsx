@@ -3,16 +3,19 @@
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { PinIcon, LockIcon } from "lucide-react"
 
 interface ProjectCardProps {
   title: string
   category: string
-  subcategory: string
+  subcategory?: string
   slug: string
   imageUrl: string
+  pinned?: boolean
+  locked?: boolean
 }
 
-export default function ProjectCard({ title, category, slug, imageUrl }: ProjectCardProps) {
+export default function ProjectCard({ title, category, slug, imageUrl, pinned, locked }: ProjectCardProps) {
   return (
     <motion.div 
       className="group relative"
@@ -30,6 +33,21 @@ export default function ProjectCard({ title, category, slug, imageUrl }: Project
             className="object-cover transition-all duration-700 ease-in-out group-hover:brightness-95"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
+          {/* Status indicators in the top-right corner */}
+          {(pinned || locked) && (
+            <div className="absolute top-3 right-3 flex gap-2 z-10">
+              {pinned && (
+                <div className="bg-[#D8F600] text-black p-1.5 rounded-full shadow-md">
+                  <PinIcon className="h-4 w-4" />
+                </div>
+              )}
+              {locked && (
+                <div className="bg-secondary text-white p-1.5 rounded-full shadow-md">
+                  <LockIcon className="h-4 w-4" />
+                </div>
+              )}
+            </div>
+          )}
           {/* This overlay provides just the darkening effect on hover, without text */}
           <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         </div>

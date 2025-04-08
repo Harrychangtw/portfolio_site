@@ -104,6 +104,30 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
                       <p>{item.tags.join(", ")}</p>
                     </div>
                   )}
+                  {/* Display pinned status if it exists */}
+                  {item.pinned && (
+                    <div>
+                      <p className="uppercase text-xs mb-1">Status</p>
+                      <p className="flex items-center">
+                        <span className="inline-flex items-center">
+                          <span className="h-2 w-2 rounded-full bg-[#D8F600] mr-2"></span>
+                          Pinned
+                        </span>
+                      </p>
+                    </div>
+                  )}
+                  {/* Display locked status if it exists */}
+                  {item.locked && (
+                    <div>
+                      <p className="uppercase text-xs mb-1">{item.pinned ? "" : "Status"}</p>
+                      <p className="flex items-center">
+                        <span className="inline-flex items-center">
+                          <span className="h-2 w-2 rounded-full bg-secondary mr-2"></span>
+                          Locked
+                        </span>
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
               

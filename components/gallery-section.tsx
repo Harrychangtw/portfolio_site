@@ -43,6 +43,8 @@ export default function GallerySection() {
                 quote={item.quote}
                 slug={item.slug}
                 imageUrl={item.imageUrl}
+                pinned={item.pinned}
+                locked={item.locked}
               />
             ))}
           </div>

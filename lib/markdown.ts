@@ -22,6 +22,8 @@ export interface ProjectMetadata {
   client?: string
   website?: string
   featured?: boolean
+  pinned?: boolean
+  locked?: boolean
 }
 
 export interface GalleryImage {
@@ -44,6 +46,8 @@ export interface GalleryItemMetadata {
   location?: string
   tags?: string[]
   featured?: boolean
+  pinned?: boolean
+  locked?: boolean
 }
 
 // Ensure content directories exist
@@ -135,6 +139,11 @@ export function getAllProjectsMetadata(): ProjectMetadata[] {
 
     // Sort projects by date
     return allProjectsData.sort((a, b) => {
+      // Pinned items come first
+      if (a.pinned && !b.pinned) return -1;
+      if (!a.pinned && b.pinned) return 1;
+      
+      // Then by date
       if (a.date < b.date) {
         return 1
       } else {
@@ -178,6 +187,11 @@ export function getAllGalleryMetadata(): GalleryItemMetadata[] {
 
     // Sort gallery items by date
     return allGalleryData.sort((a, b) => {
+      // Pinned items come first
+      if (a.pinned && !b.pinned) return -1;
+      if (!a.pinned && b.pinned) return 1;
+      
+      // Then by date
       if (a.date < b.date) {
         return 1
       } else {
