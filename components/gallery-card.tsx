@@ -5,74 +5,65 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { LockIcon } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 interface GalleryCardProps {
   title: string
   quote: string
   slug: string
   imageUrl: string
-  pinned?: number  // Changed from boolean to number (-1 for not pinned, positive for pin order)
+  pinned?: number
   locked?: boolean
 }
 
 export default function GalleryCard({ title, slug, imageUrl, pinned, locked }: GalleryCardProps) {
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const imageRef = useRef<HTMLImageElement | null>(null);
-  // Default to a more natural 5:4 ratio for landscape, 4:5 for portrait as requested
-  const [aspectRatio, setAspectRatio] = useState("80%"); // Default 5:4 ratio
-  const [originalAspect, setOriginalAspect] = useState<number>(1.25); // width/height ratio
-  const [isPortrait, setIsPortrait] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false)
+  const [originalAspect, setOriginalAspect] = useState<number>(1.25)
+  const [isPortrait, setIsPortrait] = useState(false)
+  const [aspectRatio, setAspectRatio] = useState("80%")
+  const router = useRouter()
+  const isNavigating = useRef(false)
 
-  // Detect original image dimensions when possible
+  // Load and determine image dimensions
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Create an HTML image element instead of using the imported Next.js Image
-      const imgElement = new window.Image();
-      
-      imgElement.onload = () => {
-        // Calculate actual aspect ratio from the image
-        if (imgElement.height > 0) {
-          console.log(`Image loaded: ${imageUrl} with dimensions ${imgElement.width}x${imgElement.height}`);
-          
-          // Calculate the raw aspect ratio (width/height)
-          const rawAspectRatio = imgElement.width / imgElement.height;
-          setOriginalAspect(rawAspectRatio);
-          
-          // Determine orientation
-          const isImagePortrait = rawAspectRatio < 1;
-          setIsPortrait(isImagePortrait);
-          
-          // Apply aspect ratio constraints
-          // Maximum aspect ratio allowed is 5:4 for landscape and 4:5 for portrait as requested
-          const maxLandscapeRatio = 1.25; // 5:4
-          const minPortraitRatio = 0.8; // 4:5 (1/1.25)
-          
-          let constrainedRatio = rawAspectRatio;
-          
-          if (isImagePortrait && rawAspectRatio < minPortraitRatio) {
-            // Too tall - constrain to 4:5
-            constrainedRatio = minPortraitRatio;
-          } else if (!isImagePortrait && rawAspectRatio > maxLandscapeRatio) {
-            // Too wide - constrain to 5:4
-            constrainedRatio = maxLandscapeRatio;
-          }
-          
-          // Set the padding-bottom based on the constrained ratio
-          // (height/width * 100) for padding-bottom percentage
-          setAspectRatio(`${(1 / constrainedRatio) * 100}%`);
+    if (typeof window === 'undefined') return;
+
+    const imgElement = new window.Image();
+    
+    imgElement.onload = () => {
+      if (imgElement.height > 0) {
+        const rawAspectRatio = imgElement.width / imgElement.height;
+        setOriginalAspect(rawAspectRatio);
+        setIsPortrait(rawAspectRatio < 1);
+        
+        const maxLandscapeRatio = 1.25; // 5:4
+        const minPortraitRatio = 0.8; // 4:5
+        
+        let constrainedRatio = rawAspectRatio;
+        
+        if (isPortrait && rawAspectRatio < minPortraitRatio) {
+          constrainedRatio = minPortraitRatio;
+        } else if (!isPortrait && rawAspectRatio > maxLandscapeRatio) {
+          constrainedRatio = maxLandscapeRatio;
         }
-        setImageLoaded(true);
-      };
-      
-      imgElement.onerror = () => {
-        console.warn(`Failed to load image: ${imageUrl}, using default aspect ratio`);
-        // Keep default aspect ratio on error
-        setImageLoaded(true);
-      };
-      
-      imgElement.src = imageUrl || "/placeholder.svg";
-    }
-  }, [imageUrl]);
+        
+        setAspectRatio(`${(1 / constrainedRatio) * 100}%`);
+      }
+      setImageLoaded(true);
+    };
+    
+    imgElement.src = imageUrl || "/placeholder.svg";
+  }, [imageUrl, isPortrait]);
+
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isNavigating.current) return;
+    
+    e.preventDefault();
+    isNavigating.current = true;
+
+    // Start navigation immediately
+    router.push(`/gallery/${slug}`);
+  };
 
   return (
     <motion.div 
@@ -82,11 +73,9 @@ export default function GalleryCard({ title, slug, imageUrl, pinned, locked }: G
         transition: { duration: 0.3, ease: "easeInOut" }
       }}
     >
-      <Link href={`/gallery/${slug}`} className="block">
+      <Link href={`/gallery/${slug}`} onClick={handleNavigation} className="block">
         <div className="relative overflow-hidden bg-white">
-          {/* Container for the image and border */}
           <div className="relative">
-            {/* Border overlay */}
             <div 
               className={`absolute inset-0 z-10 pointer-events-none ${
                 isPortrait 
@@ -95,7 +84,6 @@ export default function GalleryCard({ title, slug, imageUrl, pinned, locked }: G
               }`}
             ></div>
             
-            {/* Image container */}
             <div 
               className="relative w-full overflow-hidden" 
               style={{ paddingBottom: aspectRatio }}
@@ -110,12 +98,12 @@ export default function GalleryCard({ title, slug, imageUrl, pinned, locked }: G
                     ? "object-contain" : "object-cover"
                   } object-center`}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority={false}
                 />
               </div>
             </div>
           </div>
           
-          {/* Status indicators in the top-right corner - Only showing lock icon */}
           {locked && (
             <div className="absolute top-3 right-3 flex gap-2 z-20">
               <div className="bg-secondary text-white p-1.5 rounded-full shadow-md">
@@ -124,7 +112,6 @@ export default function GalleryCard({ title, slug, imageUrl, pinned, locked }: G
             </div>
           )}
           
-          {/* Increased opacity from from-black/50 to from-black/70 */}
           <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
             <h3 className="text-lg font-medium text-white">{title}</h3>
           </div>

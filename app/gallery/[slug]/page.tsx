@@ -33,17 +33,15 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
     notFound()
   }
 
-  // Extract the full image URL (not thumbnail) for the main hero image
   const fullImageUrl = item.imageUrl?.replace('-thumb.webp', '.webp') || '/placeholder.svg';
-
-  // Check if description exists to adjust layout
   const hasDescription = item.description && item.description.trim() !== '';
 
   return (
     <div className="page-transition-enter">
       <div className="min-h-screen">
         <div className="container">
-          <div className="relative w-full mb-8">
+          {/* Hero image */}
+          <div className="relative w-full">
             <GalleryImageContainer
               src={fullImageUrl}
               alt={item.title}
@@ -55,43 +53,38 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
           </div>
         </div>
         
-        <div className="container">
+        <div className="container mt-4">
           <Link
             href="/#gallery"
-            className="inline-flex items-center text-secondary hover:text-primary mb-8 md:mb-12 transition-colors"
+            className="inline-flex items-center text-secondary hover:text-primary mb-4 transition-colors"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to gallery
           </Link>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12">
-            {/* Left column - full width on mobile, now 4/12 (1/3) on desktop */}
-            <div className="md:col-span-4 mb-10 md:mb-0">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+            {/* Left column - metadata */}
+            <div className="md:col-span-4 mb-6 md:mb-0">
               <div className="md:sticky md:top-24">
-                <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4 md:mb-8">{item.title}</h1>
-                <p className="text-secondary mb-6 md:mb-12">
+                <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4">{item.title}</h1>
+                <p className="text-secondary mb-6">
                   {new Date(item.date).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
                   })}
                 </p>
-                {/* Intentional negative space below */}
               </div>
             </div>
 
-            {/* Right column - full width on mobile, now 8/12 (2/3) on desktop */}
+            {/* Right column - content */}
             <div className="md:col-span-8">
-              {/* Description area and attributes - restructured to handle missing description */}
-              <div className="mb-16 md:mb-24">
+              <div className="mb-8">
                 {hasDescription && (
-                  <p className="text-lg md:text-xl mb-10 md:mb-16">{item.description}</p>
+                  <p className="text-lg md:text-xl mb-6">{item.description}</p>
                 )}
                 
-                {/* Additional attributes in a grid - adjusted margins when no description */}
-                <div className={`grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8 md:gap-x-12 ${
-                  hasDescription ? 'mb-16 md:mb-24' : 'mt-0'
-                } text-secondary`}>
+                <div className={`grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 md:gap-x-12 text-secondary`}>
                   {item.camera && (
                     <div>
                       <p className="uppercase text-xs mb-1">Camera</p>
@@ -120,25 +113,19 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
               </div>
               
               {/* Main content */}
-              <div className="prose prose-lg max-w-none dark:prose-invert mb-16 md:mb-24" 
+              <div className="prose prose-lg max-w-none dark:prose-invert mb-8" 
                   dangerouslySetInnerHTML={{ __html: item.contentHtml }} />
 
-              {/* Gallery grid with reduced spacing - always use full resolution images */}
+              {/* Gallery grid */}
               {item.gallery && item.gallery.length > 0 && (
-                <div className="space-y-8 md:space-y-12">
+                <div className="space-y-6 md:space-y-8">
                   {item.gallery.map((image, index) => {
-                    // Always use the full resolution image URL for the detail view
                     const fullUrl = image.url.replace('-thumb.webp', '.webp');
-                    
-                    // Calculate aspect ratio from width/height if provided, or let component handle it
                     const aspectRatio = image.aspectRatio || 
                       (image.width && image.height ? image.width / image.height : undefined);
                     
                     return (
-                      <div key={index} className="relative w-full" style={{ 
-                        minHeight: aspectRatio ? `${(1 / aspectRatio) * 50}vh` : '50vh' 
-                      }}>
-                        {/* Using the new client component to properly handle image dimensions */}
+                      <div key={index} className="relative w-full">
                         <GalleryImageContainer
                           src={fullUrl}
                           alt={image.caption || `${item.title} image ${index + 1}`}
