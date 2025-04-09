@@ -1,109 +1,184 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react" // Import useRef
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { useIsMobile } from "@/hooks/use-mobile"
 
+// Define smooth scroll duration (adjust as needed, keep consistent with timeout)
+const SCROLL_ANIMATION_DURATION = 800; // ms
+
 export default function Header() {
   const pathname = usePathname()
   const [activeSection, setActiveSection] = useState<string>("about")
-  const [isScrolling, setIsScrolling] = useState(false)  // Add this line
+  const [isScrolling, setIsScrolling] = useState(false)
   const isHomePage = pathname === "/"
   const isMobile = useIsMobile()
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null); // Ref to manage timeout
 
-  const isActive = (path: string) => {
-    if (path === "/") return pathname === "/"
-    return pathname.startsWith(path)
-  }
+  // Function to determine if a path corresponds to the current page or section
+  const isActive = (sectionId: string) => activeSection === sectionId;
 
-  const scrollToSection = (id: string) => {
-    // If we're already on the home page, scroll to the section
+  const scrollToSection = (id: string, event?: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    // Clear any existing scroll timeout to prevent premature resetting of isScrolling
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+
+    // If we are already on the home page, prevent navigation and scroll
     if (isHomePage) {
+      event?.preventDefault(); // Prevent default link behavior only if already home
       const element = document.getElementById(id)
       if (element) {
-        setIsScrolling(true)  // Set flag before scrolling
-        setActiveSection(id)  // Set active section immediately
+        // 1. Set scrolling flag immediately
+        setIsScrolling(true)
+        // 2. Set active section immediately for instant underline feedback
+        setActiveSection(id)
+
+        // 3. Start scroll
         element.scrollIntoView({ behavior: "smooth" })
-        // Reset the flag after scrolling animation completes
-        setTimeout(() => {
+
+        // 4. Set timeout to reset scrolling flag *after* scroll likely finishes
+        scrollTimeoutRef.current = setTimeout(() => {
           setIsScrolling(false)
-        }, 500) // Duration slightly longer than the scroll animation
+          scrollTimeoutRef.current = null; // Clear the ref
+          // Optional: Re-verify position after scroll in case it overshot slightly
+          // handleScroll(); // Be cautious if enabling this, could cause loops if not careful
+        }, SCROLL_ANIMATION_DURATION + 100) // Add a small buffer
       }
     }
-    // Otherwise, we'll navigate to the home page with a hash
-    // The hash will be handled after navigation in the useEffect below
+    // If not on the home page, the Link's default href="/#id" will handle navigation.
   }
 
+  // Effect for handling initial load scroll based on hash
   useEffect(() => {
-    // When landing on the homepage with a hash, scroll to that section
     if (isHomePage && window.location.hash) {
-      const id = window.location.hash.substring(1) // Remove the leading #
+      const id = window.location.hash.substring(1)
       const element = document.getElementById(id)
       if (element) {
         setTimeout(() => {
-          element.scrollIntoView({ behavior: "smooth" })
-          setActiveSection(id)
-        }, 100) // Small delay to ensure the DOM is ready
+           if(document.getElementById(id)) { // Check if element still exists
+             // Don't set isScrolling here, it's an initial load scroll
+             element.scrollIntoView({ behavior: "smooth" })
+             setActiveSection(id)
+           }
+        }, 150)
+      } else {
+        setActiveSection('about');
       }
+    } else if (isHomePage && window.scrollY < 50) {
+         setActiveSection('about');
     }
-  }, [isHomePage, pathname])
+    // Cleanup timeout on component unmount or if isHomePage changes
+    return () => {
+        if (scrollTimeoutRef.current) {
+            clearTimeout(scrollTimeoutRef.current);
+        }
+    };
+  }, [isHomePage])
 
+  // Effect for updating active section based on scroll position (only on homepage)
   useEffect(() => {
-    // Only track scroll on homepage
     if (!isHomePage) return
 
     const handleScroll = () => {
-      // Skip scroll detection if we're currently smooth scrolling
-      if (isScrolling) return
-
-      const scrollPosition = window.scrollY + 100 // Offset for header height
-
-      // Get all sections
-      const aboutSection = document.getElementById("about")
-      const projectsSection = document.getElementById("projects")
-      const gallerySection = document.getElementById("gallery")
-
-      // Check which section is currently in view
-      if (aboutSection && scrollPosition < aboutSection.offsetTop + aboutSection.offsetHeight) {
-        setActiveSection("about")
-      } else if (projectsSection && scrollPosition < projectsSection.offsetTop + projectsSection.offsetHeight) {
-        setActiveSection("projects")
-      } else if (gallerySection) {
-        setActiveSection("gallery")
+      // --- CRITICAL: Check isScrolling flag FIRST ---
+      if (isScrolling) {
+        // console.log("Skipping scroll update because isScrolling is true"); // Debugging
+        return;
       }
-    }
+      // --- END CRITICAL CHECK ---
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [isHomePage, isScrolling]) // Add isScrolling to dependencies
+      const scrollPosition = window.scrollY + window.innerHeight / 2.5;
+      const sections = [
+        { id: 'gallery', element: document.getElementById('gallery') },
+        { id: 'projects', element: document.getElementById('projects') },
+        { id: 'about', element: document.getElementById('about') },
+      ];
 
-  // On non-homepage paths, set active based on pathname
+      let currentSection = 'about'; // Default
+      for (const section of sections) {
+        if (section.element && scrollPosition >= section.element.offsetTop) {
+          currentSection = section.id;
+          break;
+        }
+      }
+      // Only update state if the section actually changed
+      setActiveSection(prevSection => {
+          if (prevSection !== currentSection) {
+              // console.log(`Scroll detected change to: ${currentSection}`); // Debugging
+              return currentSection;
+          }
+          return prevSection;
+      });
+    };
+
+    handleScroll(); // Run once on mount/homepage load
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+
+  }, [isHomePage, isScrolling]) // isScrolling dependency IS important here
+
+  // Effect for updating active section based on pathname (for non-homepage routes)
   useEffect(() => {
     if (!isHomePage) {
+      // When navigating *away* from home, cancel any pending scroll timeout
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+        setIsScrolling(false); // Ensure flag is reset if navigating away mid-scroll
+      }
       if (pathname.startsWith('/projects')) {
         setActiveSection('projects')
       } else if (pathname.startsWith('/gallery')) {
-        setActiveSection('gallery') 
+        setActiveSection('gallery')
       } else {
         setActiveSection('about')
       }
     }
   }, [pathname, isHomePage])
 
-  // Display logic for section title
-  const showSectionTitle = activeSection !== "about";
-  
+  const showSectionTitle = (isHomePage && activeSection !== "about") ||
+                           (!isHomePage && (pathname.startsWith('/projects') || pathname.startsWith('/gallery')));
+  const titleToShow = activeSection.charAt(0).toUpperCase() + activeSection.slice(1);
+
+  // Reusable Underline Component - APPLY WORKAROUND HERE
+  const Underline = () => (
+    <motion.span
+      layoutId="navUnderline"
+      className="absolute left-0 bottom-[-4px] h-[1px] w-full bg-primary"
+      // WORKAROUND: Use a spring animation to minimize visual jump effect
+      transition={{ type: "spring", stiffness: 500, damping: 40 }} // Stiffer spring, more damping
+      initial={false}
+    />
+  );
+
+  // Helper to generate link props (no changes needed here)
+  const getLinkProps = (sectionId: string, pagePath: string) => {
+    const active = isActive(sectionId);
+    const baseClasses = `relative ${active ? "text-primary" : "text-secondary hover:text-primary"} transition-colors duration-200 outline-none`; // Added outline-none
+    const href = pathname.startsWith(pagePath) && pagePath !== '/' ? pagePath : `/#${sectionId}`;
+    const onClick = isHomePage ? (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => scrollToSection(sectionId, e) : undefined;
+    const scroll = !pathname.startsWith(pagePath);
+    return { className: baseClasses, href, onClick, scroll };
+  };
+
+
   return (
-    <header className="fixed top-0 left-0 right-0 border-b border-border py-4 z-50 bg-background">
+    <header className="fixed top-0 left-0 right-0 border-b border-border py-4 z-50 bg-background/80 backdrop-blur-sm">
       <div className="container flex justify-between items-center">
+        {/* Logo / Name */}
         <div className="flex items-center text-xl font-bold">
           <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
-            <Link href="/" className="transition-colors hover:text-[#D8F600]">
+            <Link
+                href="/"
+                className="transition-colors hover:text-[#D8F600] outline-none" // Added outline-none
+                onClick={(e) => { if(isHomePage) scrollToSection('about', e); }}
+                >
               Harry Chang
             </Link>
           </motion.div>
+ 
           <AnimatePresence mode="wait">
             {showSectionTitle && (
               <motion.div 
@@ -128,69 +203,22 @@ export default function Header() {
             )}
           </AnimatePresence>
         </div>
+
+        {/* Navigation Links */}
         {!isMobile && (
           <nav className="flex space-x-8">
-            {isHomePage ? (
-              <>
-                <button
-                  onClick={() => scrollToSection("about")}
-                  className={`relative ${activeSection === "about" ? "text-primary" : "text-secondary hover:text-primary transition-colors"} cursor-pointer`}
-                >
-                  {activeSection === "about" && (
-                    <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
-                  )}
-                  About
-                </button>
-                <button
-                  onClick={() => scrollToSection("projects")}
-                  className={`relative ${activeSection === "projects" ? "text-primary" : "text-secondary hover:text-primary transition-colors"} cursor-pointer`}
-                >
-                  {activeSection === "projects" && (
-                    <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
-                  )}
-                  Projects
-                </button>
-                <button
-                  onClick={() => scrollToSection("gallery")}
-                  className={`relative ${activeSection === "gallery" ? "text-primary" : "text-secondary hover:text-primary transition-colors"} cursor-pointer`}
-                >
-                  {activeSection === "gallery" && (
-                    <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
-                  )}
-                  Gallery
-                </button>
-              </>
-            ) : (
-              <>
-                <Link 
-                  href="/#about"
-                  className={`relative ${activeSection === "about" ? "text-primary" : "text-secondary hover:text-primary transition-colors"}`}
-                >
-                  {activeSection === "about" && (
-                    <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
-                  )}
-                  About
-                </Link>
-                <Link 
-                  href={isActive("/projects") ? "/projects" : "/#projects"}
-                  className={`relative ${activeSection === "projects" ? "text-primary" : "text-secondary hover:text-primary transition-colors"}`}
-                >
-                  {activeSection === "projects" && (
-                    <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
-                  )}
-                  Projects
-                </Link>
-                <Link 
-                  href={isActive("/gallery") ? "/gallery" : "/#gallery"}
-                  className={`relative ${activeSection === "gallery" ? "text-primary" : "text-secondary hover:text-primary transition-colors"}`}
-                >
-                  {activeSection === "gallery" && (
-                    <motion.span layoutId="navUnderline" className="absolute left-0 top-full h-[1px] w-full bg-primary" transition={{ duration: 0.15, ease: "easeOut" }} />
-                  )}
-                  Gallery
-                </Link>
-              </>
-            )}
+             <Link {...getLinkProps('about', '/')}>
+              {isActive('about') && <Underline />}
+              About
+            </Link>
+            <Link {...getLinkProps('projects', '/projects')}>
+              {isActive('projects') && <Underline />}
+              Projects
+            </Link>
+            <Link {...getLinkProps('gallery', '/gallery')}>
+              {isActive('gallery') && <Underline />}
+              Gallery
+            </Link>
           </nav>
         )}
       </div>
@@ -198,3 +226,6 @@ export default function Header() {
   )
 }
 
+// NOTE: The <AnimatePresence> section for the title was collapsed for brevity,
+// ensure you have the correct animation divs from the previous version there.
+// Also added outline-none to links for accessibility focus styling removal if not desired.
