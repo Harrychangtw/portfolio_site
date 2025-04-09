@@ -34,7 +34,6 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
   }
 
   // Extract the full image URL (not thumbnail) for the main hero image
-  // The thumbnails are only used in list/grid views, not in the detail page
   const fullImageUrl = item.imageUrl?.replace('-thumb.webp', '.webp') || '/placeholder.svg';
 
   // Check if description exists to adjust layout
@@ -42,17 +41,18 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
 
   return (
     <div className="page-transition-enter">
-      <div className="pb-12">
-        {/* Cover image section with original aspect ratio, aligned with global margins */}
-        <div className="container mb-8 md:mb-12"> {/* Removed w-full bg-muted and moved container class up */}
-          <GalleryImageContainer 
-            src={fullImageUrl} 
-            alt={item.title} 
-            priority={true}
-            quality={95} // Using higher quality for cover images
-            aspectRatio={item.aspectRatio} // Use aspect ratio if provided in metadata
-            noInsetPadding={true} /* Add this prop to remove outline */
-          />
+      <div className="min-h-screen">
+        <div className="container">
+          <div className="relative w-full mb-8">
+            <GalleryImageContainer
+              src={fullImageUrl}
+              alt={item.title}
+              priority={true}
+              quality={90}
+              aspectRatio={item.aspectRatio}
+              noInsetPadding={true}
+            />
+          </div>
         </div>
         
         <div className="container">
@@ -125,7 +125,7 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
 
               {/* Gallery grid with reduced spacing - always use full resolution images */}
               {item.gallery && item.gallery.length > 0 && (
-                <div className="grid grid-cols-1 gap-6 md:gap-12 mb-16 md:mb-24">
+                <div className="space-y-8 md:space-y-12">
                   {item.gallery.map((image, index) => {
                     // Always use the full resolution image URL for the detail view
                     const fullUrl = image.url.replace('-thumb.webp', '.webp');
@@ -135,7 +135,9 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
                       (image.width && image.height ? image.width / image.height : undefined);
                     
                     return (
-                      <div key={index} className="relative w-full">
+                      <div key={index} className="relative w-full" style={{ 
+                        minHeight: aspectRatio ? `${(1 / aspectRatio) * 50}vh` : '50vh' 
+                      }}>
                         {/* Using the new client component to properly handle image dimensions */}
                         <GalleryImageContainer
                           src={fullUrl}

@@ -9,6 +9,7 @@ import { useIsMobile } from "@/hooks/use-mobile"
 export default function Header() {
   const pathname = usePathname()
   const [activeSection, setActiveSection] = useState<string>("about")
+  const [isScrolling, setIsScrolling] = useState(false)  // Add this line
   const isHomePage = pathname === "/"
   const isMobile = useIsMobile()
 
@@ -22,8 +23,13 @@ export default function Header() {
     if (isHomePage) {
       const element = document.getElementById(id)
       if (element) {
+        setIsScrolling(true)  // Set flag before scrolling
+        setActiveSection(id)  // Set active section immediately
         element.scrollIntoView({ behavior: "smooth" })
-        setActiveSection(id)
+        // Reset the flag after scrolling animation completes
+        setTimeout(() => {
+          setIsScrolling(false)
+        }, 500) // Duration slightly longer than the scroll animation
       }
     }
     // Otherwise, we'll navigate to the home page with a hash
@@ -49,6 +55,9 @@ export default function Header() {
     if (!isHomePage) return
 
     const handleScroll = () => {
+      // Skip scroll detection if we're currently smooth scrolling
+      if (isScrolling) return
+
       const scrollPosition = window.scrollY + 100 // Offset for header height
 
       // Get all sections
@@ -68,7 +77,7 @@ export default function Header() {
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [isHomePage])
+  }, [isHomePage, isScrolling]) // Add isScrolling to dependencies
 
   // On non-homepage paths, set active based on pathname
   useEffect(() => {

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { useIsMobile } from "../hooks/use-mobile"
+import { GalleryLoadingSkeleton } from "./gallery-loading-skeleton"
 
 interface GalleryImageContainerProps {
   src: string
@@ -23,7 +24,7 @@ export function GalleryImageContainer({
   aspectRatio: providedAspectRatio,
   noInsetPadding = false
 }: GalleryImageContainerProps) {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [dimensions, setDimensions] = useState({ width: 1200, height: 800 }); // Default 3:2 ratio
   const [loading, setLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
   const isMobile = useIsMobile();
@@ -37,9 +38,10 @@ export function GalleryImageContainer({
     
     // If explicit aspectRatio is provided, use that directly
     if (providedAspectRatio) {
+      const width = 1200; // Use a reasonable default width
       setDimensions({ 
-        width: 100, 
-        height: 100 / providedAspectRatio 
+        width, 
+        height: Math.round(width / providedAspectRatio)
       });
       setLoading(false);
       return;
@@ -55,10 +57,8 @@ export function GalleryImageContainer({
     
     img.onerror = () => {
       console.warn(`Failed to load gallery image: ${src}, using fallback dimensions`);
-      // Set fallback dimensions (3:2 aspect ratio)
-      setDimensions({ width: 3, height: 2 });
-      setLoading(false);
       setImageError(true);
+      setLoading(false);
     };
     
     img.src = src;
@@ -121,7 +121,9 @@ export function GalleryImageContainer({
             paddingRight: isPortrait ? `calc(${horizontalPadding} + ${insetPadding}px)` : `${insetPadding}px`
           }}
         >
-          {!loading && (
+          {loading ? (
+            <GalleryLoadingSkeleton />
+          ) : (
             <div 
               className="relative w-full overflow-hidden"
               style={{ 

@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  min-height: 0; /* Prevent container collapse */
 }
 
 .gallery-row {
@@ -14,6 +15,8 @@
 .gallery-image-container {
   flex: 1;
   margin: 0;
+  contain: size layout paint;
+  content-visibility: auto;
 }
 
 .image-frame {
@@ -36,6 +39,14 @@ figcaption {
   padding: 0.75rem 0;
   font-size: 0.9rem;
   color: #666;
+  min-height: 1.5em;
+  margin-top: 0.75rem;
+}
+
+/* Prevent text jump during load */
+.gallery-title {
+  line-height: 1.2;
+  min-height: 1.2em;
 }
 
 /* Responsive adjustments */

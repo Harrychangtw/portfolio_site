@@ -63,6 +63,7 @@ export interface GalleryImage {
   caption?: string
   width?: number
   height?: number
+  aspectRatio?: number
 }
 
 export interface GalleryItemMetadata {
@@ -81,6 +82,7 @@ export interface GalleryItemMetadata {
   pinned?: number  // Changed from boolean to number, -1 for not pinned, positive numbers for pinning order
   locked?: boolean
   aspectType?: string // 'v' for vertical (4:5) or 'h' for horizontal (5:4)
+  aspectRatio?: number
 }
 
 // Ensure content directories exist
