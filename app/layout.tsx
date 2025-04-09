@@ -8,7 +8,26 @@ export const metadata: Metadata = {
     default: "Harry Chang | Portfolio",
   },
   description: "Harry Chang's portfolio showcasing design and development work",
-    generator: 'v0.dev'
+  generator: 'v0.dev',
+  icons: {
+    icon: [
+      {
+        url: '/favicon.ico',
+        sizes: 'any'
+      }
+    ],
+    apple: {
+      url: '/apple-icon.png',
+      type: 'image/png'
+    },
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '/safari-pinned-tab.svg',
+        color: '#000000'
+      }
+    ]
+  }
 }
 
 export default function RootLayout({
@@ -18,7 +37,5 @@ export default function RootLayout({
 }>) {
   return <ClientLayout>{children}</ClientLayout>
 }
-
-
 
 import './globals.css'
