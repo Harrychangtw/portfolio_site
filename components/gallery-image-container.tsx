@@ -118,10 +118,7 @@ export function GalleryImageContainer({
             paddingTop: `${insetPadding}px`, 
             paddingBottom: `${insetPadding}px`,
             paddingLeft: isPortrait ? `calc(${horizontalPadding} + ${insetPadding}px)` : `${insetPadding}px`,
-            paddingRight: isPortrait ? `calc(${horizontalPadding} + ${insetPadding}px)` : `${insetPadding}px`,
-            contain: 'layout style paint',
-            contentVisibility: 'auto',
-            containIntrinsicSize: `0 ${Math.round((dimensions.height / dimensions.width) * 100)}vw`
+            paddingRight: isPortrait ? `calc(${horizontalPadding} + ${insetPadding}px)` : `${insetPadding}px`
           }}
         >
           {loading ? (
@@ -158,7 +155,6 @@ export function GalleryImageContainer({
                       quality={quality}
                       width={dimensions.width}
                       height={dimensions.height}
-                      loading={priority ? "eager" : "lazy"}
                     />
                   </div>
                 ) : (
@@ -171,7 +167,6 @@ export function GalleryImageContainer({
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority={priority}
                     quality={quality}
-                    loading={priority ? "eager" : "lazy"}
                   />
                 )}
               </div>

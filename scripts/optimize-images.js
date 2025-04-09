@@ -39,10 +39,6 @@ const config = {
     fullscreen: {
       width: 3200,  // High resolution for full viewport
       quality: 90,
-    },
-    thumbnail: {
-      width: 800,
-      quality: 75
     }
   },
   // Directories
@@ -123,7 +119,7 @@ async function processProjectImages() {
   }
 }
 
-// Process gallery images with better optimization
+// Process gallery images
 async function processGalleryImages() {
   console.log('Processing gallery images...');
   
@@ -137,7 +133,9 @@ async function processGalleryImages() {
   for (const galleryFolder of galleryFolders) {
     const galleryPath = path.join(config.directories.gallerySource, galleryFolder);
     
-    if (!fs.lstatSync(galleryPath).isDirectory()) continue;
+    if (!fs.lstatSync(galleryPath).isDirectory()) {
+      continue;
+    }
     
     console.log(`Processing gallery: ${galleryFolder}`);
     
@@ -152,41 +150,73 @@ async function processGalleryImages() {
       if (!fs.existsSync(outputPath)) {
         fs.mkdirSync(outputPath, { recursive: true });
       }
-
+      
+      const isFullscreen = image.includes('fullscreen') || image.includes('hero');
+      const outputFilename = path.join(outputPath, image.replace(/\.[^.]+$/, '.webp'));
+      const replacementMsg = checkFileReplacement(outputFilename);
+      
       try {
+        // Determine image dimensions
         const metadata = await sharp(imagePath).metadata();
         const isPortrait = metadata.height > metadata.width;
         
-        // Generate full-size optimized version
-        const outputFilename = path.join(outputPath, image.replace(/\.[^.]+$/, '.webp'));
-        await sharp(imagePath)
-          .resize({
-            width: isPortrait ? config.gallery.portrait.width : config.gallery.landscape.width,
-            height: isPortrait ? config.gallery.portrait.height : config.gallery.landscape.height,
-            fit: 'inside',
-            withoutEnlargement: true
-          })
-          .webp({ 
-            quality: isPortrait ? config.gallery.portrait.quality : config.gallery.landscape.quality,
-            effort: 6
-          })
-          .toFile(outputFilename);
-
-        // Generate thumbnail version
-        const thumbFilename = path.join(outputPath, image.replace(/\.[^.]+$/, '-thumb.webp'));
-        await sharp(imagePath)
-          .resize({
-            width: config.gallery.thumbnail.width,
-            fit: 'inside',
-            withoutEnlargement: true
-          })
-          .webp({ 
-            quality: config.gallery.thumbnail.quality,
-            effort: 6 
-          })
-          .toFile(thumbFilename);
+        if (isFullscreen) {
+          // Fullscreen images need to be high resolution
+          await sharp(imagePath)
+            .resize({
+              width: config.gallery.fullscreen.width,
+              fit: 'inside',
+              withoutEnlargement: true
+            })
+            .webp({ quality: config.gallery.fullscreen.quality })
+            .toFile(outputFilename);
+            
+          console.log(`  Optimized fullscreen: ${image} -> ${path.basename(outputFilename)}${replacementMsg}`);
+        } else if (isPortrait) {
+          // Portrait orientation
+          await sharp(imagePath)
+            .resize({
+              width: config.gallery.portrait.width,
+              height: config.gallery.portrait.height,
+              fit: 'inside',
+              withoutEnlargement: true
+            })
+            .webp({ quality: config.gallery.portrait.quality })
+            .toFile(outputFilename);
+            
+          console.log(`  Optimized portrait: ${image} -> ${path.basename(outputFilename)}${replacementMsg}`);
+        } else {
+          // Landscape orientation
+          await sharp(imagePath)
+            .resize({
+              width: config.gallery.landscape.width,
+              height: config.gallery.landscape.height,
+              fit: 'inside',
+              withoutEnlargement: true
+            })
+            .webp({ quality: config.gallery.landscape.quality })
+            .toFile(outputFilename);
+            
+          console.log(`  Optimized landscape: ${image} -> ${path.basename(outputFilename)}${replacementMsg}`);
+        }
+        
+        // Generate a smaller version for thumbnails/previews when needed
+        if (!image.includes('thumb') && (metadata.width > 1200 || metadata.height > 1200)) {
+          const thumbFilename = path.join(outputPath, image.replace(/\.[^.]+$/, '-thumb.webp'));
+          const thumbReplacementMsg = checkFileReplacement(thumbFilename);
           
-        console.log(`  Optimized: ${image}`);
+          await sharp(imagePath)
+            .resize({
+              width: 1200,
+              height: 1200,
+              fit: 'inside',
+              withoutEnlargement: true
+            })
+            .webp({ quality: 75 })
+            .toFile(thumbFilename);
+            
+          console.log(`  Generated thumbnail: ${image} -> ${path.basename(thumbFilename)}${thumbReplacementMsg}`);
+        }
       } catch (error) {
         console.error(`  Error processing ${image}:`, error);
       }

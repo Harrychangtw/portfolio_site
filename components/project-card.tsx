@@ -33,8 +33,6 @@ export default function ProjectCard({ title, category, slug, imageUrl, pinned, l
                 src={imageUrl || "/placeholder.svg"}
                 alt={title}
                 fill
-                loading="eager"
-                priority={true}
                 className="object-cover object-center transition-all duration-700 ease-in-out group-hover:brightness-95"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
