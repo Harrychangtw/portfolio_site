@@ -1,6 +1,9 @@
 import type React from "react"
 import type { Metadata } from "next"
 import ClientLayout from "./ClientLayout"
+import "./globals.css"
+import "../styles/lcp-optimize.css"
+import { Inter } from "next/font/google"
 
 export const metadata: Metadata = {
   title: {
@@ -11,14 +14,25 @@ export const metadata: Metadata = {
     generator: 'v0.dev'
 }
 
+const inter = Inter({ subsets: ["latin"] })
+
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
-  return <ClientLayout>{children}</ClientLayout>
+}) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link 
+          rel="preload" 
+          href="/images/optimized/gallery/placeholder.webp" 
+          as="image"
+        />
+      </head>
+      <body className={inter.className}>
+        {children}
+      </body>
+    </html>
+  )
 }
-
-
-
-import './globals.css'
