@@ -1,9 +1,10 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { useIsMobile } from "../hooks/use-mobile"
 import { GalleryLoadingSkeleton } from "./gallery-loading-skeleton"
+import { useIntersectionObserver } from "../hooks/use-intersection-observer"
 
 interface GalleryImageContainerProps {
   src: string
@@ -24,98 +25,88 @@ export function GalleryImageContainer({
   aspectRatio: providedAspectRatio,
   noInsetPadding = false
 }: GalleryImageContainerProps) {
-  const [dimensions, setDimensions] = useState({ width: 1200, height: 800 });
-  const [loading, setLoading] = useState(true);
-  const [imageError, setImageError] = useState(false);
-  const [blurComplete, setBlurComplete] = useState(false);
-  const isMobile = useIsMobile();
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isVisible = useIntersectionObserver({
+    elementRef: containerRef,
+    rootMargin: '50px'
+  })
+  const [dimensions, setDimensions] = useState({ width: 1200, height: 800 })
+  const [loading, setLoading] = useState(true)
+  const [imageError, setImageError] = useState(false)
+  const [blurComplete, setBlurComplete] = useState(false)
+  const isMobile = useIsMobile()
 
   // Get thumbnail URL for blur-up loading
-  const thumbnailSrc = src?.replace('.webp', '-thumb.webp');
+  const thumbnailSrc = src?.replace('.webp', '-thumb.webp')
 
   // Responsive internal padding in pixels
-  const insetPadding = noInsetPadding ? 0 : (isMobile ? 4 : 7);
+  const insetPadding = noInsetPadding ? 0 : (isMobile ? 4 : 7)
 
   useEffect(() => {
-    // Reset states when src changes
-    setLoading(true);
-    setBlurComplete(false);
+    if (!isVisible && !priority) return // Don't load if not visible and not priority
+
+    setLoading(true)
+    setBlurComplete(false)
     
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return
     
     if (providedAspectRatio) {
-      const width = 1200;
+      const width = 1200
       setDimensions({ 
         width, 
         height: Math.round(width / providedAspectRatio)
-      });
-      setLoading(false);
-      return;
+      })
+      setLoading(false)
+      return
     }
     
-    const img = new window.Image();
+    const img = new window.Image()
     
     img.onload = () => {
-      setDimensions({ width: img.width, height: img.height });
-      setLoading(false);
-    };
+      setDimensions({ width: img.width, height: img.height })
+      setLoading(false)
+    }
     
     img.onerror = () => {
-      setImageError(true);
-      setLoading(false);
-    };
+      setImageError(true)
+      setLoading(false)
+    }
     
-    img.src = src;
-  }, [src, providedAspectRatio]);
+    img.src = src
+  }, [src, providedAspectRatio, isVisible, priority])
 
   // Calculate aspect ratio from actual image dimensions
-  // Default to 3:2 (landscape photography standard) if dimensions aren't available
   const rawAspectRatio = dimensions.width && dimensions.height 
     ? dimensions.width / dimensions.height 
-    : 1.5;  // 3:2 ratio = 1.5
-    
-  // Determine orientation
-  const isPortrait = rawAspectRatio < 1;
+    : 1.5
+
+  const isPortrait = rawAspectRatio < 1
+  const isCinematic = rawAspectRatio >= 2.2 && rawAspectRatio <= 2.4
+  const targetRatio = 1.5
   
-  // Check if this is a cinematic 2.35:1 aspect ratio (or similar ultra-wide)
-  const isCinematic = rawAspectRatio >= 2.2 && rawAspectRatio <= 2.4;
-  
-  // Target aspect ratio for the container frame (3:2)
-  const targetRatio = 1.5;
-  
-  // Different handling based on image type
-  let containerPadding;
-  let horizontalPadding = '0px';
-  let verticalPadding = '0px';
-  let containerClass = "";
+  let containerPadding
+  let horizontalPadding = '0px'
+  let verticalPadding = '0px'
+  let containerClass = ""
   
   if (isPortrait) {
-    // Portrait image handling (existing logic)
-    containerPadding = `${(1 / rawAspectRatio) * 100}%`;
-    const relativeWidth = (rawAspectRatio / targetRatio) * 100;
-    horizontalPadding = `${(100 - relativeWidth) / 2}%`;
-    containerClass = "border-t-2 border-b-2 border-white";
+    containerPadding = `${(1 / rawAspectRatio) * 100}%`
+    const relativeWidth = (rawAspectRatio / targetRatio) * 100
+    horizontalPadding = `${(100 - relativeWidth) / 2}%`
+    containerClass = "border-t-2 border-b-2 border-white"
   } else if (isCinematic) {
-    // Cinematic image handling (new logic)
-    // Container has 3:2 aspect ratio
-    containerPadding = `${(1 / targetRatio) * 100}%`;
-    
-    // Calculate vertical padding needed to center the image
-    // For a cinematic image in a 3:2 container, we need padding above and below
-    const cinematic_height_percentage = (targetRatio / rawAspectRatio) * 100;
-    verticalPadding = `${(100 - cinematic_height_percentage) / 2}%`;
-    containerClass = "border-l-2 border-r-2 border-white";
+    containerPadding = `${(1 / targetRatio) * 100}%`
+    const cinematic_height_percentage = (targetRatio / rawAspectRatio) * 100
+    verticalPadding = `${(100 - cinematic_height_percentage) / 2}%`
+    containerClass = "border-l-2 border-r-2 border-white"
   } else {
-    // Normal landscape image
-    containerPadding = `${(1 / rawAspectRatio) * 100}%`;
-    containerClass = "border-l-2 border-r-2 border-white";
+    containerPadding = `${(1 / rawAspectRatio) * 100}%`
+    containerClass = "border-l-2 border-r-2 border-white"
   }
 
   return (
-    <figure className="w-full">
-      {/* All images get the same container width for consistent column layout */}
+    <figure className="w-full" ref={containerRef}>
       <div className="w-full">
-        {/* Container with consistent padding or no padding based on prop */}
         <div 
           className={`relative w-full ${noInsetPadding ? '' : 'bg-white'}`}
           style={{ 
@@ -134,35 +125,36 @@ export function GalleryImageContainer({
                 paddingBottom: containerPadding,
               }}
             >
-              {/* Border overlay */}
               {!noInsetPadding && (
                 <div className={`absolute inset-0 z-10 pointer-events-none ${containerClass}`}></div>
               )}
               
               <div className="absolute inset-0">
-                {/* Thumbnail for blur-up effect */}
-                {!blurComplete && thumbnailSrc && (
-                  <Image
-                    src={thumbnailSrc}
-                    alt={alt}
-                    fill
-                    className={`object-contain object-center transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
-                    sizes="100vw"
-                    quality={20}
-                  />
+                {(isVisible || priority) && (
+                  <>
+                    {!blurComplete && thumbnailSrc && (
+                      <Image
+                        src={thumbnailSrc}
+                        alt={alt}
+                        fill
+                        className={`object-contain object-center transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
+                        sizes="100vw"
+                        quality={20}
+                      />
+                    )}
+                    
+                    <Image
+                      src={src}
+                      alt={alt}
+                      fill
+                      className={`object-contain object-center transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
+                      sizes="100vw"
+                      priority={priority}
+                      quality={quality}
+                      onLoadingComplete={() => setBlurComplete(true)}
+                    />
+                  </>
                 )}
-                
-                {/* Full resolution image */}
-                <Image
-                  src={src}
-                  alt={alt}
-                  fill
-                  className={`object-contain object-center transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
-                  sizes="100vw"
-                  priority={priority}
-                  quality={quality}
-                  onLoadingComplete={() => setBlurComplete(true)}
-                />
               </div>
             </div>
           )}
@@ -174,5 +166,5 @@ export function GalleryImageContainer({
         </p>
       )}
     </figure>
-  );
+  )
 }

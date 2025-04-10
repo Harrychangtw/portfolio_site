@@ -5,87 +5,95 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { LockIcon } from "lucide-react"
+import { useIntersectionObserver } from "../hooks/use-intersection-observer"
 
 interface GalleryCardProps {
   title: string
   quote: string
   slug: string
   imageUrl: string
-  pinned?: number  // Changed from boolean to number (-1 for not pinned, positive for pin order)
+  pinned?: number
   locked?: boolean
+  priority?: boolean
+  index?: number
 }
 
-export default function GalleryCard({ title, quote, slug, imageUrl, pinned, locked }: GalleryCardProps) {
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const imageRef = useRef<HTMLImageElement | null>(null);
-  const [aspectRatio, setAspectRatio] = useState("80%"); // Default 5:4 ratio
-  const [originalAspect, setOriginalAspect] = useState<number>(1.25); // width/height ratio
-  const [isPortrait, setIsPortrait] = useState(false);
+export default function GalleryCard({ 
+  title, 
+  quote, 
+  slug, 
+  imageUrl, 
+  pinned, 
+  locked,
+  priority = false,
+  index = 0
+}: GalleryCardProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isVisible = useIntersectionObserver({
+    elementRef: containerRef,
+    rootMargin: '50px'
+  })
+  const [imageLoaded, setImageLoaded] = useState(false)
+  const [aspectRatio, setAspectRatio] = useState("80%")
+  const [originalAspect, setOriginalAspect] = useState<number>(1.25)
+  const [isPortrait, setIsPortrait] = useState(false)
+  const [blurComplete, setBlurComplete] = useState(false)
 
-  // Get the full resolution image URL
-  const fullImageUrl = imageUrl?.replace('-thumb.webp', '.webp');
+  // Get the full resolution image URL and thumbnail
+  const fullImageUrl = imageUrl?.replace('-thumb.webp', '.webp')
+  const thumbnailSrc = imageUrl
 
   // Prefetch full resolution image on hover
   const prefetchFullImage = () => {
     if (typeof window !== 'undefined' && fullImageUrl) {
-      const imgElement = new window.Image();
-      imgElement.src = fullImageUrl;
+      const imgElement = new window.Image()
+      imgElement.src = fullImageUrl
     }
-  };
+  }
 
   // Detect original image dimensions when possible
   useEffect(() => {
+    if (!isVisible && !priority) return
+
     if (typeof window !== 'undefined') {
-      // Create an HTML image element instead of using the imported Next.js Image
-      const imgElement = new window.Image();
+      const imgElement = new window.Image()
       
       imgElement.onload = () => {
-        // Calculate actual aspect ratio from the image
         if (imgElement.height > 0) {
-          console.log(`Image loaded: ${imageUrl} with dimensions ${imgElement.width}x${imgElement.height}`);
-          
-          // Calculate the raw aspect ratio (width/height)
-          const rawAspectRatio = imgElement.width / imgElement.height;
-          setOriginalAspect(rawAspectRatio);
-          
-          // Determine orientation
-          const isImagePortrait = rawAspectRatio < 1;
-          setIsPortrait(isImagePortrait);
+          const rawAspectRatio = imgElement.width / imgElement.height
+          setOriginalAspect(rawAspectRatio)
+          setIsPortrait(rawAspectRatio < 1)
           
           // Apply aspect ratio constraints
-          // Maximum aspect ratio allowed is 5:4 for landscape and 4:5 for portrait as requested
-          const maxLandscapeRatio = 1.25; // 5:4
-          const minPortraitRatio = 0.8; // 4:5 (1/1.25)
+          const maxLandscapeRatio = 1.25 // 5:4
+          const minPortraitRatio = 0.8 // 4:5
           
-          let constrainedRatio = rawAspectRatio;
+          let constrainedRatio = rawAspectRatio
           
-          if (isImagePortrait && rawAspectRatio < minPortraitRatio) {
-            // Too tall - constrain to 4:5
-            constrainedRatio = minPortraitRatio;
-          } else if (!isImagePortrait && rawAspectRatio > maxLandscapeRatio) {
-            // Too wide - constrain to 5:4
-            constrainedRatio = maxLandscapeRatio;
+          if (rawAspectRatio < minPortraitRatio) {
+            constrainedRatio = minPortraitRatio
+          } else if (rawAspectRatio > maxLandscapeRatio) {
+            constrainedRatio = maxLandscapeRatio
           }
           
-          // Set the padding-bottom based on the constrained ratio
-          // (height/width * 100) for padding-bottom percentage
-          setAspectRatio(`${(1 / constrainedRatio) * 100}%`);
+          setAspectRatio(`${(1 / constrainedRatio) * 100}%`)
         }
-        setImageLoaded(true);
-      };
+        setImageLoaded(true)
+      }
       
       imgElement.onerror = () => {
-        console.warn(`Failed to load image: ${imageUrl}, using default aspect ratio`);
-        // Keep default aspect ratio on error
-        setImageLoaded(true);
-      };
+        setImageLoaded(true)
+      }
       
-      imgElement.src = imageUrl || "/placeholder.svg";
+      imgElement.src = imageUrl || "/placeholder.svg"
     }
-  }, [imageUrl]);
+  }, [imageUrl, isVisible, priority])
+
+  const shouldLoad = isVisible || priority || index < 6 // Load first 6 images immediately
 
   return (
     <motion.div 
+      ref={containerRef}
       className="group relative"
       whileHover={{ 
         scale: 0.99,
@@ -112,21 +120,42 @@ export default function GalleryCard({ title, quote, slug, imageUrl, pinned, lock
               style={{ paddingBottom: aspectRatio }}
             >
               <div className="absolute inset-0 w-full h-full">
-                <Image
-                  src={imageUrl || "/placeholder.svg"}
-                  alt={title}
-                  fill
-                  className={`transition-all duration-700 ease-in-out group-hover:brightness-95 ${
-                    (isPortrait && originalAspect < 0.8) || (!isPortrait && originalAspect > 1.25)
-                    ? "object-contain" : "object-cover"
-                  } object-center`}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
+                {shouldLoad && (
+                  <>
+                    {!blurComplete && thumbnailSrc && (
+                      <Image
+                        src={thumbnailSrc}
+                        alt={title}
+                        fill
+                        className={`transition-all duration-700 ease-in-out group-hover:brightness-95 ${
+                          (isPortrait && originalAspect < 0.8) || (!isPortrait && originalAspect > 1.25)
+                            ? "object-contain" : "object-cover"
+                        } object-center ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        quality={20}
+                      />
+                    )}
+                    
+                    <Image
+                      src={fullImageUrl || "/placeholder.svg"}
+                      alt={title}
+                      fill
+                      className={`transition-all duration-700 ease-in-out group-hover:brightness-95 ${
+                        (isPortrait && originalAspect < 0.8) || (!isPortrait && originalAspect > 1.25)
+                          ? "object-contain" : "object-cover"
+                      } object-center ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      priority={priority || index < 3}
+                      quality={90}
+                      onLoadingComplete={() => setBlurComplete(true)}
+                    />
+                  </>
+                )}
               </div>
             </div>
           </div>
           
-          {/* Status indicators in the top-right corner - Only showing lock icon */}
+          {/* Status indicators */}
           {locked && (
             <div className="absolute top-3 right-3 flex gap-2 z-20">
               <div className="bg-secondary text-white p-1.5 rounded-full shadow-md">
@@ -135,7 +164,7 @@ export default function GalleryCard({ title, quote, slug, imageUrl, pinned, lock
             </div>
           )}
           
-          {/* Increased opacity from from-black/50 to from-black/70 */}
+          {/* Title overlay */}
           <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
             <h3 className="text-lg font-medium text-white">{title}</h3>
           </div>

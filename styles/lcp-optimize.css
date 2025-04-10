@@ -25,3 +25,45 @@
     contain-intrinsic-size: 0 1000px;
   }
 }
+
+/* Optimize for LCP */
+.gallery-image-container {
+  content-visibility: auto;
+  contain: size layout paint;
+}
+
+/* Pre-size image containers to prevent layout shifts */
+.gallery-card-container {
+  min-height: 300px;
+}
+
+/* Optimize paint performance */
+.gallery-image {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Progressive loading indicators */
+.loading-indicator {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Prevent layout shifts during image load */
+.aspect-container {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+}
+
+/* Optimize paint performance for animations */
+.gallery-transition {
+  transform: translate3d(0, 0, 0);
+}
