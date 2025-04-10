@@ -43,7 +43,8 @@ export default function ProjectCard({ title, category, slug, imageUrl, pinned, l
     >
       <Link href={`/projects/${slug}`} className="block">
         <div className="relative overflow-hidden bg-muted mb-3">
-          <div className="relative w-full pb-[66.67%]">
+          {/* Image container with 3:2 aspect ratio (height = width * 2/3) */}
+          <div className="relative w-full" style={{ paddingBottom: "66.67%" }}>
             <div className="absolute inset-0 w-full h-full overflow-hidden">
               {/* Thumbnail for blur-up effect */}
               {!blurComplete && thumbnailSrc && (
@@ -51,7 +52,7 @@ export default function ProjectCard({ title, category, slug, imageUrl, pinned, l
                   src={thumbnailSrc}
                   alt={title}
                   fill
-                  className={`object-cover object-center transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
+                  className={`object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   quality={20}
                 />
@@ -62,7 +63,7 @@ export default function ProjectCard({ title, category, slug, imageUrl, pinned, l
                 src={fullImageUrl || "/placeholder.svg"}
                 alt={title}
                 fill
-                className={`object-cover object-center transition-all duration-700 ease-in-out group-hover:brightness-95 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
+                className={`object-cover transition-all duration-700 ease-in-out group-hover:brightness-95 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 onLoadingComplete={() => setBlurComplete(true)}
               />
@@ -84,6 +85,7 @@ export default function ProjectCard({ title, category, slug, imageUrl, pinned, l
               )}
             </div>
           )}
+          
           {/* This overlay provides just the darkening effect on hover, without text */}
           <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         </div>

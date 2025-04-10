@@ -33,23 +33,26 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   }
   
   // Extract the full image URL (not thumbnail) for the main hero image
-  // The thumbnails are only used in list/grid views, not in the detail page
   const fullImageUrl = project.imageUrl?.replace('-thumb.webp', '.webp') || '/placeholder.svg';
 
   return (
     <div className="page-transition-enter">
       <div className="pb-12">
-        {/* Full-width image section at the top - using full resolution */}
-        <div className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden bg-muted mb-8 md:mb-12">
-          <Image
-            src={fullImageUrl}
-            alt={project.title}
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-            quality={90}
-          />
+        <div className="container">
+          {/* Hero image section with 3:2 aspect ratio */}
+          <div className="relative w-full mb-8">
+            <div className="relative w-full overflow-hidden bg-muted" style={{ paddingBottom: '66.67%' }}>
+              <Image
+                src={fullImageUrl}
+                alt={project.title}
+                fill
+                className="object-cover object-center"
+                priority
+                sizes="100vw"
+                quality={90}
+              />
+            </div>
+          </div>
         </div>
 
         <div className="container">
