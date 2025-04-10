@@ -18,7 +18,7 @@ export default function ProjectsPage() {
           <p className="text-muted-foreground">No projects found. Create some in the content/projects directory.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
+            {projects.map((project, index) => (
               <ProjectCard
                 key={project.slug}
                 title={project.title}
@@ -26,6 +26,10 @@ export default function ProjectsPage() {
                 subcategory={project.subcategory || ""}
                 slug={project.slug}
                 imageUrl={project.imageUrl}
+                pinned={project.pinned}
+                locked={project.locked}
+                priority={index < 3} // Prioritize first 3 projects
+                index={index}
               />
             ))}
           </div>

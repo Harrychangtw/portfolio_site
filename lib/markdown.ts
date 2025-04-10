@@ -9,34 +9,44 @@ import { visit } from "unist-util-visit"
 const projectsDirectory = path.join(process.cwd(), "content/projects")
 const galleryDirectory = path.join(process.cwd(), "content/gallery")
 
-// Helper function to check if a thumbnail exists and return the appropriate path
-function getThumbnailPath(originalPath: string): string {
-  // If path already contains "-thumb", just return it
-  if (originalPath.includes("-thumb")) {
-    return originalPath;
+// Helper function to process image paths
+function getThumbnailPath(imagePath: string): string {
+  if (!imagePath) return imagePath;
+  
+  // Ensure path starts with /
+  if (!imagePath.startsWith('/') && !imagePath.startsWith('http')) {
+    imagePath = '/' + imagePath;
   }
   
-  // Create the potential thumbnail path by adding -thumb before the extension
-  const thumbPath = originalPath.replace(/(\.[^.]+)$/, '-thumb$1');
-  
-  // For server-side file existence check
-  const publicPath = path.join(process.cwd(), 'public', originalPath.startsWith('/') 
-    ? originalPath.substring(1) 
-    : originalPath
-  );
-  
-  const thumbPublicPath = path.join(process.cwd(), 'public', thumbPath.startsWith('/') 
-    ? thumbPath.substring(1) 
-    : thumbPath
-  );
-  
-  // Check if thumbnail exists, return it if it does
-  if (fs.existsSync(thumbPublicPath)) {
-    return thumbPath;
+  // Handle optimization directory structure
+  if (imagePath.includes('/images/') && !imagePath.includes('/optimized/')) {
+    imagePath = imagePath.replace('/images/', '/images/optimized/');
   }
   
-  // Return original path if no thumbnail exists
-  return originalPath;
+  // Add thumbnail suffix if not already present
+  if (!imagePath.includes('-thumb.webp')) {
+    imagePath = imagePath.replace('.webp', '-thumb.webp');
+  }
+  
+  return imagePath;
+}
+
+// Helper function to get full resolution path
+function getFullResolutionPath(imagePath: string): string {
+  if (!imagePath) return imagePath;
+  
+  // Ensure path starts with /
+  if (!imagePath.startsWith('/') && !imagePath.startsWith('http')) {
+    imagePath = '/' + imagePath;
+  }
+  
+  // Handle optimization directory structure
+  if (imagePath.includes('/images/') && !imagePath.includes('/optimized/')) {
+    imagePath = imagePath.replace('/images/', '/images/optimized/');
+  }
+  
+  // Remove thumbnail suffix if present
+  return imagePath.replace('-thumb.webp', '.webp');
 }
 
 export interface ProjectMetadata {
@@ -275,11 +285,27 @@ export async function getProjectData(slug: string) {
     const matterResult = matter(fileContents)
 
     // Use remark to convert markdown into HTML string
-    const processedContent = await remark().use(html).process(matterResult.content)
+    const processedContent = await remark()
+      .use(() => (tree) => {
+        // Process the tree to find image nodes and fix URLs
+        visit(tree, 'image', (node) => {
+          if (node.url) {
+            // Ensure full resolution images in content
+            node.url = getFullResolutionPath(node.url);
+          }
+        });
+      })
+      .use(html)
+      .process(matterResult.content);
     const contentHtml = processedContent.toString()
 
     // Get the full data for detail view (don't use thumbnails for hero image)
     const data = matterResult.data as Omit<ProjectMetadata, "slug">;
+
+    // Process imageUrl to use full resolution in detail view
+    if (data.imageUrl) {
+      data.imageUrl = getFullResolutionPath(data.imageUrl);
+    }
 
     // Combine the data with the slug and contentHtml
     return {

@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
-import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
 import { getProjectData, getAllProjectSlugs } from "@/lib/markdown"
+import { GalleryImageContainer } from "@/components/gallery-image-container"
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const project = await getProjectData(params.slug)
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 
   return {
-    title: project.title,
+    title: `${project.title} | Projects`,
     description: project.description,
   }
 }
@@ -31,27 +31,20 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   if (!project) {
     notFound()
   }
-  
-  // Extract the full image URL (not thumbnail) for the main hero image
-  const fullImageUrl = project.imageUrl?.replace('-thumb.webp', '.webp') || '/placeholder.svg';
 
   return (
     <div className="page-transition-enter">
       <div className="pb-12">
         <div className="container">
-          {/* Hero image section with 3:2 aspect ratio */}
+          {/* Hero image section */}
           <div className="relative w-full mb-8">
-            <div className="relative w-full overflow-hidden bg-muted" style={{ paddingBottom: '66.67%' }}>
-              <Image
-                src={fullImageUrl}
-                alt={project.title}
-                fill
-                className="object-cover object-center"
-                priority
-                sizes="100vw"
-                quality={90}
-              />
-            </div>
+            <GalleryImageContainer
+              src={project.imageUrl}
+              alt={project.title}
+              priority={true}
+              quality={90}
+              noInsetPadding={true}
+            />
           </div>
         </div>
 
@@ -70,7 +63,6 @@ export default async function ProjectPage({ params }: { params: { slug: string }
               <div className="md:sticky md:top-24">
                 <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4 md:mb-8">{project.title}</h1>
                 <p className="text-secondary uppercase text-sm mb-6 md:mb-12">{project.category}</p>
-                {/* Intentional negative space below */}
               </div>
             </div>
 
@@ -124,15 +116,12 @@ export default async function ProjectPage({ params }: { params: { slug: string }
                 </div>
               </div>
 
-              {/* Main content - Transforms any markdown image references to use full-res versions */}
+              {/* Main content */}
               <div 
                 className="prose prose-lg max-w-none dark:prose-invert mb-16 md:mb-24" 
                 dangerouslySetInnerHTML={{ 
-                  __html: project.contentHtml.replace(
-                    /-thumb\.webp/g, 
-                    '.webp'
-                  ) 
-                }}
+                  __html: project.contentHtml 
+                }} 
               />
             </div>
           </div>

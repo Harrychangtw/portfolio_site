@@ -1,17 +1,17 @@
 ---
-title: ""
-category: ""
-subcategory: ""
-description: ""
-imageUrl: ""
-year: ""
-date: ""
-role: ""
-technologies: [""]
+title: "SITCON 2025 Keynote"
+category: "Web Development"
+subcategory: "Personal Project"
+description: "A modern portfolio website built with Next.js and a markdown-based content management system for easy updates."
+imageUrl: "images/optimized/projects/2025_03_08_sitcon_keynote/titlecard.webp"
+year: "2023"
+date: "2023-03-15"
+role: "Designer & Developer"
+technologies: ["Next.js", "React", "TypeScript", "TailwindCSS"]
 featured: true
 ---
 
-<!-- ## Project Overview
+## Project Overview
 
 This portfolio website was designed and developed to showcase my projects and photography in a clean, modern interface. The site uses a custom markdown-based content management system that allows for easy updates without the need for a traditional CMS or database.
 
@@ -51,4 +51,4 @@ The result is a fast, responsive portfolio that makes it easy to showcase both p
 - Markdown for content
 - Framer Motion for animations
 
-![Website Screenshot](/placeholder.svg) -->
+![Website Screenshot](/placeholder.svg)

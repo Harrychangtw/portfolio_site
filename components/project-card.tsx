@@ -1,10 +1,11 @@
 "use client"
 
+import { useEffect, useState, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { PinIcon, LockIcon } from "lucide-react"
-import { useState } from "react"
+import { useIntersectionObserver } from "@/hooks/use-intersection-observer"
 
 interface ProjectCardProps {
   title: string
@@ -14,26 +15,45 @@ interface ProjectCardProps {
   imageUrl: string
   pinned?: boolean
   locked?: boolean
+  priority?: boolean
+  index?: number
 }
 
-export default function ProjectCard({ title, category, slug, imageUrl, pinned, locked }: ProjectCardProps) {
-  const [blurComplete, setBlurComplete] = useState(false);
+export default function ProjectCard({ 
+  title, 
+  category, 
+  subcategory, 
+  slug, 
+  imageUrl, 
+  pinned, 
+  locked,
+  priority = false,
+  index = 0
+}: ProjectCardProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isVisible = useIntersectionObserver({
+    elementRef: containerRef,
+    rootMargin: '50px'
+  })
+  const [blurComplete, setBlurComplete] = useState(false)
   
-  // Get the full resolution image URL
-  const fullImageUrl = imageUrl?.replace('-thumb.webp', '.webp');
-  // Get thumbnail URL for blur-up loading
-  const thumbnailSrc = imageUrl;
+  // Get the full resolution image URL and thumbnail
+  const fullImageUrl = imageUrl?.replace('-thumb.webp', '.webp')
+  const thumbnailSrc = imageUrl
 
   // Prefetch full resolution image on hover
   const prefetchFullImage = () => {
     if (typeof window !== 'undefined' && fullImageUrl) {
-      const imgElement = new window.Image();
-      imgElement.src = fullImageUrl;
+      const imgElement = new window.Image()
+      imgElement.src = fullImageUrl
     }
-  };
+  }
+
+  const shouldLoad = isVisible || priority || index < 6 // Load first 6 images immediately
 
   return (
     <motion.div 
+      ref={containerRef}
       className="group relative"
       whileHover={{ 
         scale: 0.99,
@@ -46,27 +66,39 @@ export default function ProjectCard({ title, category, slug, imageUrl, pinned, l
           {/* Image container with 3:2 aspect ratio (height = width * 2/3) */}
           <div className="relative w-full" style={{ paddingBottom: "66.67%" }}>
             <div className="absolute inset-0 w-full h-full overflow-hidden">
-              {/* Thumbnail for blur-up effect */}
-              {!blurComplete && thumbnailSrc && (
-                <Image
-                  src={thumbnailSrc}
-                  alt={title}
-                  fill
-                  className={`object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  quality={20}
-                />
+              {shouldLoad && (
+                <>
+                  {/* Thumbnail for blur-up effect */}
+                  {!blurComplete && thumbnailSrc && (
+                    <Image
+                      src={thumbnailSrc}
+                      alt={title}
+                      fill
+                      className={`object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      quality={20}
+                    />
+                  )}
+                  
+                  {/* Full resolution image */}
+                  <Image
+                    src={fullImageUrl || "/placeholder.svg"}
+                    alt={title}
+                    fill
+                    className={`object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={priority || index < 3}
+                    quality={90}
+                    onLoadingComplete={() => setBlurComplete(true)}
+                  />
+                </>
               )}
-              
-              {/* Full resolution image */}
-              <Image
-                src={fullImageUrl || "/placeholder.svg"}
-                alt={title}
-                fill
-                className={`object-cover transition-all duration-700 ease-in-out group-hover:brightness-95 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                onLoadingComplete={() => setBlurComplete(true)}
-              />
+
+              {!shouldLoad && (
+                <div className="absolute inset-0 bg-muted animate-pulse overflow-hidden">
+                  <div className="animate-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-muted via-muted/50 to-muted" />
+                </div>
+              )}
             </div>
           </div>
 
@@ -85,14 +117,14 @@ export default function ProjectCard({ title, category, slug, imageUrl, pinned, l
               )}
             </div>
           )}
-          
-          {/* This overlay provides just the darkening effect on hover, without text */}
-          <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         </div>
-        {/* Project info displayed below the image */}
+
         <div className="px-1">
           <h3 className="text-lg font-medium mb-1">{title}</h3>
-          <div className="uppercase text-xs tracking-wider text-secondary">{category}</div>
+          <p className="text-secondary text-sm">
+            {category}
+            {subcategory && ` • ${subcategory}`}
+          </p>
         </div>
       </Link>
     </motion.div>
