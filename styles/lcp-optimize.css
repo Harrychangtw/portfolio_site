@@ -33,15 +33,20 @@
 }
 
 /* Pre-size image containers to prevent layout shifts */
-.gallery-card-container {
+.gallery-card-container,
+.project-card-container {
   min-height: 300px;
+  content-visibility: auto;
+  contain: size layout paint;
 }
 
 /* Optimize paint performance */
-.gallery-image {
+.gallery-image,
+.project-image {
   will-change: transform;
   backface-visibility: hidden;
   transform: translateZ(0);
+  content-visibility: visible;
 }
 
 /* Progressive loading indicators */
