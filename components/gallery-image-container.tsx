@@ -34,7 +34,6 @@ export function GalleryImageContainer({
   const [loading, setLoading] = useState(true)
   const [imageError, setImageError] = useState(false)
   const [blurComplete, setBlurComplete] = useState(false)
-  const [hasLoadedOnce, setHasLoadedOnce] = useState(false)
   const isMobile = useIsMobile()
 
   // Get thumbnail URL for blur-up loading
@@ -43,15 +42,11 @@ export function GalleryImageContainer({
   // Responsive internal padding in pixels
   const insetPadding = noInsetPadding ? 0 : (isMobile ? 4 : 7)
 
-  // Reset loading states when source changes
   useEffect(() => {
-    setBlurComplete(false)
-    setLoading(true)
-    setImageError(false)
-  }, [src])
+    if (!isVisible && !priority) return // Don't load if not visible and not priority
 
-  useEffect(() => {
-    if (!isVisible && !priority && !hasLoadedOnce) return
+    setLoading(true)
+    setBlurComplete(false)
     
     if (typeof window === 'undefined') return
     
@@ -70,7 +65,6 @@ export function GalleryImageContainer({
     img.onload = () => {
       setDimensions({ width: img.width, height: img.height })
       setLoading(false)
-      setHasLoadedOnce(true)
     }
     
     img.onerror = () => {
@@ -79,10 +73,13 @@ export function GalleryImageContainer({
     }
     
     img.src = src
-  }, [src, providedAspectRatio, isVisible, priority, hasLoadedOnce])
+  }, [src, providedAspectRatio, isVisible, priority])
 
-  // Calculate aspect ratio from dimensions
-  const rawAspectRatio = dimensions.width / dimensions.height
+  // Calculate aspect ratio from actual image dimensions
+  const rawAspectRatio = dimensions.width && dimensions.height 
+    ? dimensions.width / dimensions.height 
+    : 1.5
+
   const isPortrait = rawAspectRatio < 1
   const isCinematic = rawAspectRatio >= 2.2 && rawAspectRatio <= 2.4
   const targetRatio = 1.5
@@ -133,7 +130,7 @@ export function GalleryImageContainer({
               )}
               
               <div className="absolute inset-0">
-                {(isVisible || priority || hasLoadedOnce) && (
+                {(isVisible || priority) && (
                   <>
                     {!blurComplete && thumbnailSrc && (
                       <Image
