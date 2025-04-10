@@ -32,69 +32,65 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const isVisible = useIntersectionObserver({
-    elementRef: containerRef,
-    rootMargin: '50px'
+    elementRef: containerRef as React.RefObject<Element>,
+    rootMargin: '50px',
+    threshold: 0.1
   })
   const [blurComplete, setBlurComplete] = useState(false)
+  const [hasLoadedOnce, setHasLoadedOnce] = useState(false)
   
-  // Get the full resolution image URL and thumbnail
-  const fullImageUrl = imageUrl?.replace('-thumb.webp', '.webp')
   const thumbnailSrc = imageUrl
+  const fullImageUrl = imageUrl?.replace('-thumb.webp', '.webp')
 
-  // Prefetch full resolution image on hover
-  const prefetchFullImage = () => {
-    if (typeof window !== 'undefined' && fullImageUrl) {
-      const imgElement = new window.Image()
-      imgElement.src = fullImageUrl
-    }
-  }
-
-  const shouldLoad = isVisible || priority || index < 6 // Load first 6 images immediately
+  const shouldLoadImmediately = priority || index < 3
+  const shouldLoad = shouldLoadImmediately || isVisible || hasLoadedOnce
 
   return (
     <motion.div 
       ref={containerRef}
-      className="group relative"
+      className="group relative project-card-container flex flex-col"
       whileHover={{ 
         scale: 0.99,
         transition: { duration: 0.3, ease: "easeInOut" }
       }}
-      onHoverStart={prefetchFullImage}
     >
-      <Link href={`/projects/${slug}`} className="block">
-        <div className="relative overflow-hidden bg-muted mb-3">
-          {/* Image container with 3:2 aspect ratio (height = width * 2/3) */}
+      <Link href={`/projects/${slug}`} className="flex flex-col flex-1">
+        {/* Image container with fixed aspect ratio */}
+        <div className="relative overflow-hidden bg-muted">
           <div className="relative w-full" style={{ paddingBottom: "66.67%" }}>
             <div className="absolute inset-0 w-full h-full overflow-hidden">
-              {shouldLoad && (
+              {shouldLoad ? (
                 <>
-                  {/* Thumbnail for blur-up effect */}
+                  {/* Thumbnail image */}
                   {!blurComplete && thumbnailSrc && (
                     <Image
                       src={thumbnailSrc}
                       alt={title}
                       fill
-                      className={`object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
+                      className="project-image object-cover transition-opacity duration-500 opacity-100"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       quality={20}
+                      priority={shouldLoadImmediately}
+                      loading={shouldLoadImmediately ? 'eager' : 'lazy'}
                     />
                   )}
                   
                   {/* Full resolution image */}
                   <Image
-                    src={fullImageUrl || "/placeholder.svg"}
+                    src={fullImageUrl}
                     alt={title}
                     fill
-                    className={`object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
+                    className={`project-image object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={priority || index < 3}
                     quality={90}
-                    onLoadingComplete={() => setBlurComplete(true)}
+                    onLoadingComplete={() => {
+                      setBlurComplete(true)
+                      setHasLoadedOnce(true)
+                    }}
+                    loading={shouldLoadImmediately ? 'eager' : 'lazy'}
                   />
                 </>
-              )}
-
-              {!shouldLoad && (
+              ) : (
                 <div className="absolute inset-0 bg-muted animate-pulse overflow-hidden">
                   <div className="animate-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-muted via-muted/50 to-muted" />
                 </div>
@@ -102,7 +98,7 @@ export default function ProjectCard({
             </div>
           </div>
 
-          {/* Status indicators in the top-right corner */}
+          {/* Status indicators */}
           {(pinned || locked) && (
             <div className="absolute top-3 right-3 flex gap-2 z-10">
               {pinned && (
@@ -119,8 +115,9 @@ export default function ProjectCard({
           )}
         </div>
 
-        <div className="px-1">
-          <h3 className="text-lg font-medium mb-1">{title}</h3>
+        {/* Content area with guaranteed spacing */}
+        <div className="flex flex-col flex-1 p-4">
+          <h3 className="text-lg font-medium mb-2 line-clamp-2">{title}</h3>
           <p className="text-secondary text-sm">
             {category}
             {subcategory && ` • ${subcategory}`}
