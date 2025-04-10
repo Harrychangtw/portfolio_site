@@ -10,7 +10,7 @@ export default function ProjectsSection() {
   const [isLoading, setIsLoading] = useState(true)
   const sectionRef = useRef<HTMLElement>(null)
   const isVisible = useIntersectionObserver({
-    elementRef: sectionRef as React.RefObject<Element>,
+    elementRef: sectionRef,
     rootMargin: '100px'
   })
 
@@ -36,12 +36,10 @@ export default function ProjectsSection() {
     <section ref={sectionRef} id="projects" className="py-12 md:py-16 border-b border-border">
       <div className="container">
         <h2 className="text-3xl font-bold mb-8">Projects</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {isLoading ? (
-            // Placeholder cards while loading
-            [...Array(6)].map((_, i) => (
-              <div key={i} className="flex flex-col bg-card rounded-lg overflow-hidden">
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="relative w-full mb-3 overflow-hidden">
                 <div className="relative w-full pb-[66.67%]">
                   <div className="absolute inset-0 w-full h-full overflow-hidden">
                     <div className="w-full h-full bg-muted animate-pulse">
@@ -50,15 +48,16 @@ export default function ProjectsSection() {
                   </div>
                 </div>
                 {/* Placeholder for text content */}
-                <div className="p-4">
-                  <div className="h-6 w-3/4 bg-muted animate-pulse rounded-md mb-3"></div>
-                  <div className="h-4 w-1/2 bg-muted animate-pulse rounded-md"></div>
+                <div className="px-1 mt-3">
+                  <div className="h-5 w-3/4 bg-muted animate-pulse rounded-md mb-1"></div>
+                  <div className="h-3 w-1/2 bg-muted animate-pulse rounded-md"></div>
                 </div>
               </div>
-            ))
-          ) : (
-            // Actual project cards
-            projects.map((project, index) => (
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
+            {projects.map((project, index) => (
               <ProjectCard
                 key={project.slug}
                 title={project.title}
@@ -71,9 +70,9 @@ export default function ProjectsSection() {
                 priority={index < 3}
                 index={index}
               />
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )

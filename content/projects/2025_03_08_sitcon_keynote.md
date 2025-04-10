@@ -11,8 +11,6 @@ technologies: ["Next.js", "React", "TypeScript", "TailwindCSS"]
 featured: true
 ---
 
-##
-
 ## Project Overview
 
 This portfolio website was designed and developed to showcase my projects and photography in a clean, modern interface. The site uses a custom markdown-based content management system that allows for easy updates without the need for a traditional CMS or database.
