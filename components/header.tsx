@@ -165,7 +165,7 @@ export default function Header() {
 
 
   return (
-    <header className="fixed top-0 left-0 right-0 border-b border-border py-4 z-50 bg-background/80 backdrop-blur-sm">
+    <header className="fixed top-0 left-0 right-0 border-b border-border py-4 z-50 bg-background">
       <div className="container flex justify-between items-center">
         {/* Logo / Name */}
         <div className="flex items-center text-xl font-bold">
@@ -178,7 +178,6 @@ export default function Header() {
               Harry Chang
             </Link>
           </motion.div>
- 
           <AnimatePresence mode="wait">
             {showSectionTitle && (
               <motion.div 

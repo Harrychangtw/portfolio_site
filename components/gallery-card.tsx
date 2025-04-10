@@ -15,13 +15,23 @@ interface GalleryCardProps {
   locked?: boolean
 }
 
-export default function GalleryCard({ title, slug, imageUrl, pinned, locked }: GalleryCardProps) {
+export default function GalleryCard({ title, quote, slug, imageUrl, pinned, locked }: GalleryCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const imageRef = useRef<HTMLImageElement | null>(null);
-  // Default to a more natural 5:4 ratio for landscape, 4:5 for portrait as requested
   const [aspectRatio, setAspectRatio] = useState("80%"); // Default 5:4 ratio
   const [originalAspect, setOriginalAspect] = useState<number>(1.25); // width/height ratio
   const [isPortrait, setIsPortrait] = useState(false);
+
+  // Get the full resolution image URL
+  const fullImageUrl = imageUrl?.replace('-thumb.webp', '.webp');
+
+  // Prefetch full resolution image on hover
+  const prefetchFullImage = () => {
+    if (typeof window !== 'undefined' && fullImageUrl) {
+      const imgElement = new window.Image();
+      imgElement.src = fullImageUrl;
+    }
+  };
 
   // Detect original image dimensions when possible
   useEffect(() => {
@@ -81,6 +91,7 @@ export default function GalleryCard({ title, slug, imageUrl, pinned, locked }: G
         scale: 0.99,
         transition: { duration: 0.3, ease: "easeInOut" }
       }}
+      onHoverStart={prefetchFullImage}
     >
       <Link href={`/gallery/${slug}`} className="block">
         <div className="relative overflow-hidden bg-white">

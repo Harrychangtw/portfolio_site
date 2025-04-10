@@ -24,21 +24,27 @@ export function GalleryImageContainer({
   aspectRatio: providedAspectRatio,
   noInsetPadding = false
 }: GalleryImageContainerProps) {
-  const [dimensions, setDimensions] = useState({ width: 1200, height: 800 }); // Default 3:2 ratio
+  const [dimensions, setDimensions] = useState({ width: 1200, height: 800 });
   const [loading, setLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
+  const [blurComplete, setBlurComplete] = useState(false);
   const isMobile = useIsMobile();
 
+  // Get thumbnail URL for blur-up loading
+  const thumbnailSrc = src?.replace('.webp', '-thumb.webp');
+
   // Responsive internal padding in pixels
-  const insetPadding = noInsetPadding ? 0 : (isMobile ? 4 : 7); // Use 0 padding when noInsetPadding is true
+  const insetPadding = noInsetPadding ? 0 : (isMobile ? 4 : 7);
 
   useEffect(() => {
-    // Only run in the browser
+    // Reset states when src changes
+    setLoading(true);
+    setBlurComplete(false);
+    
     if (typeof window === 'undefined') return;
     
-    // If explicit aspectRatio is provided, use that directly
     if (providedAspectRatio) {
-      const width = 1200; // Use a reasonable default width
+      const width = 1200;
       setDimensions({ 
         width, 
         height: Math.round(width / providedAspectRatio)
@@ -50,13 +56,11 @@ export function GalleryImageContainer({
     const img = new window.Image();
     
     img.onload = () => {
-      console.log(`GalleryImage loaded: ${src} with dimensions ${img.width}x${img.height}`);
       setDimensions({ width: img.width, height: img.height });
       setLoading(false);
     };
     
     img.onerror = () => {
-      console.warn(`Failed to load gallery image: ${src}, using fallback dimensions`);
       setImageError(true);
       setLoading(false);
     };
@@ -136,39 +140,29 @@ export function GalleryImageContainer({
               )}
               
               <div className="absolute inset-0">
-                {isCinematic ? (
-                  // For cinematic images, don't use fill prop, use specific positioning
-                  <div 
-                    className="absolute w-full" 
-                    style={{
-                      top: verticalPadding,
-                      bottom: verticalPadding,
-                      height: `calc(100% - ${verticalPadding} - ${verticalPadding})`
-                    }}
-                  >
-                    <Image
-                      src={src}
-                      alt={alt}
-                      className="object-contain w-full h-full"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      priority={priority}
-                      quality={quality}
-                      width={dimensions.width}
-                      height={dimensions.height}
-                    />
-                  </div>
-                ) : (
-                  // For normal and portrait images, use fill prop
+                {/* Thumbnail for blur-up effect */}
+                {!blurComplete && thumbnailSrc && (
                   <Image
-                    src={src}
+                    src={thumbnailSrc}
                     alt={alt}
                     fill
-                    className="object-contain object-center"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={priority}
-                    quality={quality}
+                    className={`object-contain object-center transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
+                    sizes="100vw"
+                    quality={20}
                   />
                 )}
+                
+                {/* Full resolution image */}
+                <Image
+                  src={src}
+                  alt={alt}
+                  fill
+                  className={`object-contain object-center transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
+                  sizes="100vw"
+                  priority={priority}
+                  quality={quality}
+                  onLoadingComplete={() => setBlurComplete(true)}
+                />
               </div>
             </div>
           )}

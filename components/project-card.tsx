@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { PinIcon, LockIcon } from "lucide-react"
+import { useState } from "react"
 
 interface ProjectCardProps {
   title: string
@@ -16,6 +17,21 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ title, category, slug, imageUrl, pinned, locked }: ProjectCardProps) {
+  const [blurComplete, setBlurComplete] = useState(false);
+  
+  // Get the full resolution image URL
+  const fullImageUrl = imageUrl?.replace('-thumb.webp', '.webp');
+  // Get thumbnail URL for blur-up loading
+  const thumbnailSrc = imageUrl;
+
+  // Prefetch full resolution image on hover
+  const prefetchFullImage = () => {
+    if (typeof window !== 'undefined' && fullImageUrl) {
+      const imgElement = new window.Image();
+      imgElement.src = fullImageUrl;
+    }
+  };
+
   return (
     <motion.div 
       className="group relative"
@@ -23,22 +39,36 @@ export default function ProjectCard({ title, category, slug, imageUrl, pinned, l
         scale: 0.99,
         transition: { duration: 0.3, ease: "easeInOut" }
       }}
+      onHoverStart={prefetchFullImage}
     >
       <Link href={`/projects/${slug}`} className="block">
         <div className="relative overflow-hidden bg-muted mb-3">
-          {/* Using a container with specific aspect ratio constraints */}
-          <div className="relative w-full pb-[66.67%]"> {/* 3:2 aspect ratio */}
+          <div className="relative w-full pb-[66.67%]">
             <div className="absolute inset-0 w-full h-full overflow-hidden">
+              {/* Thumbnail for blur-up effect */}
+              {!blurComplete && thumbnailSrc && (
+                <Image
+                  src={thumbnailSrc}
+                  alt={title}
+                  fill
+                  className={`object-cover object-center transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  quality={20}
+                />
+              )}
+              
+              {/* Full resolution image */}
               <Image
-                src={imageUrl || "/placeholder.svg"}
+                src={fullImageUrl || "/placeholder.svg"}
                 alt={title}
                 fill
-                className="object-cover object-center transition-all duration-700 ease-in-out group-hover:brightness-95"
+                className={`object-cover object-center transition-all duration-700 ease-in-out group-hover:brightness-95 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                onLoadingComplete={() => setBlurComplete(true)}
               />
             </div>
           </div>
-          
+
           {/* Status indicators in the top-right corner */}
           {(pinned || locked) && (
             <div className="absolute top-3 right-3 flex gap-2 z-10">

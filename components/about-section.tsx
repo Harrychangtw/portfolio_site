@@ -37,7 +37,7 @@ export default function AboutSection() {
               </div>
               <div>
                 <h3 className="font-medium">Photographer & Editor</h3>
-                <p className="text-secondary">2020 - 2021</p>
+                <p className="text-secondary">2022 - Present</p>
               </div>
             </div>
           </div>

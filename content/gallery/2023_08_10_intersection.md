@@ -5,8 +5,8 @@ imageUrl: "images/optimized/gallery/2023_08_10_intersection/DSCF0009.webp"
 date: "2024-01-06"
 camera: "FUJIFILM XT-5"
 lens: "TTARTISAN 50mm f/0.95"
-location: "Hehuanshan Mountain"
-tags: ["Landscape", "Nature"]
+location: "Taipei"
+tags: ["Street Photography"]
 featured: true
 pinned: 1
 locked: false
