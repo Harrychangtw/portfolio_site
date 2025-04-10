@@ -35,6 +35,9 @@ export default function ProjectCard({
     elementRef: containerRef as React.RefObject<Element>,
     rootMargin: '50px',
     threshold: 0.1
+    elementRef: containerRef as React.RefObject<Element>,
+    rootMargin: '50px',
+    threshold: 0.1
   })
 
   const [blurComplete, setBlurComplete] = useState(false)
@@ -70,6 +73,7 @@ export default function ProjectCard({
           <div className="relative w-full" style={{ paddingBottom: "66.67%" }}>
             <div className="absolute inset-0 w-full h-full overflow-hidden">
               {shouldLoad ? (
+              {shouldLoad ? (
                 <>
                   {/* Thumbnail image */}
                   {thumbnailSrc && (
@@ -82,14 +86,18 @@ export default function ProjectCard({
                       quality={20}
                       priority={shouldLoadImmediately}
                       loading={shouldLoadImmediately ? 'eager' : 'lazy'}
+                      priority={shouldLoadImmediately}
+                      loading={shouldLoadImmediately ? 'eager' : 'lazy'}
                     />
                   )}
 
                   {/* Full resolution image */}
                   <Image
                     src={fullImageUrl}
+                    src={fullImageUrl}
                     alt={title}
                     fill
+                    className={`project-image object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
                     className={`project-image object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     quality={90}
@@ -114,6 +122,7 @@ export default function ProjectCard({
             </div>
           </div>
 
+          {/* Status indicators */}
           {/* Status indicators */}
           {(pinned || locked) && (
             <div className="absolute top-3 right-3 flex gap-2 z-10">
