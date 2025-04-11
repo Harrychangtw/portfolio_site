@@ -123,22 +123,23 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
               <div className="prose prose-lg max-w-none dark:prose-invert mb-16 md:mb-24" 
                   dangerouslySetInnerHTML={{ __html: item.contentHtml }} />
 
-              {/* Gallery grid with reduced spacing - always use full resolution images */}
+              {/* Gallery grid with consistent spacing */}
               {item.gallery && item.gallery.length > 0 && (
-                <div className="space-y-8 md:space-y-12">
+                <div className="flex flex-col">
                   {item.gallery.map((image, index) => {
-                    // Always use the full resolution image URL for the detail view
                     const fullUrl = image.url.replace('-thumb.webp', '.webp');
-                    
-                    // Calculate aspect ratio from width/height if provided, or let component handle it
                     const aspectRatio = image.aspectRatio || 
                       (image.width && image.height ? image.width / image.height : undefined);
                     
                     return (
-                      <div key={index} className="relative w-full" style={{ 
-                        minHeight: aspectRatio ? `${(1 / aspectRatio) * 50}vh` : '50vh' 
-                      }}>
-                        {/* Using the new client component to properly handle image dimensions */}
+                      <div 
+                        key={index} 
+                        className="w-full px-2" 
+                        style={{ 
+                          // Scale spacing based on viewport width
+                          marginBottom: 'clamp(1rem, 2.5vw, 2rem)'
+                        }}
+                      >
                         <GalleryImageContainer
                           src={fullUrl}
                           alt={image.caption || `${item.title} image ${index + 1}`}

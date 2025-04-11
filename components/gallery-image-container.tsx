@@ -25,9 +25,9 @@ export function GalleryImageContainer({
   aspectRatio: providedAspectRatio,
   noInsetPadding = false
 }: GalleryImageContainerProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLElement>(null)
   const isVisible = useIntersectionObserver({
-    elementRef: containerRef,
+    elementRef: containerRef as React.RefObject<Element>,
     rootMargin: '50px'
   })
   const [dimensions, setDimensions] = useState({ width: 1200, height: 800 })
@@ -39,6 +39,12 @@ export function GalleryImageContainer({
 
   // Get thumbnail URL for blur-up loading
   const thumbnailSrc = src?.replace('.webp', '-thumb.webp')
+
+  // Calculate border thickness as 0.01 (1%) of container width
+  // Min 1px, max 4px on mobile and 6px on desktop
+  const minThickness = isMobile ? 1 : 1
+  const maxThickness = isMobile ? 4 : 6
+  const borderThickness = `clamp(${minThickness}px, 0.01 * 100%, ${maxThickness}px)`
 
   // Responsive internal padding in pixels
   const insetPadding = noInsetPadding ? 0 : (isMobile ? 4 : 7)
@@ -96,15 +102,15 @@ export function GalleryImageContainer({
     containerPadding = `${(1 / rawAspectRatio) * 100}%`
     const relativeWidth = (rawAspectRatio / targetRatio) * 100
     horizontalPadding = `${(100 - relativeWidth) / 2}%`
-    containerClass = "border-t-2 border-b-2 border-white"
+    containerClass = `border-t-[${borderThickness}] border-b-[${borderThickness}] border-white`
   } else if (isCinematic) {
     containerPadding = `${(1 / targetRatio) * 100}%`
     const cinematic_height_percentage = (targetRatio / rawAspectRatio) * 100
     verticalPadding = `${(100 - cinematic_height_percentage) / 2}%`
-    containerClass = "border-l-2 border-r-2 border-white"
+    containerClass = `border-l-[${borderThickness}] border-r-[${borderThickness}] border-white`
   } else {
     containerPadding = `${(1 / rawAspectRatio) * 100}%`
-    containerClass = "border-l-2 border-r-2 border-white"
+    containerClass = `border-l-[${borderThickness}] border-r-[${borderThickness}] border-white`
   }
 
   return (
@@ -131,7 +137,6 @@ export function GalleryImageContainer({
               {!noInsetPadding && (
                 <div className={`absolute inset-0 z-10 pointer-events-none ${containerClass}`}></div>
               )}
-              
               <div className="absolute inset-0">
                 {(isVisible || priority || hasLoadedOnce) && (
                   <>
@@ -164,7 +169,7 @@ export function GalleryImageContainer({
         </div>
       </div>
       {caption && (
-        <p className="mt-3 text-sm text-secondary italic text-center max-w-prose mx-auto">
+        <p className="mt-2 text-sm text-secondary italic text-center max-w-prose mx-auto">
           {caption}
         </p>
       )}
