@@ -83,26 +83,26 @@ export default function GallerySection() {
       <div className="container">
         <h2 className="text-3xl font-bold mb-8">Gallery</h2>
         {isLoading ? (
-          <div className="flex flex-col md:flex-row w-full gap-2 md:gap-4">
-            <div className="flex-1 space-y-2 md:space-y-4">
+          <div className="flex flex-col md:flex-row w-full gap-2 md:gap-[var(--column-spacing)]" >
+            <div className="flex-1 space-y-2 md:space-y-[var(--column-spacing)]">
               {renderPlaceholderCard("80%", 1)}
               {renderPlaceholderCard("125%", 2)}
             </div>
             
-            <div className="flex-1 space-y-2 md:space-y-4">
+            <div className="flex-1 space-y-2 md:space-y-[var(--column-spacing)]">
               {renderPlaceholderCard("125%", 3)}
               {renderPlaceholderCard("80%", 4)}
             </div>
             
-            <div className="flex-1 space-y-2 md:space-y-4">
+            <div className="flex-1 space-y-2 md:space-y-[var(--column-spacing)]">
               {renderPlaceholderCard("80%", 5)}
               {renderPlaceholderCard("125%", 6)}
             </div>
           </div>
         ) : (
-          <div className="flex flex-col md:flex-row w-full gap-2 md:gap-4">
+          <div className="flex flex-col md:flex-row w-full gap-2 md:gap-[var(--column-spacing)]">
             {layoutResult && layoutResult.columns.map((column, colIndex) => (
-              <div key={colIndex} className="flex-1 space-y-2 md:space-y-4">
+              <div key={colIndex} className="flex-1 space-y-2 md:space-y-[var(--column-spacing)]">
                 {column.map((layoutItem) => (
                   <GalleryCard
                     key={layoutItem.item.slug}
