@@ -34,82 +34,88 @@ export default function ProjectCard({
   const isVisible = useIntersectionObserver({
     elementRef: containerRef as React.RefObject<Element>,
     rootMargin: '50px',
-    threshold: 0.1
-    elementRef: containerRef as React.RefObject<Element>,
-    rootMargin: '50px',
-    threshold: 0.1
+    threshold: 0.1 // Keep the threshold if desired
   })
 
   const [blurComplete, setBlurComplete] = useState(false)
   const [hasLoadedOnce, setHasLoadedOnce] = useState(false)
 
   const thumbnailSrc = imageUrl
-  const fullImageUrl = imageUrl?.replace('-thumb.webp', '.webp') || "/placeholder.svg";
+  // Provide a fallback empty string or placeholder if replace fails or imageUrl is null/undefined
+  const fullImageUrl = imageUrl ? imageUrl.replace('-thumb.webp', '.webp') : "/placeholder.svg";
 
-  const shouldLoadImmediately = priority || index < 3
-  const shouldLoad = shouldLoadImmediately || isVisible || hasLoadedOnce;
+  const shouldLoadImmediately = priority || (index !== undefined && index < 3)
+  // Ensure isVisible check happens only after mount
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  // Effect to track if the component has ever been loaded/visible
+  const shouldLoad = shouldLoadImmediately || (mounted && isVisible) || hasLoadedOnce;
+
+  // Effect to track if the component has ever been loaded/visible based on image load completion
   useEffect(() => {
-    if (shouldLoad && !hasLoadedOnce) {
-        // Note: We set hasLoadedOnce in onLoadingComplete now
-    }
+    // This effect is primarily handled by onLoadingComplete now
   }, [shouldLoad, hasLoadedOnce]);
 
 
   return (
     <motion.div
       ref={containerRef}
-      className="group relative project-card-container" // No flex here
+      // Removed project-card-container unless it has specific necessary styles
+      className="group relative"
       whileHover={{
         scale: 0.99,
         transition: { duration: 0.3, ease: "easeInOut" }
       }}
+      // onHoverStart={prefetchFullImage} // You might want to add prefetch back if needed
     >
-      <Link href={`/projects/${slug}`} className="flex flex-col h-full"> {/* Stacks children vertically */}
+      {/* --- Reverted Link className --- */}
+      <Link href={`/projects/${slug}`} className="block">
 
         {/* Image container with fixed aspect ratio */}
-        <div className="relative overflow-hidden bg-muted">
+        {/* --- Re-added mb-3 for spacing --- */}
+        <div className="relative overflow-hidden bg-muted mb-3">
+          {/* Aspect ratio padding div */}
           <div className="relative w-full" style={{ paddingBottom: "66.67%" }}>
+            {/* Absolute container for images */}
             <div className="absolute inset-0 w-full h-full overflow-hidden">
-              {shouldLoad ? (
               {shouldLoad ? (
                 <>
                   {/* Thumbnail image */}
-                  {thumbnailSrc && (
+                  {thumbnailSrc && !blurComplete && ( // Only render thumbnail if blur isn't complete
                     <Image
                       src={thumbnailSrc}
                       alt={`${title} thumbnail`}
                       fill
+                      // Added project-image class if used elsewhere, keep object-cover
                       className={`project-image object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       quality={20}
-                      priority={shouldLoadImmediately}
-                      loading={shouldLoadImmediately ? 'eager' : 'lazy'}
-                      priority={shouldLoadImmediately}
-                      loading={shouldLoadImmediately ? 'eager' : 'lazy'}
+                      // No priority/loading on thumbnail usually needed if full image loads eagerly
+                      loading={'lazy'} // Thumbnail can usually be lazy
                     />
                   )}
 
-                  {/* Full resolution image */}
+                  {/* Full resolution image - Removed duplicate */}
                   <Image
-                    src={fullImageUrl}
-                    src={fullImageUrl}
+                    src={fullImageUrl || "/placeholder.svg"} // Added fallback again
                     alt={title}
                     fill
-                    className={`project-image object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
+                    // Added project-image class if used elsewhere, keep object-cover
                     className={`project-image object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     quality={90}
                     onLoadingComplete={() => {
                       setBlurComplete(true)
+                      // Set hasLoadedOnce here guarantees the image actually loaded
                       if (!hasLoadedOnce) setHasLoadedOnce(true)
                     }}
-                    priority={shouldLoadImmediately}
-                    loading={shouldLoadImmediately ? 'eager' : 'lazy'}
+                    priority={shouldLoadImmediately} // Use calculated priority
+                    loading={shouldLoadImmediately ? 'eager' : 'lazy'} // Use calculated loading
                     onError={(e) => {
-                        console.error("Image failed to load:", fullImageUrl, e);
-                        setBlurComplete(true); // Ensure transition completes on error
+                       console.error("Image failed to load:", fullImageUrl, e);
+                       setBlurComplete(true); // Ensure transition completes on error
+                       // Optionally set hasLoadedOnce here too, or handle differently
+                       if (!hasLoadedOnce) setHasLoadedOnce(true);
                     }}
                   />
                 </>
@@ -122,7 +128,6 @@ export default function ProjectCard({
             </div>
           </div>
 
-          {/* Status indicators */}
           {/* Status indicators */}
           {(pinned || locked) && (
             <div className="absolute top-3 right-3 flex gap-2 z-10">
@@ -141,11 +146,11 @@ export default function ProjectCard({
         </div> {/* End Image Container Div */}
 
         {/* Content area */}
-        {/* Changed p-4 to pt-4 pb-4 for vertical padding only */}
-        <div className="pt-4 pb-4 mt-auto">
-          {/* Removed min-h, changed mb-2 to mb-1 */}
+        {/* --- Reverted text container className, added pt-2 for top padding --- */}
+        {/* Adjust pt-2 and pb-1 as needed for desired spacing */}
+        <div className="px-1 pt-2 pb-1">
+          {/* line-clamp-2 can optionally truncate long titles */}
           <h3 className="text-lg font-medium mb-1 line-clamp-2">{title}</h3>
-          {/* Removed min-h */}
           <p className="text-secondary text-sm">
             {category}
             {subcategory && ` • ${subcategory}`}
