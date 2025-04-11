@@ -83,7 +83,7 @@ export default function GallerySection() {
       <div className="container">
         <h2 className="text-3xl font-bold mb-8">Gallery</h2>
         {isLoading ? (
-          <div className="flex flex-col lg:flex-row w-full gap-2 md:gap-4">
+          <div className="flex flex-col md:flex-row w-full gap-2 md:gap-4">
             <div className="flex-1 space-y-2 md:space-y-4">
               {renderPlaceholderCard("80%", 1)}
               {renderPlaceholderCard("125%", 2)}
@@ -100,7 +100,7 @@ export default function GallerySection() {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col lg:flex-row w-full gap-2 md:gap-4">
+          <div className="flex flex-col md:flex-row w-full gap-2 md:gap-4">
             {layoutResult && layoutResult.columns.map((column, colIndex) => (
               <div key={colIndex} className="flex-1 space-y-2 md:space-y-4">
                 {column.map((layoutItem) => (

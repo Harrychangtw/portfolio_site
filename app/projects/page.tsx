@@ -17,7 +17,7 @@ export default function ProjectsPage() {
         {projects.length === 0 ? (
           <p className="text-muted-foreground">No projects found. Create some in the content/projects directory.</p>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <ProjectCard
                 key={project.slug}

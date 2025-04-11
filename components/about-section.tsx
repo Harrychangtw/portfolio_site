@@ -15,6 +15,7 @@ export default function AboutSection() {
             Currently studying at Chingshin Academy, with a love for making things — whether it’s code, visuals, or hands-on projects. Grew up around tools and machines, always more interested in how things worked than what they looked like.
             <br /><br />
             Driven by curiosity, shaped by community, and grounded in the joy of learning by doing. Passion lives in the process — and in the little moments, like filming under pressure or tinkering late into the night.
+            
           </p>
         </div>
 
@@ -36,7 +37,7 @@ export default function AboutSection() {
                   <p className="text-secondary">2024 - Present</p>
                 </div>
                 <div className="col-span-7">
-                  <p className="text-primary">Researching to improve LLM safety with lightweight safety model trained on synthetic adversarial data.</p>
+                  <p className="text-primary">Researching LLM safety with a lightweight classifier trained on synthetic adversarial dataset.</p>
                 </div>
               </div>
 

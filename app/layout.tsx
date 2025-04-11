@@ -8,7 +8,6 @@ export const metadata: Metadata = {
     default: "Harry Chang | Portfolio",
   },
   description: "Harry Chang's portfolio showcasing design and development work",
-  generator: 'v0.dev',
   icons: {
     icon: [
       {
