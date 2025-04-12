@@ -60,15 +60,12 @@ export default function ProjectCard({
   return (
     <motion.div
       ref={containerRef}
-      // Removed project-card-container unless it has specific necessary styles
       className="group relative"
       whileHover={{
         scale: 0.99,
         transition: { duration: 0.3, ease: "easeInOut" }
       }}
-      // onHoverStart={prefetchFullImage} // You might want to add prefetch back if needed
     >
-      {/* --- Reverted Link className --- */}
       <Link href={`/projects/${slug}`} className="block">
 
         {/* Image container with fixed aspect ratio */}
@@ -150,8 +147,8 @@ export default function ProjectCard({
         {/* Adjust pt-2 and pb-1 as needed for desired spacing */}
         <div className="px-1 pt-2 pb-1">
           {/* line-clamp-2 can optionally truncate long titles */}
-          <h3 className="text-lg font-medium mb-1 line-clamp-2">{title}</h3>
-          <p className="text-secondary text-sm">
+          <h3 className="font-space-grotesk text-lg font-medium mb-1 line-clamp-2">{title}</h3>
+          <p className="font-ibm-plex text-secondary text-sm">
             {category}
             {subcategory && ` • ${subcategory}`}
           </p>

@@ -128,9 +128,9 @@ export default function Header() {
         clearTimeout(scrollTimeoutRef.current);
         setIsScrolling(false); // Ensure flag is reset if navigating away mid-scroll
       }
-      if (pathname.startsWith('/projects')) {
+      if (pathname?.startsWith('/projects')) {
         setActiveSection('projects')
-      } else if (pathname.startsWith('/gallery')) {
+      } else if (pathname?.startsWith('/gallery')) {
         setActiveSection('gallery')
       } else {
         setActiveSection('about')
@@ -139,7 +139,7 @@ export default function Header() {
   }, [pathname, isHomePage])
 
   const showSectionTitle = (isHomePage && activeSection !== "about") ||
-                           (!isHomePage && (pathname.startsWith('/projects') || pathname.startsWith('/gallery')));
+                           (!isHomePage && (pathname?.startsWith('/projects') || pathname?.startsWith('/gallery')));
   const titleToShow = activeSection.charAt(0).toUpperCase() + activeSection.slice(1);
 
   // Reusable Underline Component - APPLY WORKAROUND HERE
@@ -156,25 +156,24 @@ export default function Header() {
   // Helper to generate link props (no changes needed here)
   const getLinkProps = (sectionId: string, pagePath: string) => {
     const active = isActive(sectionId);
-    const baseClasses = `relative ${active ? "text-primary" : "text-secondary hover:text-primary"} transition-colors duration-200 outline-none`; // Added outline-none
-    const href = pathname.startsWith(pagePath) && pagePath !== '/' ? pagePath : `/#${sectionId}`;
+    const baseClasses = `relative font-space-grotesk ${active ? "text-primary" : "text-secondary hover:text-primary"} transition-colors duration-200 outline-none`;
+    const href = pathname?.startsWith(pagePath) && pagePath !== '/' ? pagePath : `/#${sectionId}`;
     const onClick = isHomePage ? (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => scrollToSection(sectionId, e) : undefined;
-    const scroll = !pathname.startsWith(pagePath);
+    const scroll = !pathname?.startsWith(pagePath);
     return { className: baseClasses, href, onClick, scroll };
   };
-
 
   return (
     <header className="fixed top-0 left-0 right-0 border-b border-border py-4 z-50 bg-background">
       <div className="container flex justify-between items-center">
         {/* Logo / Name */}
-        <div className="flex items-center text-xl font-bold">
+        <div className="flex items-center">
           <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
             <Link
-                href="/"
-                className="transition-colors hover:text-[#D8F600] outline-none" // Added outline-none
-                onClick={(e) => { if(isHomePage) scrollToSection('about', e); }}
-                >
+              href="/"
+              className="font-space-grotesk text-xl font-bold transition-colors hover:text-[#D8F600] outline-none"
+              onClick={(e) => { if(isHomePage) scrollToSection('about', e); }}
+            >
               Harry Chang
             </Link>
           </motion.div>
@@ -206,7 +205,7 @@ export default function Header() {
         {/* Navigation Links */}
         {!isMobile && (
           <nav className="flex space-x-8">
-             <Link {...getLinkProps('about', '/')}>
+            <Link {...getLinkProps('about', '/')}>
               {isActive('about') && <Underline />}
               About
             </Link>
@@ -224,7 +223,3 @@ export default function Header() {
     </header>
   )
 }
-
-// NOTE: The <AnimatePresence> section for the title was collapsed for brevity,
-// ensure you have the correct animation divs from the previous version there.
-// Also added outline-none to links for accessibility focus styling removal if not desired.

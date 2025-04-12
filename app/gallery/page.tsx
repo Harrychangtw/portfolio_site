@@ -40,9 +40,9 @@ export default function GalleryPage() {
   return (
     <div className="page-transition-enter">
       <div className="container py-16 md:py-24">
-        <h1 className="text-4xl font-heading font-bold mb-12">Photo Gallery</h1>
+        <h1 className="font-space-grotesk text-4xl font-bold mb-12">Photo Gallery</h1>
         {galleryItems.length === 0 ? (
-          <p className="text-muted-foreground">No gallery items found. Create some in the content/gallery directory.</p>
+          <p className="font-ibm-plex text-muted-foreground">No gallery items found. Create some in the content/gallery directory.</p>
         ) : (
           <div className="flex flex-col md:flex-row w-full gap-2 md:gap-4">
             {layoutResult.columns.map((column, colIndex) => (
@@ -56,6 +56,8 @@ export default function GalleryPage() {
                     imageUrl={layoutItem.item.imageUrl}
                     pinned={layoutItem.item.pinned}
                     locked={layoutItem.item.locked}
+                    priority={layoutItem.itemIndex < 3}
+                    index={layoutItem.itemIndex}
                   />
                 ))}
               </div>

@@ -35,7 +35,7 @@ export default function ProjectsSection() {
   return (
     <section ref={sectionRef} id="projects" className="py-12 md:py-16 border-b border-border">
       <div className="container">
-        <h2 className="text-3xl font-bold mb-8">Projects</h2>
+        <h2 className="font-space-grotesk text-3xl font-bold mb-8">Projects</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ gap: 'var(--column-spacing)' }}>
           {isLoading ? (

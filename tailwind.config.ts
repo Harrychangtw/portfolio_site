@@ -51,8 +51,9 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-space-grotesk)", ...fontFamily.sans],
+        sans: ["var(--font-ibm-plex-sans)", ...fontFamily.sans],
         "space-grotesk": ["var(--font-space-grotesk)", "sans-serif"],
+        "ibm-plex": ["var(--font-ibm-plex-sans)", "sans-serif"],
       },
       typography: {
         DEFAULT: {
@@ -79,6 +80,14 @@ const config: Config = {
             h4: {
               color: "hsl(var(--foreground))",
               fontFamily: "var(--font-space-grotesk)",
+            },
+            p: {
+              color: "hsl(var(--foreground))",
+              fontFamily: "var(--font-ibm-plex-sans)",
+            },
+            li: {
+              color: "hsl(var(--foreground))",
+              fontFamily: "var(--font-ibm-plex-sans)",
             },
           },
         },

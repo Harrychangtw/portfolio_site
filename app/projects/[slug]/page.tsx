@@ -59,11 +59,11 @@ export default async function ProjectPage({ params }: { params: { slug: string }
                     className="inline-flex items-center text-secondary hover:text-primary transition-colors"
                   >
                     <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back to projects
+                    <span className="font-ibm-plex">Back to projects</span>
                   </Link>
                   <div className="mt-8">
-                    <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4 md:mb-8">{project.title}</h1>
-                    <p className="text-secondary uppercase text-sm mb-6 md:mb-12">{project.category}</p>
+                    <h1 className="font-space-grotesk text-3xl md:text-4xl font-bold mb-4 md:mb-8">{project.title}</h1>
+                    <p className="font-ibm-plex text-secondary uppercase text-sm mb-6 md:mb-12">{project.category}</p>
                   </div>
                 </div>
               </div>
@@ -74,38 +74,38 @@ export default async function ProjectPage({ params }: { params: { slug: string }
               <div className="md:mt-14">
                 {/* Description area */}
                 <div className="mb-16 md:mb-24">
-                  <p className="text-lg md:text-xl mb-10 md:mb-16">{project.description}</p>
+                  <p className="font-ibm-plex text-lg md:text-xl mb-10 md:mb-16">{project.description}</p>
                   
-                  {/* Additional attributes in a single row grid layout */}
+                  {/* Additional attributes in a grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-6 gap-x-8 md:gap-x-4 mb-16 md:mb-24 text-secondary">
                     {project.year && (
                       <div>
-                        <p className="uppercase text-xs mb-1">Year</p>
-                        <p>{project.year}</p>
+                        <p className="font-space-grotesk uppercase text-xs mb-1">Year</p>
+                        <p className="font-ibm-plex">{project.year}</p>
                       </div>
                     )}
                     {project.role && (
                       <div>
-                        <p className="uppercase text-xs mb-1">Role</p>
-                        <p>{project.role}</p>
+                        <p className="font-space-grotesk uppercase text-xs mb-1">Role</p>
+                        <p className="font-ibm-plex">{project.role}</p>
                       </div>
                     )}
                     {project.technologies && project.technologies.length > 0 && (
                       <div>
-                        <p className="uppercase text-xs mb-1">Technologies</p>
-                        <p>{project.technologies.join(", ")}</p>
+                        <p className="font-space-grotesk uppercase text-xs mb-1">Technologies</p>
+                        <p className="font-ibm-plex">{project.technologies.join(", ")}</p>
                       </div>
                     )}
                     {project.client && (
                       <div>
-                        <p className="uppercase text-xs mb-1">Client</p>
-                        <p>{project.client}</p>
+                        <p className="font-space-grotesk uppercase text-xs mb-1">Client</p>
+                        <p className="font-ibm-plex">{project.client}</p>
                       </div>
                     )}
                     {project.website && (
                       <div>
-                        <p className="uppercase text-xs mb-1">Website</p>
-                        <p>
+                        <p className="font-space-grotesk uppercase text-xs mb-1">Website</p>
+                        <p className="font-ibm-plex">
                           <a 
                             href={project.website} 
                             target="_blank" 

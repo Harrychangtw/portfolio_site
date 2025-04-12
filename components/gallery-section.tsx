@@ -11,7 +11,7 @@ export default function GallerySection() {
   const [isLoading, setIsLoading] = useState(true)
   const sectionRef = useRef<HTMLElement>(null)
   const isVisible = useIntersectionObserver({
-    elementRef: sectionRef,
+    elementRef: sectionRef as React.RefObject<Element>,
     rootMargin: '100px'
   })
 
@@ -81,7 +81,7 @@ export default function GallerySection() {
   return (
     <section ref={sectionRef} id="gallery" className="py-12 md:py-16">
       <div className="container">
-        <h2 className="text-3xl font-bold mb-8">Gallery</h2>
+        <h2 className="font-space-grotesk text-3xl font-bold mb-8">Gallery</h2>
         {isLoading ? (
           <div className="flex flex-col md:flex-row w-full gap-2 md:gap-[var(--column-spacing)]" >
             <div className="flex-1 space-y-2 md:space-y-[var(--column-spacing)]">

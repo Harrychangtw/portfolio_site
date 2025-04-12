@@ -30,7 +30,7 @@ export default function GalleryCard({
 }: GalleryCardProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const isVisible = useIntersectionObserver({
-    elementRef: containerRef,
+    elementRef: containerRef as React.RefObject<Element>,
     rootMargin: '50px'
   })
   const [imageLoaded, setImageLoaded] = useState(false)
@@ -166,7 +166,8 @@ export default function GalleryCard({
           
           {/* Title overlay */}
           <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
-            <h3 className="text-lg font-medium text-white">{title}</h3>
+            <h3 className="font-space-grotesk text-lg font-medium text-white">{title}</h3>
+            <p className="font-ibm-plex text-sm text-white/80 mt-1">{quote}</p>
           </div>
         </div>
       </Link>
