@@ -186,9 +186,9 @@ export default function Header() {
                 exit={{ opacity: 0, y: -5 }}
                 transition={{ duration: 0.15, ease: "easeOut" }}
               >
-                <span className="text-secondary mx-1">｜</span>
+                <span className="text-secondary mx-1 text-xl text-secondary">｜</span>
                 <motion.span 
-                  className="font-space-grotesk text-secondary"
+                  className="font-space-grotesk text-xl text-secondary"
                   key={activeSection}
                   initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}

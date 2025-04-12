@@ -11,32 +11,32 @@ export default function Footer() {
       <div className="container">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} items-center gap-3`}>
-            <span className="inline-flex items-center px-3 py-1 rounded-full border-2 border-[#D8F600] text-xs text-[#D8F600]">
+            <span className="inline-flex items-center px-3 py-1 rounded-full border-2 border-[#D8F600] text-xs text-[#D8F600] font-space-grotesk">
               v2.0.1
             </span>
             {!isMobile && (
-              <span className="text-sm text-secondary">Last updated: April 12, 2025</span>
+              <span className="text-sm text-secondary font-space-grotesk">Last updated: April 12, 2025</span>
             )}
           </div>
           
           <div className="flex space-x-5">
             <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
-              <a href="https://www.instagram.com/pomelo_chang_08/" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1">
+              <a href="https://www.instagram.com/pomelo_chang_08/" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1 font-space-grotesk">
                 <span className="relative z-10">Instagram</span>
               </a>
             </motion.div>
             <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
-              <a href="https://discord.com/users/836567989209661481" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1">
+              <a href="https://discord.com/users/836567989209661481" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1 font-space-grotesk">
                 <span className="relative z-10">Discord</span>
               </a>
             </motion.div>
             <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
-              <a href="https://github.com/Harrychangtw" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1">
+              <a href="https://github.com/Harrychangtw" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1 font-space-grotesk">
                 <span className="relative z-10">GitHub</span>
               </a>
             </motion.div>
             <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
-              <a href="mailto:pomelo.cw@gmail.com" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1">
+              <a href="mailto:pomelo.cw@gmail.com" className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1 font-space-grotesk">
                 <span className="relative z-10">Gmail</span>
               </a>
             </motion.div>

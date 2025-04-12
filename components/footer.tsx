@@ -31,11 +31,11 @@ export default function Footer() {
       <div className="container">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} items-center gap-3`}>
-            <span className="inline-flex items-center px-3 py-1 rounded-full border-2 border-[#D8F600] text-xs text-[#D8F600]">
+            <span className="inline-flex items-center px-3 py-1 rounded-full border-2 border-[#D8F600] text-xs text-[#D8F600] font-space-grotesk">
               v2.0.2
             </span>
             {!isMobile && (
-              <span className="text-sm text-secondary">Last updated: April 12, 2025</span>
+              <span className="text-sm text-secondary font-space-grotesk">Last updated: April 12, 2025</span>
             )}
           </div>
           
@@ -57,7 +57,7 @@ export default function Footer() {
                     platform === 'GitHub' ? 'https://github.com/Harrychangtw' :
                     'mailto:pomelo.cw@gmail.com'
                   }
-                  className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1"
+                  className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1 font-space-grotesk"
                 >
                   <span className="relative z-10">{platform}</span>
                 </a>
@@ -77,7 +77,7 @@ export default function Footer() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
-            className="fixed bg-[#D8F600] text-black text-sm px-3 py-1 rounded shadow-lg"
+            className="fixed bg-[#D8F600] text-black text-sm px-3 py-1 rounded shadow-lg font-space-grotesk"
             style={{ top: tooltip.y - 40, left: tooltip.x - 75, pointerEvents: 'none', transform: 'translateX(-50%)' }}
           >
             Always happy to chat!

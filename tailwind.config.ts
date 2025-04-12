@@ -89,6 +89,12 @@ const config: Config = {
               color: "hsl(var(--foreground))",
               fontFamily: "var(--font-ibm-plex-sans)",
             },
+            hr: {
+              borderColor: "#1A1A1A",
+              borderTopWidth: "2px",
+              marginTop: "2em",
+              marginBottom: "2em"
+            }
           },
         },
       },

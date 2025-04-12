@@ -15,11 +15,13 @@ featured: true
 
 ## Project Overview
 
-This portfolio website was designed and developed to showcase my projects and photography in a clean, modern interface. The site uses a custom markdown-based content management system that allows for easy updates without the need for a traditional CMS or database.
+This portfolio website was designed and developed to showcase my projects and photography in a clean, modern interface. with it's 3 column layout heavily inspired by https://joseph.cv/. The site uses a custom markdown-based content management system that allows for easy updates without the need for a traditional CMS or database.
 
 ## The Challenge
 
 Creating a portfolio that could showcase both design projects and photography while maintaining a consistent aesthetic and user experience. The content needed to be easily manageable without requiring complex database setups or expensive CMS solutions.
+
+---
 
 ## The Approach
 
