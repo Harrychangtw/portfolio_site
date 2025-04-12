@@ -51,7 +51,7 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", ...fontFamily.sans],
+        sans: ["var(--font-space-grotesk)", ...fontFamily.sans],
         "space-grotesk": ["var(--font-space-grotesk)", "sans-serif"],
       },
       typography: {

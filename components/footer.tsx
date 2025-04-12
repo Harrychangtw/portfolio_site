@@ -1,18 +1,18 @@
 "use client"
 
-import { motion } from "framer-motion" // Import motion from framer-motion
-import { useIsMobile } from "./hooks/useIsMobile" // Assuming useIsMobile is a custom hook
+import { motion } from "framer-motion"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 export default function Footer() {
   const isMobile = useIsMobile();
 
   return (
-    <footer className="mt-auto bg-[#1a1a1a] py-6">
+    <footer className="bg-[#1a1a1a] py-6">
       <div className="container">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} items-center gap-3`}>
             <span className="inline-flex items-center px-3 py-1 rounded-full border-2 border-[#D8F600] text-xs text-[#D8F600]">
-              v2.0.1
+              v2.0.2
             </span>
             {!isMobile && (
               <span className="text-sm text-secondary">Last updated: April 12, 2025</span>

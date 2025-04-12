@@ -38,7 +38,7 @@
   --accent-color: #D8F600;
   
   /* Responsive spacing - 1/30th of column width in 3-column layout */
-  --column-spacing: calc((100vw - 4rem) / 180);
+  --column-spacing: calc((100vw - 4rem) / 120);
 }
 
 @layer base {

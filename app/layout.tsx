@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import ClientLayout from "./ClientLayout"
+import Footer from "@/components/footer"
 
 export const metadata: Metadata = {
   title: {
@@ -34,7 +35,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return <ClientLayout>{children}</ClientLayout>
+  return (
+    <ClientLayout>
+      <div className="flex-1 pt-16">
+        {children}
+      </div>
+      <Footer />
+    </ClientLayout>
+  )
 }
 
 import './globals.css'

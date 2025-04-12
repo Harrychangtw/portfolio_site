@@ -37,7 +37,7 @@ export default function AboutSection() {
                   <p className="text-secondary">2024 - Present</p>
                 </div>
                 <div className="col-span-7">
-                  <p className="text-primary">Researching LLM safety with a lightweight classifier trained on synthetic adversarial dataset.</p>
+                  <p className="text-primary">Researching LLM safety with lightweight classifiers trained on synthetic adversarial dataset.</p>
                 </div>
               </div>
 
