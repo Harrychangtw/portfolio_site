@@ -116,7 +116,7 @@ export default function GalleryItemClient({ item }: GalleryItemClientProps) {
                       return (
                         <div 
                           key={index} 
-                          className="w-full px-2" 
+                          className="w-full" 
                           style={{ 
                             marginBottom: 'clamp(1rem, 2.5vw, 2rem)'
                           }}
