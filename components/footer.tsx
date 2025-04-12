@@ -8,13 +8,13 @@ export default function Footer() {
   const isMobile = useIsMobile();
   const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0 });
 
-  const handleMouseEnter = (e) => {
+  const handleMouseEnter = (e: React.MouseEvent) => {
     if (!isMobile) {
       setTooltip({ visible: true, x: e.clientX, y: e.clientY });
     }
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent) => {
     if (!isMobile && tooltip.visible) {
       setTooltip({ ...tooltip, x: e.clientX, y: e.clientY });
     }
@@ -72,12 +72,16 @@ export default function Footer() {
           </div>
         </div>
         {tooltip.visible && (
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.2 }}
             className="fixed bg-[#D8F600] text-black text-sm px-3 py-1 rounded shadow-lg"
-            style={{ top: tooltip.y - 40, left: tooltip.x, pointerEvents: 'none', transform: 'translateX(-50%)' }}
+            style={{ top: tooltip.y - 40, left: tooltip.x - 75, pointerEvents: 'none', transform: 'translateX(-50%)' }}
           >
             Always happy to chat!
-          </div>
+          </motion.div>
         )}
       </div>
     </footer>
