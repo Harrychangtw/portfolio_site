@@ -47,7 +47,7 @@ export default function AboutSection() {
                   <p className="text-secondary">2024 - 2025</p>
                 </div>
                 <div className="col-span-7">
-                  <p className="text-primary">Spoke at the AIGO closing ceremony and delivered a 40-minute RAG keynote at SITCON 202</p>
+                  <p className="text-primary">Spoke at the AIGO closing ceremony and delivered keynote about RAG at SITCON 2025</p>
                 </div>
               </div>
 
