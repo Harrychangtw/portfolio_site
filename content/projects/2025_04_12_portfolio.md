@@ -31,7 +31,6 @@ Images receive a white border frame with:
 - Vertical images: White padding on top and bottom
 - Horizontal images: White padding on left and right
 - Border thickness: 1-6px (responsive based on device)
-- Consistent internal padding: 4px mobile, 7px desktop
 
 **Performance Optimization**
 Uses a custom optimize-images.js script that:
