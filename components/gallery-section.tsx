@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react"
 import GalleryCard from "./gallery-card"
 import { GalleryItemMetadata } from "@/lib/markdown"
-import { createBalancedLayout } from "./AspectRatioBalancedLayout"
+import { createBalancedLayout } from "@/lib/utils"
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer"
 
 export default function GallerySection() {

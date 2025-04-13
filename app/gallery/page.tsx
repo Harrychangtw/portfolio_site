@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import GalleryCard from "@/components/gallery-card"
 import { getAllGalleryMetadata } from "@/lib/markdown"
-import { createBalancedLayout } from "@/components/AspectRatioBalancedLayout"
+import { createBalancedLayout } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: "Gallery | Harry Chang",
