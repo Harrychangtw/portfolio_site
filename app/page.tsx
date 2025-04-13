@@ -14,10 +14,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      {/* High priority LCP content - rendered directly */}
       <AboutSection />
-      
-      {/* Other sections rendered normally */}
       <ProjectsSection />
       <GallerySection />
     </>

@@ -159,7 +159,7 @@ export function GalleryImageContainer({
                       sizes="100vw"
                       priority={priority}
                       quality={quality}
-                      onLoadingComplete={() => setBlurComplete(true)}
+                      onLoad={() => setBlurComplete(true)}
                     />
                   </>
                 )}

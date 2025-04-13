@@ -17,7 +17,7 @@ This project began when we noticed significant inefficiencies in how resources w
 
 To address this, we set out to build a custom Retrieval-Augmented Generation (RAG) system — without using any all-in-one frameworks like Langchain — as part of one of our first large-scale development efforts. With initial guidance from Andrew Kuo, I later took primary responsibility for backend development and significantly improved the user interface.
 
-This project won **First Prize** at the **GenAI Star Competition**, hosted by the **National Science and Technology Council**.
+This project won **First Prize** at the [**GenAI Star Competition**](https://genaistars.org.tw/news/35), hosted by the **National Science and Technology Council**.
 
 ---
 

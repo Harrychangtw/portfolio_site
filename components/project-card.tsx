@@ -53,7 +53,7 @@ export default function ProjectCard({
 
   // Effect to track if the component has ever been loaded/visible based on image load completion
   useEffect(() => {
-    // This effect is primarily handled by onLoadingComplete now
+    // This effect is primarily handled by onLoad now
   }, [shouldLoad, hasLoadedOnce]);
 
 
@@ -101,7 +101,7 @@ export default function ProjectCard({
                     className={`project-image object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     quality={90}
-                    onLoadingComplete={() => {
+                    onLoad={() => {
                       setBlurComplete(true)
                       // Set hasLoadedOnce here guarantees the image actually loaded
                       if (!hasLoadedOnce) setHasLoadedOnce(true)

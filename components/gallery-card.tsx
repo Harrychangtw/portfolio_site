@@ -147,7 +147,7 @@ export default function GalleryCard({
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       priority={priority || index < 3}
                       quality={90}
-                      onLoadingComplete={() => setBlurComplete(true)}
+                      onLoad={() => setBlurComplete(true)}
                     />
                   </>
                 )}
