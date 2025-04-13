@@ -61,8 +61,24 @@ const config: Config = {
             color: "hsl(var(--foreground))",
             a: {
               color: "hsl(var(--primary))",
+              textDecoration: "underline",
+              textDecorationStyle: "dashed",
+              textDecorationColor: "#1A1A1A",
+              textUnderlineOffset: "0.2em",
+              position: "relative",
+              paddingRight: "1em",
+              transition: "text-decoration-color 0.2s ease-in-out",
               "&:hover": {
                 color: "hsl(var(--primary))",
+                textDecorationColor: "#D8F600",
+              },
+              "&::after": {
+                content: '"↗"',
+                position: "absolute",
+                right: "0",
+                top: "-0.25em",
+                color: "#D8F600",
+                fontSize: "0.85em",
               },
             },
             h1: {
