@@ -11,51 +11,60 @@ technologies: ["Next.js", "React", "TypeScript", "TailwindCSS"]
 featured: true
 ---
 
-
 ## Project Overview
 
-This portfolio website was designed and developed to showcase my projects and photography in a clean, modern interface. with it's 3 column layout heavily inspired by [Joseph Zhang](https://joseph.cv/)’s site. The site uses a custom markdown-based content management system that allows for easy updates without the need for a traditional CMS or database.
+This portfolio website was designed and developed to showcase my projects and photography in a clean, modern interface. The layout takes heavy inspiration from [Joseph Zhang’s site](https://joseph.cv/), utilizing a three-column structure for easy navigation and emphasis on visual content.
+
+A core feature is the use of a **custom markdown-based content management system**, enabling easy content updates without relying on a traditional CMS or database. This makes managing and deploying new content as simple as editing markdown files.
 
 ---
-## Website Feature
 
-**Markdown Processing**:
-Uses gray-matter for front matter and remark for HTML conversion with an additional numeric pinning system to simplify content management and arangement.
+## Key Features
 
+### Markdown Processing
 
-**Image Framing**:
+- Utilizes **gray-matter** to parse front matter.
+- Converts markdown to HTML via **remark**.
+- Implements a **numeric pinning system** for custom sorting and arrangement of content without the need for a database.
 
-Considering that photography peices are often in varying aspect ratios, to maintain the original aspect ratio and clean arrangement, I implemented a framing feature with the following behavior:
+### Image Framing System
 
-Images receive a white border frame with:
-- Vertical images: White padding on top and bottom
-- Horizontal images: White padding on left and right
-- Border thickness: 1-6px (responsive based on device)
+To ensure consistent visual presentation for photographs of various aspect ratios, a custom framing logic was implemented:
 
-**Performance Optimization**
-Uses a custom optimize-images.js script that:
-- Automatically converts images to WebP format
-- Resizes images to optimal dimensions
-- Compresses images with different quality settings based on usage
-- Creates thumbnails for blur-up loading effect
+- **Vertical images**: white padding on **top and bottom**.
+- **Horizontal images**: white padding on **left and right**.
+- **Border thickness**: scales responsively between **1–6px**, depending on device size.
 
-Progressive Loading Features:
-- Blur-up loading with small thumbnails (20px width)
-- Loading skeleton component for better UX
-- Shimmer effect during loading states
+This framing ensures every image maintains its original aspect ratio while aligning cleanly with the grid layout.
 
-Specific image guidelines for different use cases:
-- Gallery images: Maximum 2000px on longest side
-- Portrait photos: 1080×1620px (2:3 ratio)
-- Landscape photos: 1620×1080px (3:2 ratio)
+### Performance Optimization
 
+A custom script, `optimize-images.js`, was built to automate media processing:
 
-## Tools Used
+- Converts all images to **WebP** format.
+- Resizes and compresses images with variable quality settings depending on usage.
+- Generates **thumbnails** for blur-up effects.
 
-- Next.js for the framework
-- React for the UI components
-- TypeScript for type safety
-- TailwindCSS for styling
-- Markdown for content
-- Framer Motion for animations
+#### Progressive Loading Features
+
+- **Blur-up loading** using tiny 20px-wide previews.
+- Custom **skeleton components** for smoother transitions.
+- **Shimmer animation** during loading to enhance UX.
+
+#### Image Guidelines (Enforced in Build)
+
+- **Gallery images**: Max **2000px** on the longest side.
+- **Portraits**: **1080×1620px** (2:3 aspect ratio).
+- **Landscapes**: **1620×1080px** (3:2 aspect ratio).
+
+---
+
+## Tools & Technologies
+
+- **Next.js** – Framework for static site generation and routing.
+- **React** – UI development and component architecture.
+- **TypeScript** – Ensures type safety and maintainability.
+- **TailwindCSS** – Utility-first styling for rapid development.
+- **Markdown** – Content management format for flexibility and ease.
+- **Framer Motion** – Smooth animations and transitions for enhanced interactivity.
 
