@@ -6,7 +6,10 @@ import { getProjectData, getAllProjectSlugs } from "@/lib/markdown"
 import { GalleryImageContainer } from "@/components/gallery-image-container"
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const project = await getProjectData(params.slug)
+  const slug = params?.slug
+  if (!slug) return { title: "Project Not Found" }
+  
+  const project = await getProjectData(slug)
 
   if (!project) {
     return {
@@ -26,7 +29,10 @@ export async function generateStaticParams() {
 }
 
 export default async function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = await getProjectData(params.slug)
+  const slug = params?.slug
+  if (!slug) notFound()
+  
+  const project = await getProjectData(slug)
 
   if (!project) {
     notFound()
