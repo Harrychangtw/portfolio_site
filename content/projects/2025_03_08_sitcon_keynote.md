@@ -20,6 +20,7 @@ SITCON is a biggest student-focused conference for those who love technology and
 Initially, I was reluctant—presenting a 40-minute-long speech at a conference I’d never attended felt daunting. But as time would tell, the experience turned out to be not only memorable but, dare I say, life-changing.
 
 The complete keynote recording can be found [here](https://www.youtube.com/watch?v=ujxlUTXlC04) at SITCON's YouTube channel.
+
 ---
 
 ## Content Planning
