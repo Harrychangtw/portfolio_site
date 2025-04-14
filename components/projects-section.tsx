@@ -37,27 +37,26 @@ export default function ProjectsSection() {
       <div className="container">
         <h2 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">Projects</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ gap: 'var(--column-spacing)' }}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-[var(--column-spacing)]">
           {isLoading ? (
-            // Placeholder cards while loading
+            // Placeholder cards while loading - ensure same height as actual cards
             [...Array(6)].map((_, i) => (
-              <div key={i} className="flex flex-col bg-card rounded-lg overflow-hidden">
-                <div className="relative w-full pb-[66.67%]">
+              <div key={i} className="flex flex-col bg-card rounded-lg overflow-hidden h-[calc(0.6667*320px+4.5rem)]">
+                <div className="relative w-full h-[calc(0.6667*320px)] bg-muted">
                   <div className="absolute inset-0 w-full h-full overflow-hidden">
                     <div className="w-full h-full bg-muted animate-pulse">
                       <div className="animate-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-muted via-muted/50 to-muted" />
                     </div>
                   </div>
                 </div>
-                {/* Placeholder for text content */}
-                <div className="p-4">
+                {/* Fixed height for content area */}
+                <div className="h-[4.5rem] p-4">
                   <div className="h-6 w-3/4 bg-muted animate-pulse rounded-md mb-3"></div>
                   <div className="h-4 w-1/2 bg-muted animate-pulse rounded-md"></div>
                 </div>
               </div>
             ))
           ) : (
-            // Actual project cards
             projects.map((project, index) => (
               <ProjectCard
                 key={project.slug}

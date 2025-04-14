@@ -51,17 +51,17 @@ export default function ProjectCard({
   return (
     <motion.div
       ref={containerRef}
-      className="group relative flex flex-col h-full"
+      className="group relative flex flex-col"
       whileHover={{
         scale: 0.99,
         transition: { duration: 0.3, ease: "easeInOut" }
       }}
     >
-      <Link href={`/projects/${slug}`} className="block flex-1 flex flex-col h-full">
-        <div className="relative overflow-hidden bg-muted mb-3">
-          {/* Fixed aspect ratio container */}
+      <Link href={`/projects/${slug}`} className="block">
+        <div className="relative overflow-hidden bg-muted">
+          {/* Strict 3:2 aspect ratio container */}
           <div className="relative w-full" style={{ paddingBottom: "66.67%" }}>
-            <div className="absolute inset-0 w-full h-full">
+            <div className="absolute inset-0">
               {shouldLoad ? (
                 <>
                   {thumbnailSrc && !blurComplete && (
@@ -69,7 +69,7 @@ export default function ProjectCard({
                       src={thumbnailSrc}
                       alt={`${title} thumbnail`}
                       fill
-                      className={`project-image object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
+                      className={`object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       quality={20}
                       onLoad={() => {
@@ -81,9 +81,10 @@ export default function ProjectCard({
                     src={fullImageUrl}
                     alt={title}
                     fill
-                    className={`project-image object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
+                    className={`object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority={shouldLoadImmediately}
+                    quality={90}
                     loading={shouldLoadImmediately ? 'eager' : 'lazy'}
                     onLoad={() => setBlurComplete(true)}
                     onError={(e) => {
@@ -110,13 +111,13 @@ export default function ProjectCard({
           )}
         </div>
 
-        {/* Content area with fixed height */}
-        <div className="px-1 flex-1 flex flex-col min-h-[4.5rem]">
-          <h3 className="font-space-grotesk text-lg font-medium mb-1 line-clamp-2">{title}</h3>
-          <p className="font-ibm-plex text-secondary text-sm">
+        {/* Content area with fixed height and padding */}
+        <div className="pt-3">
+          <h3 className="font-space-grotesk text-lg font-medium line-clamp-1">{title}</h3>
+            <p className="font-ibm-plex text-secondary text-sm mt-0.5 mb-4">
             {category}
-            {subcategory && ` • ${subcategory}`}
-          </p>
+            {subcategory && ` ｜ ${subcategory}`}
+            </p>
         </div>
       </Link>
     </motion.div>
