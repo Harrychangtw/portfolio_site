@@ -38,14 +38,18 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ClientLayout>
-      <div className="flex-1 pt-16">
-        {children}
-      </div>
-      <Footer />
-      <Analytics />
-      <SpeedInsights />
-    </ClientLayout>
+    <html lang="en">
+      <body>
+        <ClientLayout>
+          <div className="flex-1 pt-16">
+            {children}
+          </div>
+          <Footer />
+        </ClientLayout>
+        <Analytics />
+        <SpeedInsights />
+      </body>
+    </html>
   )
 }
 
