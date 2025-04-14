@@ -46,7 +46,7 @@ export default function GalleryItemClient({ item }: GalleryItemClientProps) {
                     Back to gallery
                   </Link>
                   <div className="mt-8">
-                    <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4 md:mb-8">{item.title}</h1>
+                    <h1 className="font-space-grotesk text-3xl md:text-4xl font-bold mb-4 md:mb-8">{item.title}</h1>
                     <p className="text-secondary mb-6 md:mb-12">
                       {new Date(item.date).toLocaleDateString("en-US", {
                         year: "numeric",

@@ -11,6 +11,8 @@ technologies: ["Next.js", "React", "TypeScript"]
 client: "Client Name"
 website: "https://example.com"
 featured: true
+pinned: -1
+locked: false
 ---
 
 ## Project Overview

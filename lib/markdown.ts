@@ -63,7 +63,7 @@ export interface ProjectMetadata {
   client?: string
   website?: string
   featured?: boolean
-  pinned?: boolean
+  pinned?: number  // Changed from boolean to number, -1 for not pinned, positive numbers for pinning order
   locked?: boolean
 }
 
@@ -190,9 +190,17 @@ export function getAllProjectsMetadata(): ProjectMetadata[] {
 
     // Sort projects by date
     return allProjectsData.sort((a, b) => {
-      // Pinned items come first
-      if (a.pinned && !b.pinned) return -1;
-      if (!a.pinned && b.pinned) return 1;
+      // Handle pinned items with numeric values
+      // -1 means not pinned, positive numbers indicate priority (1 is highest)
+      if (typeof a.pinned === 'number' && a.pinned >= 0 && (typeof b.pinned !== 'number' || b.pinned < 0)) {
+        return -1; // a is pinned, b is not pinned
+      }
+      if ((typeof a.pinned !== 'number' || a.pinned < 0) && typeof b.pinned === 'number' && b.pinned >= 0) {
+        return 1; // a is not pinned, b is pinned
+      }
+      if (typeof a.pinned === 'number' && typeof b.pinned === 'number' && a.pinned >= 0 && b.pinned >= 0) {
+        return a.pinned - b.pinned; // Both are pinned, compare by pin number
+      }
       
       // Then by date
       if (a.date < b.date) {

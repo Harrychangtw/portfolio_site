@@ -13,7 +13,7 @@ interface ProjectCardProps {
   subcategory?: string
   slug: string
   imageUrl: string
-  pinned?: boolean
+  pinned?: number  // Changed from boolean to number
   locked?: boolean
   priority?: boolean
   index?: number
@@ -126,18 +126,11 @@ export default function ProjectCard({
           </div>
 
           {/* Status indicators */}
-          {(pinned || locked) && (
+          {locked && (
             <div className="absolute top-3 right-3 flex gap-2 z-10">
-              {pinned && (
-                <div className="bg-[#D8F600] text-black p-1.5 rounded-full shadow-md">
-                  <PinIcon className="h-4 w-4" />
-                </div>
-              )}
-              {locked && (
-                <div className="bg-secondary text-white p-1.5 rounded-full shadow-md">
-                  <LockIcon className="h-4 w-4" />
-                </div>
-              )}
+              <div className="bg-secondary text-white p-1.5 rounded-full shadow-md">
+                <LockIcon className="h-4 w-4" />
+              </div>
             </div>
           )}
         </div> {/* End Image Container Div */}

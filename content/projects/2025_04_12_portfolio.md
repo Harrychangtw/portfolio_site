@@ -8,6 +8,7 @@ year: "2025"
 date: "2025-04-12"
 role: "Designer & Developer"
 technologies: ["Next.js", "React", "TypeScript", "TailwindCSS"]
+pinned: 3
 featured: true
 ---
 

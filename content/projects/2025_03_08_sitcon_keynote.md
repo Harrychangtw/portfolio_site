@@ -8,6 +8,7 @@ year: "2025"
 date: "2025-03-08"
 role: "Designer & Speaker"
 technologies: ["Affinity Publisher", "Apple Keynote"]
+pinned: 1
 featured: true
 ---
 

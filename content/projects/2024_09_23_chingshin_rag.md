@@ -8,6 +8,7 @@ year: "2024"
 date: "2024-09-23"
 role: "Designer & Developer"
 technologies: ["Svelte", "PyTorch", "FastAPI"]
+pinned: 2
 featured: true
 ---
 
