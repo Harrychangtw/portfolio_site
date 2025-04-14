@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     template: "%s | Harry Chang",
     default: "Harry Chang | Portfolio",
   },
-  description: "Harry Chang's portfolio showcasing design and development work",
+  description: "Harry Chang's portfolio showcasing photography development and design work",
   icons: {
     icon: [
       {

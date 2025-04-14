@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export async function generateStaticParams() {
+export async function generateStaticParams() {  
   const paths = getAllProjectSlugs()
   return paths
 }
