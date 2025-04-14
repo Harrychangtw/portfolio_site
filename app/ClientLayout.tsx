@@ -7,7 +7,6 @@ import Header from "@/components/header"
 import "./globals.css"
 import "@/styles/lcp-optimize.css"
 import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -48,7 +47,6 @@ export default function ClientLayout({
         <Header />
         {children}
         <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   )
