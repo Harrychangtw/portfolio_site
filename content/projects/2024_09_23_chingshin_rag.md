@@ -1,6 +1,6 @@
 ---
 title: "Chingshin RAGi"
-category: "Full-stack Development"
+category: "Full Stack Dev"
 subcategory: "School Project"
 description: "Custom RAG-based chatbot built with Svelte, PyTorch, and FastAPI without relying on all-in-one frameworks like LangChain"
 imageUrl: "images/optimized/projects/2024_09_23_chingshing_ragi/titlecard.webp"
