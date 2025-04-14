@@ -42,10 +42,12 @@ export default function ClientLayout({
   }, [])
 
   return (
-    <div className={`bg-background text-primary antialiased min-h-screen flex flex-col ${pressStart2P.variable} ${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
-      <Header />
-      {children}
-    </div>
+    <html lang="en" className={`dark ${pressStart2P.variable} ${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
+      <body className={`bg-background text-primary antialiased min-h-screen flex flex-col`}>
+        <Header />
+        {children}
+      </body>
+    </html>
   )
 }
 
