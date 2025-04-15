@@ -48,78 +48,88 @@ export default function ProjectCard({
   useEffect(() => setMounted(true), [])
   const shouldLoad = shouldLoadImmediately || (mounted && isVisible) || hasLoadedOnce
 
+  const CardContent = (
+    <>
+      <div className="relative overflow-hidden bg-muted">
+        {/* Strict 3:2 aspect ratio container */}
+        <div className="relative w-full" style={{ paddingBottom: "66.67%" }}>
+          <div className="absolute inset-0">
+            {shouldLoad ? (
+              <>
+                {thumbnailSrc && !blurComplete && (
+                  <Image
+                    src={thumbnailSrc}
+                    alt={`${title} thumbnail`}
+                    fill
+                    className={`object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={20}
+                    onLoad={() => {
+                      if (!hasLoadedOnce) setHasLoadedOnce(true);
+                    }}
+                  />
+                )}
+                <Image
+                  src={fullImageUrl}
+                  alt={title}
+                  fill
+                  className={`object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority={shouldLoadImmediately}
+                  quality={90}
+                  loading={shouldLoadImmediately ? 'eager' : 'lazy'}
+                  onLoad={() => setBlurComplete(true)}
+                  onError={(e) => {
+                    console.error("Image failed to load:", fullImageUrl, e);
+                    setBlurComplete(true);
+                    if (!hasLoadedOnce) setHasLoadedOnce(true);
+                  }}
+                />
+              </>
+            ) : (
+              <div className="absolute inset-0 bg-muted animate-pulse">
+                <div className="animate-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-muted via-muted/50 to-muted" />
+              </div>
+            )}
+          </div>
+        </div>
+
+        {locked && (
+          <div className="absolute top-3 right-3 flex gap-2 z-10">
+            <div className="bg-secondary text-white p-1.5 rounded-full shadow-md">
+              <LockIcon className="h-4 w-4" />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Content area with fixed height and padding */}
+      <div className="pt-3">
+        <h3 className="font-space-grotesk text-lg font-medium line-clamp-1">{title}</h3>
+          <p className="font-ibm-plex text-secondary text-sm mt-0.5 mb-4">
+          {category}
+          {subcategory && ` ｜ ${subcategory}`}
+          </p>
+      </div>
+    </>
+  );
+
   return (
     <motion.div
       ref={containerRef}
       className="group relative flex flex-col"
-      whileHover={{
+      whileHover={!locked ? {
         scale: 0.99,
         transition: { duration: 0.3, ease: "easeInOut" }
-      }}
+      } : {}}
     >
-      <Link href={`/projects/${slug}`} className="block">
-        <div className="relative overflow-hidden bg-muted">
-          {/* Strict 3:2 aspect ratio container */}
-          <div className="relative w-full" style={{ paddingBottom: "66.67%" }}>
-            <div className="absolute inset-0">
-              {shouldLoad ? (
-                <>
-                  {thumbnailSrc && !blurComplete && (
-                    <Image
-                      src={thumbnailSrc}
-                      alt={`${title} thumbnail`}
-                      fill
-                      className={`object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      quality={20}
-                      onLoad={() => {
-                        if (!hasLoadedOnce) setHasLoadedOnce(true);
-                      }}
-                    />
-                  )}
-                  <Image
-                    src={fullImageUrl}
-                    alt={title}
-                    fill
-                    className={`object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={shouldLoadImmediately}
-                    quality={90}
-                    loading={shouldLoadImmediately ? 'eager' : 'lazy'}
-                    onLoad={() => setBlurComplete(true)}
-                    onError={(e) => {
-                      console.error("Image failed to load:", fullImageUrl, e);
-                      setBlurComplete(true);
-                      if (!hasLoadedOnce) setHasLoadedOnce(true);
-                    }}
-                  />
-                </>
-              ) : (
-                <div className="absolute inset-0 bg-muted animate-pulse">
-                  <div className="animate-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-muted via-muted/50 to-muted" />
-                </div>
-              )}
-            </div>
-          </div>
-
-          {locked && (
-            <div className="absolute top-3 right-3 flex gap-2 z-10">
-              <div className="bg-secondary text-white p-1.5 rounded-full shadow-md">
-                <LockIcon className="h-4 w-4" />
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Content area with fixed height and padding */}
-        <div className="pt-3">
-          <h3 className="font-space-grotesk text-lg font-medium line-clamp-1">{title}</h3>
-            <p className="font-ibm-plex text-secondary text-sm mt-0.5 mb-4">
-            {category}
-            {subcategory && ` ｜ ${subcategory}`}
-            </p>
-        </div>
-      </Link>
+      {locked ? (
+        <div className="block cursor-not-allowed">{CardContent}</div>
+      ) : (
+        <Link href={`/projects/${slug}`} className="block">
+          {CardContent}
+        </Link>
+      )}
     </motion.div>
   )
 }

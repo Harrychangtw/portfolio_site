@@ -34,9 +34,10 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   
   const project = await getProjectData(slug)
 
-  if (!project) {
+  if (!project || project.locked) { // Check if project exists and is not locked
     notFound()
   }
+
 
   return (
     <div className="page-transition-enter">
