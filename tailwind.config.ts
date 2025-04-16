@@ -65,8 +65,6 @@ const config: Config = {
               textDecorationStyle: "dashed",
               textDecorationColor: "#1A1A1A",
               textUnderlineOffset: "0.2em",
-              position: "relative",
-              paddingRight: "1em",
               transition: "text-decoration-color 0.2s ease-in-out",
               "&:hover": {
                 color: "hsl(var(--primary))",
@@ -74,11 +72,12 @@ const config: Config = {
               },
               "&::after": {
                 content: '"↗"',
-                position: "absolute",
-                right: "0",
-                top: "-0.25em",
+                display: "inline-block",
+                verticalAlign: "super",
+                marginLeft: "0.1em",
                 color: "#D8F600",
                 fontSize: "0.85em",
+                whiteSpace: "nowrap",
               },
             },
             h1: {
