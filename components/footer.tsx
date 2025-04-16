@@ -78,7 +78,7 @@ export default function Footer() {
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
             className="fixed bg-[#D8F600] text-black text-sm px-3 py-1 rounded shadow-lg font-space-grotesk"
-            style={{ top: tooltip.y - 40, left: tooltip.x - 75, pointerEvents: 'none', transform: 'translateX(-50%)' }}
+            style={{ top: tooltip.y - 40, left: tooltip.x, pointerEvents: 'none', transform: 'translateX(-50%)' }}
           >
             Always happy to chat!
           </motion.div>

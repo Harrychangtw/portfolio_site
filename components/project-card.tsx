@@ -6,6 +6,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { PinIcon, LockIcon } from "lucide-react"
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 interface ProjectCardProps {
   title: string
@@ -47,6 +48,26 @@ export default function ProjectCard({
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
   const shouldLoad = shouldLoadImmediately || (mounted && isVisible) || hasLoadedOnce
+
+  const isMobile = useIsMobile();
+  const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0 });
+
+  // Tooltip handlers for locked cards
+  const handleMouseEnter = (e: React.MouseEvent) => {
+    if (!isMobile && locked) {
+      setTooltip({ visible: true, x: e.clientX, y: e.clientY });
+    }
+  };
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isMobile && locked && tooltip.visible) {
+      setTooltip({ ...tooltip, x: e.clientX, y: e.clientY });
+    }
+  };
+  const handleMouseLeave = () => {
+    if (!isMobile && locked) {
+      setTooltip({ visible: false, x: 0, y: 0 });
+    }
+  };
 
   const CardContent = (
     <>
@@ -108,7 +129,7 @@ export default function ProjectCard({
         <h3 className="font-space-grotesk text-lg font-medium line-clamp-1">{title}</h3>
           <p className="font-ibm-plex text-secondary text-sm mt-0.5 mb-4">
           {category}
-          {subcategory && ` ｜ ${subcategory}`}
+          {subcategory && ` • ${subcategory}`}
           </p>
       </div>
     </>
@@ -122,6 +143,9 @@ export default function ProjectCard({
         scale: 0.99,
         transition: { duration: 0.3, ease: "easeInOut" }
       } : {}}
+      onMouseEnter={handleMouseEnter}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
       {locked ? (
         <div className="block cursor-not-allowed">{CardContent}</div>
@@ -129,6 +153,19 @@ export default function ProjectCard({
         <Link href={`/projects/${slug}`} className="block">
           {CardContent}
         </Link>
+      )}
+      {/* Tooltip for locked projects */}
+      {locked && tooltip.visible && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.2 }}
+          className="fixed bg-[#D8F600] text-black text-sm px-3 py-1 rounded shadow-lg font-space-grotesk z-50"
+          style={{ top: tooltip.y - 40, left: tooltip.x, pointerEvents: 'none', transform: 'translateX(-50%)' }}
+        >
+          Project under construction...
+        </motion.div>
       )}
     </motion.div>
   )
