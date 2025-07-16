@@ -4,8 +4,8 @@ import { getAllGalleryMetadata } from "@/lib/markdown"
 import { createBalancedLayout } from "@/lib/utils"
 
 export const metadata: Metadata = {
-  title: "Gallery | Harry Chang",
-  description: "A collection of visual explorations and photography by Harry Chang",
+  title: "Gallery | Harry Chang 張祺煒",
+  description: "A collection of visual explorations and photography by Harry Chang (張祺煒)",
 }
 
 export default function GalleryPage() {

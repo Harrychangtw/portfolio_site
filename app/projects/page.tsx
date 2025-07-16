@@ -3,8 +3,8 @@ import ProjectCard from "@/components/project-card"
 import { getAllProjectsMetadata } from "@/lib/markdown"
 
 export const metadata: Metadata = {
-  title: "Projects | Harry Chang",
-  description: "Browse design and development projects by Harry Chang",
+  title: "Projects | Harry Chang 張祺煒",
+  description: "Browse design and development projects by Harry Chang (張祺煒)",
 }
 
 export default function ProjectsPage() {

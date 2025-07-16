@@ -4,8 +4,9 @@ import ProjectsSection from "@/components/projects-section"
 import GallerySection from "@/components/gallery-section"
 
 export const metadata: Metadata = {
-  title: "Harry Chang | Portfolio",
-  description: "Harry Chang's portfolio showcasing design and development work",
+  title: "Harry Chang 張祺煒 | Portfolio",
+  description: "Harry Chang (張祺煒) portfolio showcasing design and development work",
+  keywords: ["Harry Chang", "張祺煒", "portfolio", "design", "development", "photography", "Chingshin Academy"],
   other: {
     "priority": "high"
   }

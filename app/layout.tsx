@@ -9,9 +9,9 @@ import Footer from "@/components/footer"
 export const metadata: Metadata = {
   title: {
     template: "%s | Harry Chang",
-    default: "Harry Chang | Portfolio",
+    default: "Harry Chang 張祺煒 | Portfolio",
   },
-  description: "Harry Chang's portfolio showcasing photography development and design work",
+  description: "Harry Chang (張祺煒) portfolio showcasing photography development and design work",
   icons: {
     icon: [
       {
