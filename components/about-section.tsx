@@ -1,6 +1,6 @@
 export default function AboutSection() {
   return (
-    <section id="about" className="py-12 md:py-16 border-b border-border">
+    <section id="about" className="py-12 md:py-16">
       <div className="container">
         <div className="grid grid-cols-12 gap-2">
           {/* About column - spans half the width on desktop */}
@@ -33,17 +33,37 @@ export default function AboutSection() {
                   <p className="font-ibm-plex text-secondary">2024 - Present</p>
                 </div>
                 <div className="col-span-7">
-                  <p className="font-ibm-plex text-primary">Researching LLM safety with lightweight classifiers trained on synthetic adversarial dataset.</p>
+                  <p className="font-ibm-plex text-primary">Researching LLM safety with a focus on lightweight external classifiers, with two papers currently under review.</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-5">
-                  <h3 className="font-space-grotesk font-medium">Speaker – AIGO, SITCON</h3>
+                  <h3 className="font-space-grotesk font-medium">Speaker – AI WAVE SHOW, SITCON</h3>
                   <p className="font-ibm-plex text-secondary">2024 - 2025</p>
                 </div>
                 <div className="col-span-7">
-                  <p className="font-ibm-plex text-primary">Spoke at the AIGO closing ceremony and delivered keynote about RAG at SITCON 2025</p>
+                    <p className="font-ibm-plex text-primary">
+                    Spoke at the {" "}
+                    <a
+                      href="https://www.technice.com.tw/issues/ai/185561/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-external"
+                    >
+                      AI WAVE SHOW
+                    </a>
+                     and delivered keynote about RAG at {" "}
+                    <a
+                      href="https://www.youtube.com/watch?v=ujxlUTXlC04"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-external"
+                    >
+                      SITCON 2025
+                    </a>
+                    .
+                    </p>
                 </div>
               </div>
 
@@ -73,7 +93,18 @@ export default function AboutSection() {
                   <p className="font-ibm-plex text-secondary">2022 - Present</p>
                 </div>
                 <div className="col-span-7">
-                  <p className="font-ibm-plex text-primary">DaVinci Resolve editor with experience ranging from montages to educational videos for AAAI.</p>
+                  <p className="font-ibm-plex text-primary">
+                    DaVinci Resolve editor with experience ranging from montages to educational videos for{" "}
+                    <a
+                      href="https://www.youtube.com/watch?v=eSuEhZpHesU&t=2s"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-external"
+                    >
+                      AAAI
+                    </a>
+                    .
+                  </p>
                 </div>
               </div>
             </div>

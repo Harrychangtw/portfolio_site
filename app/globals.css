@@ -162,3 +162,31 @@
   }
 }
 
+@layer components {
+  .link-external {
+    color: hsl(var(--primary));
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: #1A1A1A;
+    text-underline-offset: 0.2em;
+    font-weight: 500;
+    transition: text-decoration-color 0.2s ease-in-out;
+    position: relative;
+  }
+  
+  .link-external:hover {
+    color: hsl(var(--primary));
+    text-decoration-color: #D8F600;
+  }
+  
+  .link-external::after {
+    content: '*';
+    display: inline-block;
+    vertical-align: super; /* This is the key - positions it at the top */
+    margin-left: 0.1em;
+    color: #D8F600;
+    font-size: 0.85em;
+    white-space: nowrap;
+    font-weight: 700;
+  }
+}
