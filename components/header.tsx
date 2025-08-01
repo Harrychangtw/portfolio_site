@@ -94,6 +94,7 @@ export default function Header() {
       const sections = [
         { id: 'gallery', element: document.getElementById('gallery') },
         { id: 'projects', element: document.getElementById('projects') },
+        { id: 'updates', element: document.getElementById('updates') },
         { id: 'about', element: document.getElementById('about') },
       ];
 
@@ -208,6 +209,10 @@ export default function Header() {
             <Link {...getLinkProps('about', '/')}>
               {isActive('about') && <Underline />}
               About
+            </Link>
+            <Link {...getLinkProps('updates', '/')}>
+              {isActive('updates') && <Underline />}
+              Updates
             </Link>
             <Link {...getLinkProps('projects', '/projects')}>
               {isActive('projects') && <Underline />}

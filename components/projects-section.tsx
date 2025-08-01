@@ -33,7 +33,7 @@ export default function ProjectsSection() {
   }, [isVisible])
 
   return (
-    <section ref={sectionRef} id="projects" className="py-12 md:py-16">
+    <section ref={sectionRef} id="projects" className="py-12 md:py-16 border-b border-border">
       <div className="container">
         <h2 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">Projects</h2>
         

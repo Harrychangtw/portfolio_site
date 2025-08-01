@@ -1,6 +1,6 @@
 export default function AboutSection() {
   return (
-    <section id="about" className="py-12 md:py-16">
+    <section id="about" className="py-12 md:py-16 border-b border-border">
       <div className="container">
         <div className="grid grid-cols-12 gap-2">
           {/* About column - spans half the width on desktop */}
