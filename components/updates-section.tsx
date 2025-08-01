@@ -1,6 +1,6 @@
 "use client"
-import { useState } from "react"
-import { motion } from "framer-motion"
+import { useState, useRef, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 
 const updates = [
 	{ date: "2025-08-01", text: "Made some layout improvements to the portfolio site" },
@@ -54,10 +54,25 @@ const parseTextWithLinks = (text: string) => {
 export default function UpdatesSection() {
 	const [currentPage, setCurrentPage] = useState(0)
 	const [isTransitioning, setIsTransitioning] = useState(false)
+	const [contentHeight, setContentHeight] = useState<number | 'auto'>('auto')
+	const contentRef = useRef<HTMLDivElement>(null)
 	const entriesPerPage = 5
 	const totalPages = Math.ceil(updates.length / entriesPerPage)
 
+	// Measure content height for smooth transitions
+	useEffect(() => {
+		if (contentRef.current && !isTransitioning) {
+			const height = contentRef.current.scrollHeight
+			setContentHeight(height)
+		}
+	}, [currentPage, isTransitioning])
+
 	const handlePrevPage = () => {
+		if (contentRef.current) {
+			// Capture current height before transition
+			const currentHeight = contentRef.current.scrollHeight
+			setContentHeight(currentHeight)
+		}
 		setIsTransitioning(true)
 		setTimeout(() => {
 			setCurrentPage((prev) => (prev > 0 ? prev - 1 : prev))
@@ -66,6 +81,11 @@ export default function UpdatesSection() {
 	}
 
 	const handleNextPage = () => {
+		if (contentRef.current) {
+			// Capture current height before transition
+			const currentHeight = contentRef.current.scrollHeight
+			setContentHeight(currentHeight)
+		}
 		setIsTransitioning(true)
 		setTimeout(() => {
 			setCurrentPage((prev) => (prev < totalPages - 1 ? prev + 1 : prev))
@@ -111,18 +131,25 @@ export default function UpdatesSection() {
 						</motion.div>
 					</div>
 				</div>
-				<div
-					className={`space-y-4 transition-opacity duration-300 ${
-						isTransitioning ? "opacity-0" : "opacity-100"
-					}`}
+				<motion.div
+					animate={{ height: contentHeight }}
+					transition={{ duration: 0.4, ease: "easeInOut" }}
+					className="overflow-hidden"
 				>
-					{currentEntries.map((entry, index) => (
-						<div key={index} className="flex justify-between items-center">
-							<p className="font-ibm-plex text-primary">{parseTextWithLinks(entry.text)}</p>
-							<p className="font-ibm-plex text-secondary">{entry.date}</p>
-						</div>
-					))}
-				</div>
+					<div
+						ref={contentRef}
+						className={`space-y-4 transition-opacity duration-300 ${
+							isTransitioning ? "opacity-0" : "opacity-100"
+						}`}
+					>
+						{currentEntries.map((entry, index) => (
+							<div key={index} className="flex justify-between items-center">
+								<p className="font-ibm-plex text-primary">{parseTextWithLinks(entry.text)}</p>
+								<p className="font-ibm-plex text-secondary">{entry.date}</p>
+							</div>
+						))}
+					</div>
+				</motion.div>
 			</div>
 		</section>
 	)
