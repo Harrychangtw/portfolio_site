@@ -7,6 +7,8 @@ import Header from "@/components/header"
 import "./globals.css"
 import "@/styles/lcp-optimize.css"
 import { Analytics } from "@vercel/analytics/react"
+import ClickSpark from "@/components/ui/click-spark"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -33,19 +35,26 @@ export default function ClientLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  useEffect(() => {
-    console.log(`   _______   ________  ________  ________  ________       _______  _______   ________  ________  ________ 
-  /    /  \\/        \\/        \\/        \\/    /   \\    //       \\/    /  \\\\/        \\/    /   \\/        \\
- /        //         /         /         /         /   //        /        //         /         /       __/
-/         /         /        _/        _/\\__      /   /       --/         /         /         /       / / 
-\\___/____/\\___/____/\\____/___/\\____/___/   \\_____/    \\________/\\___/____/\\___/____/\\__/_____/\\________/`)
-  }, [])
-
+  const isMobile = useIsMobile()
+  
   return (
     <html lang="en" className={`dark ${pressStart2P.variable} ${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
       <body className={`bg-background text-primary antialiased min-h-screen flex flex-col`}>
         <Header />
-        {children}
+        {isMobile ? (
+          children
+        ) : (
+          <ClickSpark
+            sparkColor="#ffffff"
+            sparkSize={8}
+            sparkRadius={15}
+            sparkCount={4}
+            duration={500}
+            extraScale={1.2}
+          >
+            {children}
+          </ClickSpark>
+        )}
         <Analytics />
       </body>
     </html>
