@@ -3,20 +3,18 @@ import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 const updates = [
-	{ date: "2025-08-01", text: "Made some layout improvements to the portfolio site" },
-	{ date: "2025-07-31", text: "Gave a speech for [AI WAVE Opening Ceramony](https://www.technice.com.tw/issues/ai/185561/) at TWTC" },
-	{ date: "2025-07-30", text: "PATCH has been submitted to ACL ARR July cycle after extensive revisions" },
-	{ date: "2025-07-04", text: "Participated in the AIGO program's one-day hackathon at NTU, won [first prize](https://drive.google.com/file/d/1-Nm6tdic38YQcUcuploRbdpE28b4S9rS/view)" },
-	{ date: "2025-07-05", text: "FORTRESS has underwent review for [TMLR](https://openreview.net/forum?id=lCn7RT9DGq)"},
-	{ date: "2025-06-30", text: "PATCH won first prize in school's research competition" },
-	{ date: "2025-06-15", text: "Won championship at Fushing Debate Open 2025 thanks to my amazing team!" },
-	{ date: "2025-06-11", text: "Excited to announce that I have been awarded the Harvard Prize Book!" },
-	{ date: "2025-05-18", text: "Kicked off the FORTRESS project, a RAG-inspired defense system" },
-	{ date: "2025-05-15", text: "PATCH has been submitted to ACL ARR May cycle" },
-	{ date: "2025-04-01", text: "Personal portfolio site launched 🎉" },
-	
-	
-	
+	{ date: "2025-08-01", text: "[Update] Added support for Google Drive and YouTube video links" },
+	{ date: "2025-08-01", text: "[Update] Made some layout improvements to the portfolio site" },
+	{ date: "2025-07-31", text: "[Event] Gave a speech for [AI WAVE Opening Ceramony](https://www.technice.com.tw/issues/ai/185561/) at TWTC" },
+	{ date: "2025-07-30", text: "[Research] PATCH has been submitted to ACL ARR July cycle after extensive revisions" },
+	{ date: "2025-07-04", text: "[Achievement] Participated in the AIGO program's one-day hackathon at NTU, won [first prize](https://drive.google.com/file/d/1-Nm6tdic38YQcUcuploRbdpE28b4S9rS/view)" },
+	{ date: "2025-07-05", text: "[Research] FORTRESS has underwent review for [TMLR](https://openreview.net/forum?id=lCn7RT9DGq)" },
+	{ date: "2025-06-30", text: "[Achievement] PATCH won first prize in school's research competition" },
+	{ date: "2025-06-15", text: "[Achievement] Won championship at Fushing Debate Open 2025 thanks to my amazing team!" },
+	{ date: "2025-06-11", text: "[Award] Excited to announce that I have been awarded the Harvard Prize Book!" },
+	{ date: "2025-05-18", text: "[Project] Kicked off the FORTRESS project, a RAG-inspired defense system" },
+	{ date: "2025-05-15", text: "[Research] PATCH has been submitted to ACL ARR May cycle" },
+	{ date: "2025-04-01", text: "[Milestone] Personal portfolio site launched 🎉" },
 ]
 
 const parseTextWithLinks = (text: string) => {

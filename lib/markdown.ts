@@ -4,7 +4,7 @@ import matter from "gray-matter"
 import { remark } from "remark"
 import html from "remark-html"
 import { visit } from "unist-util-visit"
-import type { Image as MdastImage } from "mdast"
+import type { Image as MdastImage, Root, HTML } from "mdast"
 
 // Define the directories
 const projectsDirectory = path.join(process.cwd(), "content/projects")
@@ -296,16 +296,8 @@ export async function getProjectData(slug: string) {
 
     // Use remark to convert markdown into HTML string
     const processedContent = await remark()
-      .use(() => (tree) => {
-        // Process the tree to find image nodes and fix URLs
-        visit(tree, 'image', (node: MdastImage) => {
-          if (node.url) {
-            // Ensure full resolution images in content
-            node.url = getFullResolutionPath(node.url);
-          }
-        });
-      })
-      .use(html)
+      .use(transformMedia)
+      .use(html, { sanitize: false })
       .process(matterResult.content);
     const contentHtml = processedContent.toString()
 
@@ -434,6 +426,84 @@ export function saveGalleryItem(slug: string, data: Omit<GalleryItemMetadata, "s
   } catch (error) {
     console.error(`Error saving gallery item ${slug}:`, error)
     return false
+  }
+}
+
+function transformMedia() {
+  return (tree: Root) => {
+    visit(tree, 'image', (node: MdastImage, index, parent) => {
+      if (!parent || index === null) return
+
+      const url = node.url
+      const alt = node.alt || ''
+
+      // Check if it's a Google Drive video link
+      const driveRegex = /https?:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/
+      const driveMatch = url.match(driveRegex)
+
+      // Check if it's a YouTube video link
+      const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+      const youtubeMatch = url.match(youtubeRegex)
+
+      if (driveMatch) {
+        const videoId = driveMatch[1]
+        const embedUrl = `https://drive.google.com/file/d/${videoId}/preview`
+        
+        const videoNode: HTML = {
+          type: 'html',
+          value: `
+            <figure>
+              <iframe 
+                src="${embedUrl}" 
+                width="100%" 
+                height="480" 
+                allow="autoplay; encrypted-media;"
+                frameborder="0"
+                title="${alt}"
+              ></iframe>
+              <figcaption>${alt}</figcaption>
+            </figure>
+          `
+        }
+        parent.children.splice(index, 1, videoNode)
+      } else if (youtubeMatch) {
+        const videoId = youtubeMatch[1]
+        const embedUrl = `https://www.youtube.com/embed/${videoId}`
+        
+        const videoNode: HTML = {
+          type: 'html',
+          value: `
+            <figure>
+              <iframe
+                src="${embedUrl}"
+                width="100%"
+                height="480"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="${alt}">
+              </iframe>
+              <figcaption>${alt}</figcaption>
+            </figure>
+          `
+        }
+        parent.children.splice(index, 1, videoNode)
+      } else {
+        // It's a regular image, so wrap it in a figure with a figcaption
+        const imageUrl = getFullResolutionPath(url)
+        
+        const imageNode: HTML = {
+          type: 'html',
+          value: `
+            <figure>
+              <img src="${imageUrl}" alt="${alt}" />
+              <figcaption>${alt}</figcaption>
+            </figure>
+          `
+        }
+        parent.children.splice(index, 1, imageNode)
+      }
+    })
   }
 }
 
