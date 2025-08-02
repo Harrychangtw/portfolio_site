@@ -7,10 +7,35 @@ imageUrl: "images/optimized/projects/2024_03_18_boundless_voices/titlecard.webp"
 year: "2024"
 date: "2024-03-18"
 role: "Designer & Director"
-technologies: ["Next.js", "React", "TypeScript", "TailwindCSS"]
-pinned: 4
-locked: true
+technologies: ["Davinci Resolve", "Affinity Designer"]
+pinned: 6
+locked: false
 featured: true
 tooltip: "Project Under Construction"
 ---
+
+## Boundless Voices Charity Concert: A Look Behind the Scenes
+
+This project was a journey of inspiration, collaboration, and creativity. It began with a simple, powerful moment: watching a performance by the visually impaired musician, Mr. Wu Po-yi. His incredible talent and perseverance in overcoming physical limitations moved me deeply and sparked a desire to learn more about the stories of artists with disabilities.
+
+Inspired, I joined forces with a group of passionate classmates to create the "Boundless Voices" charity concert. Our goal was to share the powerful life stories of these artists through a musical theater performance, with all proceeds donated to the Mackay Memorial Hospital's campus redevelopment plan. As the Designer and Director for the event's promotional materials, I was tasked with creating the program booklet and directing the behind-the-scenes documentary.
+
+### Designing the Program
+
+One of the most significant challenges was creating the program booklet. The initial hurdle was organizational; as more and more talented individuals joined our cause, compiling their information became a complex task. We streamlined this process using Google Forms, but the layout and typesetting still required meticulous attention to detail.
+
+The cover design was a truly memorable experience. After many discussions and revisions with the team, we decided on a concept that would visually represent the concert's theme. We chose an image of a vast blue sky with white clouds to evoke a sense of the "boundless" world we envisioned. Soaring musical notes were added to convey a feeling of light, elegant, and joyful energy, perfectly capturing the spirit of our musical theater.
+
+### Directing the Documentary
+
+The behind-the-scenes documentary was a solo project for me, from filming and editing to sound design and color grading. I wanted the video to have a strong narrative and emotional impact.
+
+My main challenge was crafting an opening that would immediately captivate the audience. I knew the body of the video would have a relaxed, lighthearted feel, but a slow start would fail to draw viewers in. I spent considerable time searching for the perfect piece of music to create a dramatic and engaging introduction. This led to a second challenge: seamlessly transitioning from the intense opening to the more relaxed main section without losing momentum. Instead of a simple fade, I chose to layer multiple sound effects—a low-frequency riser, the whoosh of a torch, the winding of gears—building a crescendo that cut directly into the main track.
+
+For the editing, I relied heavily on "match cuts" to create a fluid and rhythmic viewing experience without using flashy transitions. I connected shots with similar visual elements, such as cuts between different hands holding the script or matching circular camera movements. This technique, combined with slow-motion sequences and "speed ramps," created a dynamic contrast that I hope brought the footage to life.
+
+
+### A Final Reflection
+
+From interviewing the incredibly optimistic ocarina player, Ms. Wei Hsiao-chieh, to seeing the final, packed performance at the Chiang Kai-shek Memorial Hall, this project was a profound learning experience. It pushed my skills in design, video production, and teamwork. More importantly, it was a powerful reminder that art and music have the power to transcend barriers and connect us all. Seeing the audience's heartfelt reaction was the greatest reward, affirming that our message of resilience and hope had resonated with many.
 

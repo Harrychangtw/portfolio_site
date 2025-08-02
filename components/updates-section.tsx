@@ -9,6 +9,7 @@ const updates = [
 	{ date: "2025-07-04", text: "Participated in the AIGO program's one-day hackathon at NTU, won [first prize](https://drive.google.com/file/d/1-Nm6tdic38YQcUcuploRbdpE28b4S9rS/view)" },
 	{ date: "2025-07-05", text: "FORTRESS has underwent review for [TMLR](https://openreview.net/forum?id=lCn7RT9DGq)"},
 	{ date: "2025-06-30", text: "PATCH won first prize in school's research competition" },
+	{ date: "2025-06-15", text: "Won championship at Fushing Debate Open 2025 thanks to my amazing team!" },
 	{ date: "2025-06-11", text: "Excited to announce that I have been awarded the Harvard Prize Book!" },
 	{ date: "2025-05-18", text: "Kicked off the FORTRESS project, a RAG-inspired defense system" },
 	{ date: "2025-05-15", text: "PATCH has been submitted to ACL ARR May cycle" },
@@ -143,9 +144,9 @@ export default function UpdatesSection() {
 						}`}
 					>
 						{currentEntries.map((entry, index) => (
-							<div key={index} className="flex justify-between items-center">
-								<p className="font-ibm-plex text-primary">{parseTextWithLinks(entry.text)}</p>
-								<p className="font-ibm-plex text-secondary">{entry.date}</p>
+							<div key={index} className="flex justify-between items-start gap-4">
+								<p className="font-ibm-plex text-primary flex-1">{parseTextWithLinks(entry.text)}</p>
+								<p className="font-ibm-plex text-secondary text-right">{entry.date}</p>
 							</div>
 						))}
 					</div>
