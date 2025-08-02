@@ -1,89 +1,159 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useIsMobile } from "@/hooks/use-mobile"
 import { useState } from "react"
+import { motion } from "framer-motion"
+import { useIsMobile } from "@/hooks/use-mobile" // Assuming this hook exists from your old code
+
+// --- Link Data ---
+// Centralized data for easy management of links and their tooltips.
+const socialLinks = [
+  { id: 'gmail', name: 'Gmail', href: 'mailto:pomelo.cw@gmail.com', tooltip: 'Always happy for a chat!' },
+  { id: 'discord', name: 'Discord', href: 'https://discord.com/users/836567989209661481', tooltip: 'Ping me, maybe I\'ll ping back' },
+  { id: 'github', name: 'GitHub', href: 'https://github.com/Harrychangtw', tooltip: 'Check out my GitHub—where repos go to hide.' },
+  { id: 'instagram', name: 'Instagram', href: 'https://www.instagram.com/pomelo_chang_08/', tooltip: 'Please stalk responsibly' },
+  // { id: 'letterboxd', name: 'Letterboxd', href: 'https://boxd.it/fSKuF', tooltip: 'Judge my movie tastes harshly.' }, // Placeholder href
+];
+
+const resourceLinks = [
+  // { id: 'autobio', name: 'Autobiography', href: '#', tooltip: 'Still living it, check back later.' },
+  { id: 'resume', name: 'Resume', href: 'https://drive.google.com/file/d/1l7vCgSFtglvc1gT7LiVRBzxUIv535PYP/view?usp=sharing', tooltip: 'Proof I know how to adult.' },
+  { id: 'wallpapers', name: 'Wallpapers', href: 'https://photos.google.com/u/1/share/AF1QipN_xATdICaaIO4RzR5CzdIj6AFeoueQmu5100b-a9_QIAzGLhz4HD95OurMi8pqBQ?key=MnV1OGlrQUdRTUg3Y0FHSkdnYVZrOXNMOU1PWFpn', tooltip: 'Spent way too much time on these...' },
+  { id: 'music', name: 'Music Playlists', href: 'https://open.spotify.com/user/1b7kc6j0zerk49mrv80pwdd96?si=7d5a6e1a4fa34de3', tooltip: 'Make me go :D' },
+  { id: 'reading', name: 'Paper Reading List', href: '/paper-reading', tooltip: 'Caffeine-fueled knowledge' },
+];
+
+const allLinks = [...socialLinks, ...resourceLinks];
+
 
 export default function Footer() {
   const isMobile = useIsMobile();
-  const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0 });
+  const [activeTooltipId, setActiveTooltipId] = useState<string | null>(null);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
-  const handleMouseEnter = (e: React.MouseEvent) => {
+  const handleMouseEnter = (e: React.MouseEvent, id: string) => {
     if (!isMobile) {
-      setTooltip({ visible: true, x: e.clientX, y: e.clientY });
+      setTooltipPosition({ x: e.clientX, y: e.clientY });
+      setActiveTooltipId(id);
     }
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isMobile && tooltip.visible) {
-      setTooltip({ ...tooltip, x: e.clientX, y: e.clientY });
+    if (!isMobile && activeTooltipId) {
+      setTooltipPosition({ x: e.clientX, y: e.clientY });
     }
   };
 
   const handleMouseLeave = () => {
     if (!isMobile) {
-      setTooltip({ visible: false, x: 0, y: 0 });
+      setActiveTooltipId(null);
     }
   };
+  
+  const currentTooltipText = activeTooltipId ? allLinks.find(l => l.id === activeTooltipId)?.tooltip : '';
 
   return (
-    <footer className="bg-[#1a1a1a] py-6">
-      <div className="container">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} items-center gap-3`}>
-            <span className="inline-flex items-center px-3 py-1 rounded-full border-2 border-[#D8F600] text-xs text-[#D8F600] font-space-grotesk">
-              v2.2.0
-            </span>
-            {!isMobile && (
-              <span className="text-sm text-secondary font-space-grotesk">Last updated: August 1, 2025</span>
-            )}
-          </div>
-          
-          <div className="flex space-x-5">
-            {['Instagram', 'Discord', 'GitHub', 'Gmail'].map((platform, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.2 }}
-                onMouseEnter={handleMouseEnter}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                className="relative"
-              >
-                <a
-                  href={
-                    platform === 'Instagram' ? 'https://www.instagram.com/pomelo_chang_08/' :
-                    platform === 'Discord' ? 'https://discord.com/users/836567989209661481' :
-                    platform === 'GitHub' ? 'https://github.com/Harrychangtw' :
-                    'mailto:pomelo.cw@gmail.com'
-                  }
-                  className="relative text-white hover:text-[#D8F600] transition-colors px-2 py-1 font-space-grotesk"
-                >
-                  <span className="relative z-10">{platform}</span>
-                </a>
-                <div
-                  className="absolute inset-0 -m-5"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseMove={handleMouseMove}
-                  onMouseLeave={handleMouseLeave}
+    <>
+      <footer className="bg-[#1a1a1a] text-primary py-12 md:py-16 border-t border-border">
+        <div className="container">
+          <div className="grid grid-cols-12 gap-y-10 md:gap-x-2">
+
+            {/* Column 1: Logo & Info - Aligns with the "About" column */}
+            <div className="col-span-12 md:col-span-6 md:pr-12 space-y-4">
+              {/* --- SVG/PNG Logo Placeholder --- */}
+              {/* Replace src with your actual logo file path */}
+              <div className="flex items-start">
+                <img 
+                  src="/chinese_name_icon.png" 
+                  alt="Harry Chang Logo" 
+                  className="h-12 w-auto pt-2" 
                 />
-              </motion.div>
-            ))}
+              </div>
+              <div className="font-ibm-plex text-sm text-secondary">
+                <p>Harry Chang 2025 © All rights reserved.</p>
+                <p>V2.2.0 | Last Updated: Aug. 2025</p>
+              </div>
+            </div>
+
+            {/* Columns 2 & 3 Wrapper - Aligns with the "Roles & Description" columns */}
+            <div className="col-span-12 md:col-span-6">
+              <div className="grid grid-cols-12 gap-y-10 sm:gap-x-4">
+                
+                {/* Column 2: Social & Contact - Aligns with "Roles" */}
+                <div className="col-span-12 sm:col-span-5">
+                  <h3 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">
+                    Social & Contact
+                  </h3>
+                  <ul className="space-y-3">
+                    {socialLinks.map(link => (
+                      <li key={link.id}>
+                        <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+                          <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-ibm-plex text-primary hover:text-[#D8F600] transition-colors"
+                            onMouseEnter={(e) => handleMouseEnter(e, link.id)}
+                            onMouseMove={handleMouseMove}
+                            onMouseLeave={handleMouseLeave}
+                          >
+                            {link.name}
+                          </a>
+                        </motion.div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Column 3: Personal & Resources - Aligns with "Description" */}
+                <div className="col-span-12 sm:col-span-7">
+                  <h3 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">
+                    Personal & Resources
+                  </h3>
+                  <ul className="space-y-3">
+                    {resourceLinks.map(link => (
+                      <li key={link.id}>
+                        <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+                          <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-ibm-plex text-primary hover:text-[#D8F600] transition-colors"
+                            onMouseEnter={(e) => handleMouseEnter(e, link.id)}
+                            onMouseMove={handleMouseMove}
+                            onMouseLeave={handleMouseLeave}
+                          >
+                            {link.name}
+                          </a>
+                        </motion.div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+              </div>
+            </div>
           </div>
         </div>
-        {tooltip.visible && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.2 }}
-            className="fixed bg-[#D8F600] text-black text-sm px-3 py-1 rounded shadow-lg font-space-grotesk"
-            style={{ top: tooltip.y - 40, left: tooltip.x, pointerEvents: 'none', transform: 'translateX(-50%)' }}
-          >
-            Always happy to chat!
-          </motion.div>
-        )}
-      </div>
-    </footer>
+      </footer>
+
+      {/* --- Custom Tooltip Component --- */}
+      {currentTooltipText && (
+        <motion.div
+          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+          transition={{ duration: 0.15, ease: "easeOut" }}
+          className="fixed bg-[#D8F600] text-black text-sm px-3 py-1.5 rounded-md shadow-lg font-space-grotesk z-50"
+          style={{
+            top: tooltipPosition.y - 40,
+            left: tooltipPosition.x,
+            pointerEvents: 'none',
+            transform: 'translateX(-50%)'
+          }}
+        >
+          {currentTooltipText}
+        </motion.div>
+      )}
+    </>
   )
 }
