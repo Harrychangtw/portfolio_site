@@ -15,6 +15,7 @@ export default function Header() {
   const [isScrolling, setIsScrolling] = useState(false)
   const isHomePage = pathname === "/"
   const isPaperReadingPage = pathname?.startsWith('/paper-reading');
+  const isManifestoPage = pathname?.startsWith('/manifesto');
   const isMobile = useIsMobile()
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null); // Ref to manage timeout
 
@@ -180,7 +181,7 @@ export default function Header() {
             </Link>
           </motion.div>
           <AnimatePresence mode="wait">
-            {showSectionTitle && !isPaperReadingPage && (
+            {showSectionTitle && !isPaperReadingPage && !isManifestoPage && (
               <motion.div 
                 className="flex items-center"
                 initial={{ opacity: 0, y: -5 }}
@@ -222,11 +223,32 @@ export default function Header() {
                 </motion.span>
               </motion.div>
             )}
+            {isManifestoPage && (
+               <motion.div 
+                className="flex items-center"
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                transition={{ duration: 0.15, ease: "easeOut" }}
+              >
+                <span className="text-secondary mx-1 text-xl text-secondary">｜</span>
+                <motion.span 
+                  className="font-space-grotesk text-xl text-secondary"
+                  key="manifesto"
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -5 }}
+                  transition={{ duration: 0.15, ease: "easeOut" }}
+                >
+                  Manifesto
+                </motion.span>
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
 
         {/* Navigation Links */}
-        {!isMobile && !isPaperReadingPage && (
+        {!isMobile && !isPaperReadingPage && !isManifestoPage && (
           <nav className="flex space-x-8">
             <Link {...getLinkProps('about', '/')}>
               {isActive('about') && <Underline />}
