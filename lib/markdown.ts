@@ -4,6 +4,7 @@ import matter from "gray-matter"
 import { remark } from "remark"
 import html from "remark-html"
 import { visit } from "unist-util-visit"
+import type { Image as MdastImage } from "mdast"
 
 // Define the directories
 const projectsDirectory = path.join(process.cwd(), "content/projects")
@@ -65,6 +66,7 @@ export interface ProjectMetadata {
   featured?: boolean
   pinned?: number  // Changed from boolean to number, -1 for not pinned, positive numbers for pinning order
   locked?: boolean
+  tooltip?: string
 }
 
 export interface GalleryImage {
@@ -296,7 +298,7 @@ export async function getProjectData(slug: string) {
     const processedContent = await remark()
       .use(() => (tree) => {
         // Process the tree to find image nodes and fix URLs
-        visit(tree, 'image', (node) => {
+        visit(tree, 'image', (node: MdastImage) => {
           if (node.url) {
             // Ensure full resolution images in content
             node.url = getFullResolutionPath(node.url);
@@ -371,7 +373,7 @@ export async function getGalleryItemData(slug: string) {
     const processedContent = await remark()
       .use(() => (tree) => {
         // Process the tree to find image nodes and fix URLs
-        visit(tree, 'image', (node) => {
+        visit(tree, 'image', (node: MdastImage) => {
           // Ensure image URLs use the correct path format
           if (node.url) {
             // Remove -thumb suffix if present to ensure full resolution

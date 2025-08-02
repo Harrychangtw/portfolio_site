@@ -33,7 +33,7 @@ export default function AboutSection() {
                   <p className="font-ibm-plex text-secondary">2024 - Present</p>
                 </div>
                 <div className="col-span-7">
-                  <p className="font-ibm-plex text-primary">Researching LLM safety with a focus on lightweight external classifiers, with two papers currently under review.</p>
+                  <p className="font-ibm-plex text-primary">Researching LLM safety through lightweight external classifiers, with two papers currently under review.</p>
                 </div>
               </div>
 
@@ -83,7 +83,16 @@ export default function AboutSection() {
                   <p className="font-ibm-plex text-secondary">2023 - 2024</p>
                 </div>
                 <div className="col-span-7">
-                  <p className="font-ibm-plex text-primary">Involved heavily development of Chingshin's RAG chatbot. Won first prize in the GenAI Star by NSTC.</p>
+                  <p className="font-ibm-plex text-primary">Involved heavily development of Chingshin's RAG chatbot. Won first prize in the {" "}
+                    <a
+                      href="https://genaistars.org.tw/2024/award/hackathon/28"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-external"
+                    >
+                      GenAI Star competition by NSTC
+                    </a>
+                    .</p>
                 </div>
               </div>
 

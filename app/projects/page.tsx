@@ -28,6 +28,7 @@ export default function ProjectsPage() {
                 imageUrl={project.imageUrl}
                 pinned={project.pinned}
                 locked={project.locked}
+                tooltip={project.tooltip}
                 priority={index < 3}
                 index={index}
               />

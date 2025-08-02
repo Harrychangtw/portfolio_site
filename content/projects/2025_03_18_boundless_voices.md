@@ -11,6 +11,6 @@ technologies: ["Next.js", "React", "TypeScript", "TailwindCSS"]
 pinned: 4
 locked: true
 featured: true
+tooltip: "Project Under Construction"
 ---
-
 

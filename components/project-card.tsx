@@ -14,8 +14,9 @@ interface ProjectCardProps {
   subcategory?: string
   slug: string
   imageUrl: string
-  pinned?: number  // Changed from boolean to number
+  pinned?: number
   locked?: boolean
+  tooltip?: string
   priority?: boolean
   index?: number
 }
@@ -28,6 +29,7 @@ export default function ProjectCard({
   imageUrl,
   pinned,
   locked,
+  tooltip: tooltipText,
   priority = false,
   index = 0
 }: ProjectCardProps) {
@@ -54,17 +56,17 @@ export default function ProjectCard({
 
   // Tooltip handlers for locked cards
   const handleMouseEnter = (e: React.MouseEvent) => {
-    if (!isMobile && locked) {
+    if (!isMobile && tooltipText) {
       setTooltip({ visible: true, x: e.clientX, y: e.clientY });
     }
   };
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isMobile && locked && tooltip.visible) {
+    if (!isMobile && tooltipText && tooltip.visible) {
       setTooltip({ ...tooltip, x: e.clientX, y: e.clientY });
     }
   };
   const handleMouseLeave = () => {
-    if (!isMobile && locked) {
+    if (!isMobile && tooltipText) {
       setTooltip({ visible: false, x: 0, y: 0 });
     }
   };
@@ -155,7 +157,7 @@ export default function ProjectCard({
         </Link>
       )}
       {/* Tooltip for locked projects */}
-      {locked && tooltip.visible && (
+      {tooltipText && tooltip.visible && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -164,7 +166,7 @@ export default function ProjectCard({
           className="fixed bg-[#D8F600] text-black text-sm px-3 py-1 rounded shadow-lg font-space-grotesk z-50"
           style={{ top: tooltip.y - 40, left: tooltip.x, pointerEvents: 'none', transform: 'translateX(-50%)' }}
         >
-          Project under construction...
+          {tooltipText}
         </motion.div>
       )}
     </motion.div>
