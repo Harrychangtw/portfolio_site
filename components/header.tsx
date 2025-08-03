@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react" // Import useRef
+import { useEffect, useState, useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
@@ -162,7 +162,7 @@ export default function Header() {
   // Helper to generate link props (no changes needed here)
   const getLinkProps = (sectionId: string, pagePath: string) => {
     const active = isActive(sectionId);
-    const baseClasses = `relative font-space-grotesk ${active ? "text-primary" : "text-secondary hover:text-primary"} transition-colors duration-200 outline-none`;
+    const baseClasses = `relative font-space-grotesk ${active ? "text-primary" : "text-secondary hover:text-[#D8F600]"} transition-colors duration-200 outline-none`;
     const href = pathname?.startsWith(pagePath) && pagePath !== '/' ? pagePath : `/#${sectionId}`;
     const onClick = isHomePage ? (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => scrollToSection(sectionId, e) : undefined;
     const scroll = !pathname?.startsWith(pagePath);
@@ -170,9 +170,12 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 border-b border-border py-4 z-50 bg-background">
+    <motion.header 
+      layout 
+      className="fixed top-0 left-0 right-0 border-b border-border py-4 z-50 bg-background"
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+    >
       <div className="container flex justify-between items-center">
-        {/* Logo / Name */}
         <div className="flex items-center">
           <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
             <Link
@@ -250,16 +253,22 @@ export default function Header() {
           </AnimatePresence>
         </div>
 
-        {/* Right side - Language Switcher and Navigation */}
-        <div className="flex items-center space-x-4">
-          {/* Language Switcher - Always visible */}
+        <motion.div 
+          layout
+          className="flex items-center space-x-4"
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        >
           <LanguageSwitcher />
           
           {/* Divider and Navigation - Only on desktop */}
           {!isMobile && !isPaperReadingPage && !isManifestoPage && (
             <>
               <span className="text-secondary mx-1 text-xl">｜</span>
-              <nav className="flex space-x-8">
+              <motion.nav 
+                layout
+                className="flex space-x-8"
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
                 <Link {...getLinkProps('about', '/')}>
                   {isActive('about') && <Underline />}
                   {t('header.about')}
@@ -276,11 +285,11 @@ export default function Header() {
                   {isActive('gallery') && <Underline />}
                   {t('header.gallery')}
                 </Link>
-              </nav>
+              </motion.nav>
             </>
           )}
-        </div>
+        </motion.div>
       </div>
-    </header>
+    </motion.header>
   )
 }

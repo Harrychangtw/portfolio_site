@@ -40,7 +40,7 @@ This framing ensures every image maintains its original aspect ratio while align
 
 ### Performance Optimization
 
-A custom script, `optimize-images.js`, was built to automate media processing:
+A custom script was built to automate media processing:
 
 - Converts all images to **WebP** format.
 - Resizes and compresses images with variable quality settings depending on usage.
