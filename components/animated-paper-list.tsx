@@ -1,7 +1,6 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { useSearchParams } from "next/navigation"
 import { Paper } from "@/types/paper"
 import PaperCard from "./paper-card"
 
@@ -10,13 +9,9 @@ interface AnimatedPaperListProps {
 }
 
 export default function AnimatedPaperList({ papers }: AnimatedPaperListProps) {
-  const searchParams = useSearchParams()
-  const currentPage = searchParams.get("page") ?? "1"
-
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={currentPage}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}

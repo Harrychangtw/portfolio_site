@@ -84,9 +84,8 @@ export default function Footer() {
                 <span className="sr-only">Harry Chang/Chi-Wei Chang 張祺煒</span>
                 </div>
               <div className="font-ibm-plex text-sm text-secondary space-y-2">
-                <p>{t('footer.copyright')}</p>
-                <p>{t('footer.version')}</p>
                 <LanguageSwitcher />
+                <p>{t('footer.copyright')}</p>
               </div>
             </div>
 

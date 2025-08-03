@@ -156,26 +156,20 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     let initialLang: Language = 'en'
     
-    // First, check if the current URL suggests a language (look for _zh-tw suffix)
-    const currentPath = window.location.pathname
-    if (currentPath.includes('_zh-tw')) {
-      initialLang = 'zh-TW'
+    // Check localStorage first
+    const savedLang = localStorage.getItem('language') as Language;
+    if (savedLang) {
+      initialLang = savedLang;
     } else {
-      // Check localStorage next
-      const savedLang = localStorage.getItem('language') as Language
-      if (savedLang && ['en', 'zh-TW'].includes(savedLang)) {
-        initialLang = savedLang
-      } else {
-        // Finally check browser language
-        const browserLang = navigator.language
-        if (browserLang.startsWith('zh')) {
-          initialLang = 'zh-TW'
-        }
+      // Check browser preference
+      const browserLang = navigator.language;
+      if (browserLang.startsWith('zh')) {
+        initialLang = 'zh-TW';
       }
     }
 
-    setLanguageState(initialLang)
-    loadTranslations(initialLang)
+    setLanguage(initialLang);
+    loadTranslations(initialLang);
   }, [])
 
   return (

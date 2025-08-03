@@ -6,7 +6,7 @@ import { Paper } from "@/types/paper";
 export default async function PaperReadingPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const arxivPapers = await fetchArxivPapers([
     
@@ -99,7 +99,8 @@ export default async function PaperReadingPage({
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
-  const page = searchParams["page"] ?? "1";
+  const resolvedSearchParams = await searchParams;
+  const page = resolvedSearchParams["page"] ?? "1";
   const currentPage = Number(page);
   const papersPerPage = 15;
 
