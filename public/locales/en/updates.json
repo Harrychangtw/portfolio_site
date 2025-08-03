@@ -1,6 +1,10 @@
 {
   "entries": [
     {
+      "date": "2025-08-02",
+      "text": "[Update] Added full language support for English and Traditional Chinese using i18n!"
+    },
+    {
       "date": "2025-08-01",
       "text": "[Update] Added support for Google Drive and YouTube video links"
     },
