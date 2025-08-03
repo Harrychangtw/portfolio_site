@@ -17,7 +17,7 @@ export default function LanguageSwitcher() {
     <motion.button
       onClick={handleToggleLanguage}
       className="flex items-center space-x-2 font-space-grotesk text-secondary hover:text-[#D8F600] transition-colors duration-200"
-      whileHover={{ y: -1 }}
+      whileHover={{ y: -2 }}
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.2 }}
     >

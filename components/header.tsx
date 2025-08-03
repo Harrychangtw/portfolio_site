@@ -42,7 +42,13 @@ export default function Header() {
         setActiveSection(id)
 
         // 3. Start scroll
-        element.scrollIntoView({ behavior: "smooth" })
+const headerOffset = document.querySelector('header')?.offsetHeight || 0;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
 
         // 4. Set timeout to reset scrolling flag *after* scroll likely finishes
         scrollTimeoutRef.current = setTimeout(() => {
@@ -65,7 +71,16 @@ export default function Header() {
         setTimeout(() => {
            if(document.getElementById(id)) { // Check if element still exists
              // Don't set isScrolling here, it's an initial load scroll
-             element.scrollIntoView({ behavior: "smooth" })
+             const element = document.getElementById(id);
+             if (element) {
+               const headerOffset = document.querySelector('header')?.offsetHeight || 0;
+               const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+               const offsetPosition = elementPosition - headerOffset;
+               window.scrollTo({
+                 top: offsetPosition,
+                 behavior: "smooth",
+               });
+             }
              setActiveSection(id)
            }
         }, 150)
@@ -269,22 +284,30 @@ export default function Header() {
                 className="flex space-x-8"
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
-                <Link {...getLinkProps('about', '/')}>
-                  {isActive('about') && <Underline />}
-                  {t('header.about')}
-                </Link>
-                <Link {...getLinkProps('updates', '/')}>
-                  {isActive('updates') && <Underline />}
-                  {t('header.updates')}
-                </Link>
-                <Link {...getLinkProps('projects', '/projects')}>
-                  {isActive('projects') && <Underline />}
-                  {t('header.projects')}
-                </Link>
-                <Link {...getLinkProps('gallery', '/gallery')}>
-                  {isActive('gallery') && <Underline />}
-                  {t('header.gallery')}
-                </Link>
+                <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+                  <Link {...getLinkProps('about', '/')}>
+                    {isActive('about') && <Underline />}
+                    {t('header.about')}
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+                  <Link {...getLinkProps('updates', '/')}>
+                    {isActive('updates') && <Underline />}
+                    {t('header.updates')}
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+                  <Link {...getLinkProps('projects', '/projects')}>
+                    {isActive('projects') && <Underline />}
+                    {t('header.projects')}
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+                  <Link {...getLinkProps('gallery', '/gallery')}>
+                    {isActive('gallery') && <Underline />}
+                    {t('header.gallery')}
+                  </Link>
+                </motion.div>
               </motion.nav>
             </>
           )}
