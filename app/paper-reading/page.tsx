@@ -97,7 +97,8 @@ export default async function PaperReadingPage({
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
-  const page = searchParams["page"] ?? "1";
+  const pageParam = await searchParams;
+  const page = pageParam["page"] ?? "1";
   const currentPage = Number(page);
   const papersPerPage = 15;
 
