@@ -14,6 +14,8 @@ interface DecryptedTextProps extends HTMLMotionProps<'span'> {
     encryptedClassName?: string
     parentClassName?: string
     animateOn?: 'view' | 'hover'
+    sequentialDelay?: number
+    startDelay?: number
 }
 
 export default function DecryptedText({
@@ -28,6 +30,8 @@ export default function DecryptedText({
     parentClassName = '',
     encryptedClassName = '',
     animateOn = 'hover',
+    sequentialDelay = 10,
+    startDelay = 0,
     ...props
 }: DecryptedTextProps) {
     const [displayText, setDisplayText] = useState<string>(text)
@@ -39,6 +43,7 @@ export default function DecryptedText({
 
     useEffect(() => {
         let interval: NodeJS.Timeout
+        let startTimeout: NodeJS.Timeout
         let currentIteration = 0
 
         const getNextIndex = (revealedSet: Set<number>): number => {
@@ -113,32 +118,34 @@ export default function DecryptedText({
 
         if (isHovering) {
             setIsScrambling(true)
-            interval = setInterval(() => {
-                setRevealedIndices((prevRevealed) => {
-                    if (sequential) {
-                        if (prevRevealed.size < text.length) {
-                            const nextIndex = getNextIndex(prevRevealed)
-                            const newRevealed = new Set(prevRevealed)
-                            newRevealed.add(nextIndex)
-                            setDisplayText(shuffleText(text, newRevealed))
-                            return newRevealed
+            startTimeout = setTimeout(() => {
+                interval = setInterval(() => {
+                    setRevealedIndices((prevRevealed) => {
+                        if (sequential) {
+                            if (prevRevealed.size < text.length) {
+                                const nextIndex = getNextIndex(prevRevealed)
+                                const newRevealed = new Set(prevRevealed)
+                                newRevealed.add(nextIndex)
+                                setDisplayText(shuffleText(text, newRevealed))
+                                return newRevealed
+                            } else {
+                                clearInterval(interval)
+                                setIsScrambling(false)
+                                return prevRevealed
+                            }
                         } else {
-                            clearInterval(interval)
-                            setIsScrambling(false)
+                            setDisplayText(shuffleText(text, prevRevealed))
+                            currentIteration++
+                            if (currentIteration >= maxIterations) {
+                                clearInterval(interval)
+                                setIsScrambling(false)
+                                setDisplayText(text)
+                            }
                             return prevRevealed
                         }
-                    } else {
-                        setDisplayText(shuffleText(text, prevRevealed))
-                        currentIteration++
-                        if (currentIteration >= maxIterations) {
-                            clearInterval(interval)
-                            setIsScrambling(false)
-                            setDisplayText(text)
-                        }
-                        return prevRevealed
-                    }
-                })
-            }, speed)
+                    })
+                }, sequential ? sequentialDelay : speed)
+            }, startDelay)
         } else {
             setDisplayText(text)
             setRevealedIndices(new Set())
@@ -146,6 +153,7 @@ export default function DecryptedText({
         }
 
         return () => {
+            if (startTimeout) clearTimeout(startTimeout)
             if (interval) clearInterval(interval)
         }
     }, [
@@ -157,6 +165,8 @@ export default function DecryptedText({
         revealDirection,
         characters,
         useOriginalCharsOnly,
+        sequentialDelay,
+        startDelay,
     ])
 
     useEffect(() => {

@@ -7,11 +7,13 @@ export default function AboutSection() {
           <div className="col-span-12 md:col-span-6 pr-0 md:pr-12">
             <h2 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">About</h2>
             <p className="font-ibm-plex text-primary lcp-bio" style={{contain: "paint"}}>
-              Hi, I'm Harry Chang 👋🏻 — a curious builder, storyteller, and explorer at heart.
+              
+              Hi, I'm Harry Chang 👋🏻 — a curious builder, storyteller, and explorer at heart. From building LEGO mechanisms at age 4 to researching LLM safety today, I'm driven by one question: "Where can this be applied?"
               <br /><br />
-              Currently studying at Chingshin Academy, with a love for making things — whether it's code, visuals, or hands-on projects. Grew up around tools and machines, always more interested in how things worked than what they looked like.
+              My interests span AI research, filmmaking, and robotics. Currently in 12th grade at Chingshin Academy in Taipei, Taiwan, I balance academics with pursuing unconventional projects that fascinate me. But beyond the code and cameras, I believe the best creations are those that solve problems and open doors for others.
+              
               <br /><br />
-              Driven by curiosity, shaped by community, and grounded in the joy of learning by doing. Passion lives in the process — and in the little moments, like filming under pressure or tinkering late into the night.
+              I learn by doing, teach by sharing, and stay rooted in the wonder of my five-year-old self. Currently wandering down various unconventional paths, because the road less traveled is where the best stories begin.
             </p>
           </div>
 

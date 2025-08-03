@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from 'react';
 import LetterGlitch from '@/components/letter-glitch';
-import ScrollFloat from '@/components/scroll-float';
 
 const manifestoChunks = [
     [
@@ -75,8 +74,10 @@ const manifestoChunks = [
         "Forever becoming,",
         "Forever beginning,",
         "Forever that child in the factory yard,",
-        "Looking up at the infinite."
-    ]
+        "Looking up at the infinite.",
+        "Hands dirty with creation, heart clean with wonder.",
+    ],
+
 ];
 
 export default function ManifestoPage() {
@@ -90,6 +91,11 @@ export default function ManifestoPage() {
         // Add a small delay for a smoother transition between animation and content
         setTimeout(() => setIntroComplete(true), 500);
     };
+
+    // Scroll to top when component mounts
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     // Block scrolling until the intro animation is complete
     useEffect(() => {
@@ -156,18 +162,28 @@ export default function ManifestoPage() {
                             {manifestoChunks.map((chunk, chunkIndex) => (
                                 <div
                                     key={chunkIndex}
-                                    ref={(el) => (chunkRefs.current[chunkIndex] = el)}
+                                    ref={(el) => {
+                                        chunkRefs.current[chunkIndex] = el;
+                                    }}
                                     data-index={chunkIndex}
-                                    className={`transition-all duration-1000 ease-in-out space-y-4 ${
-                                        visibleChunks[chunkIndex]
-                                            ? 'opacity-100 translate-y-0'
-                                            : 'opacity-0 translate-y-10'
-                                    }`}
+                                    className="space-y-4"
                                 >
                                     {chunk.map((line, lineIndex) => (
-                                        <ScrollFloat key={`${chunkIndex}-${lineIndex}`} textClassName="text-base md:text-lg leading-relaxed text-gray-200">
-                                            {line}
-                                        </ScrollFloat>
+                                        <div 
+                                            key={`${chunkIndex}-${lineIndex}`} 
+                                            className={`block transition-all duration-1000 ease-out ${
+                                                visibleChunks[chunkIndex] 
+                                                    ? 'opacity-100 translate-y-0' 
+                                                    : 'opacity-0 translate-y-8'
+                                            }`}
+                                            style={{
+                                                transitionDelay: visibleChunks[chunkIndex] ? `${lineIndex * 200}ms` : '0ms'
+                                            }}
+                                        >
+                                            <p className="text-base md:text-lg leading-relaxed text-gray-200">
+                                                {line}
+                                            </p>
+                                        </div>
                                     ))}
                                 </div>
                             ))}

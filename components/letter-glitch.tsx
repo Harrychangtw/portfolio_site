@@ -32,6 +32,8 @@ const LetterGlitch = ({
   const [animationPhase, setAnimationPhase] = useState(0);
   const [isInitialized, setIsInitialized] = useState(false);
   const [animationCompleted, setAnimationCompleted] = useState(false);
+  const [isWideEnough, setIsWideEnough] = useState(true);
+  const minWidth = 800;
   
   // Refs to hold the latest state for the animation loop, preventing stale closures.
   const animationPhaseRef = useRef(animationPhase);
@@ -243,7 +245,12 @@ const LetterGlitch = ({
 
     const centerX = Math.floor(columns / 2);
     const centerY = Math.floor(rows / 2);
-    const maxRadius = Math.sqrt(centerX ** 2 + centerY ** 2);
+    
+    // Normalize coordinates to account for character aspect ratio
+    const aspectRatio = charHeight / charWidth; // 20/10 = 2
+    const normalizedCenterX = centerX;
+    const normalizedCenterY = centerY * aspectRatio;
+    const maxRadius = Math.sqrt(normalizedCenterX ** 2 + normalizedCenterY ** 2);
     const glitchRadius = scrollIntensityRef.current * maxRadius;
 
     letters.current.forEach((letter, index) => {
@@ -251,7 +258,11 @@ const LetterGlitch = ({
 
       const x = index % columns;
       const y = Math.floor(index / columns);
-      const distance = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
+      
+      // Apply the same normalization to the letter coordinates
+      const normalizedX = x;
+      const normalizedY = y * aspectRatio;
+      const distance = Math.sqrt((normalizedX - normalizedCenterX) ** 2 + (normalizedY - normalizedCenterY) ** 2);
 
       if (distance <= glitchRadius) {
         if (letter.char === ' ' && Math.random() > 0.95) {
@@ -318,7 +329,7 @@ const LetterGlitch = ({
     }
 
     // Use the ref to check phase for glitching.
-    if (animationPhaseRef.current >= 4) {
+    if (animationPhaseRef.current >= 5) {
       if (now - lastGlitchTime.current >= glitchSpeed) {
         updateBackgroundGlitch();
         lastGlitchTime.current = now;
@@ -332,7 +343,26 @@ const LetterGlitch = ({
   };
 
   useEffect(() => {
-    if (!isInitialized || grid.current.columns === 0) return;
+    const checkWidth = () => {
+      const wide = window.innerWidth >= minWidth;
+      setIsWideEnough(wide);
+      if (!wide && !animationCompleted) {
+        setTimeout(() => {
+          if (onAnimationComplete) {
+            onAnimationComplete();
+          }
+          setAnimationCompleted(true);
+        }, 500);
+      }
+    };
+
+    checkWidth();
+    window.addEventListener('resize', checkWidth);
+    return () => window.removeEventListener('resize', checkWidth);
+  }, [onAnimationComplete, animationCompleted]);
+
+  useEffect(() => {
+    if (!isWideEnough || !isInitialized || grid.current.columns === 0) return;
     switch (animationPhase) {
       case 0: setTimeout(() => setAnimationPhase(1), 2000); break;
       case 1:
@@ -351,10 +381,17 @@ const LetterGlitch = ({
         break;
       case 3:
         setTimeout(() => {
+          const { textRow, startCol } = getTextPosition("The five 5 year old me who believe in magic, the child i once was...", grid.current.columns, grid.current.rows);
+          morphTextInGrid("The five 5 year old me who believe in magic, the child i once was...", textRow, startCol, true);
+          setTimeout(() => setAnimationPhase(4), 3000);
+        }, 100);
+        break;
+      case 4:
+        setTimeout(() => {
           setAsciiInGrid(true);
           setTimeout(() => {
             setScrollIndicator();
-            setAnimationPhase(4);
+            setAnimationPhase(5);
             setTimeout(() => {
               if (!animationCompleted) {
                 setAnimationCompleted(true);
@@ -364,12 +401,14 @@ const LetterGlitch = ({
           }, 1500);
         }, 100);
         break;
-      case 4: 
+      case 5: 
         break;
     }
-  }, [animationPhase, isInitialized, animationCompleted]);
+  }, [animationPhase, isInitialized, animationCompleted, isWideEnough]);
 
   useEffect(() => {
+    if (!isWideEnough) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     context.current = canvas.getContext("2d");
@@ -412,7 +451,8 @@ const LetterGlitch = ({
         animationRef.current = null;
         setIsInitialized(false);
         setAnimationPhase(0);
-        initializeAndStart();
+        // No need to call initializeAndStart() here as the checkWidth in the other useEffect will trigger a re-render
+        // which will re-run this effect if isWideEnough becomes true.
       }, 100);
     };
 
@@ -431,7 +471,7 @@ const LetterGlitch = ({
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isWideEnough]);
 
   const containerStyle: React.CSSProperties = {
     position: "relative", width: "100%", height: "100vh",
@@ -443,7 +483,24 @@ const LetterGlitch = ({
 
   return (
     <div style={containerStyle}>
-      <canvas ref={canvasRef} style={canvasStyle} />
+      {isWideEnough ? (
+        <canvas ref={canvasRef} style={canvasStyle} />
+      ) : (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          height: '100%',
+          color: '#ffffff',
+          fontSize: '2rem',
+          fontFamily: 'monospace',
+          padding: '1rem',
+          textAlign: 'center'
+        }}>
+          L'enfant que j'étais
+        </div>
+      )}
     </div>
   );
 };

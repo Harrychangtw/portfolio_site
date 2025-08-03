@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { useIsMobile } from "@/hooks/use-mobile" // Assuming this hook exists from your old code
 
@@ -9,14 +9,14 @@ import { useIsMobile } from "@/hooks/use-mobile" // Assuming this hook exists fr
 const socialLinks = [
   { id: 'gmail', name: 'Gmail', href: 'mailto:pomelo.cw@gmail.com', tooltip: 'Always happy for a chat!' },
   { id: 'discord', name: 'Discord', href: 'https://discord.com/users/836567989209661481', tooltip: 'Ping me, maybe I\'ll ping back' },
-  { id: 'github', name: 'GitHub', href: 'https://github.com/Harrychangtw', tooltip: 'Check out my GitHub—where repos go to hide.' },
+  { id: 'github', name: 'GitHub', href: 'https://github.com/Harrychangtw', tooltip: 'Check out my GitHub—where repos go to hide' },
   { id: 'instagram', name: 'Instagram', href: 'https://www.instagram.com/pomelo_chang_08/', tooltip: 'Please stalk responsibly' },
-  // { id: 'letterboxd', name: 'Letterboxd', href: 'https://boxd.it/fSKuF', tooltip: 'Judge my movie tastes harshly.' }, // Placeholder href
+  { id: 'letterboxd', name: 'Letterboxd', href: 'https://boxd.it/fSKuF', tooltip: 'Judge my movie tastes harshly.' }, // Placeholder href
 ];
 
 const resourceLinks = [
-  // { id: 'autobio', name: 'Autobiography', href: '#', tooltip: 'Still living it, check back later.' },
-  { id: 'resume', name: 'Resume', href: 'https://drive.google.com/file/d/1l7vCgSFtglvc1gT7LiVRBzxUIv535PYP/view?usp=sharing', tooltip: 'Proof I know how to adult.' },
+  { id: 'resume', name: 'Resume', href: 'https://drive.google.com/file/d/1l7vCgSFtglvc1gT7LiVRBzxUIv535PYP/view?usp=sharing', tooltip: 'Proof I know how to adult' },
+  { id: 'manifesto', name: 'Manifesto', href: '/manifesto', tooltip: 'A bridge back to naiveté' },
   { id: 'wallpapers', name: 'Wallpapers', href: 'https://photos.google.com/u/1/share/AF1QipN_xATdICaaIO4RzR5CzdIj6AFeoueQmu5100b-a9_QIAzGLhz4HD95OurMi8pqBQ?key=MnV1OGlrQUdRTUg3Y0FHSkdnYVZrOXNMOU1PWFpn', tooltip: 'Spent way too much time on these...' },
   { id: 'music', name: 'Music Playlists', href: 'https://open.spotify.com/user/1b7kc6j0zerk49mrv80pwdd96?si=7d5a6e1a4fa34de3', tooltip: 'Make me go :D' },
   { id: 'reading', name: 'Paper Reading List', href: '/paper-reading', tooltip: 'Caffeine-fueled knowledge' },
@@ -29,6 +29,16 @@ export default function Footer() {
   const isMobile = useIsMobile();
   const [activeTooltipId, setActiveTooltipId] = useState<string | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const [showManifesto, setShowManifesto] = useState(false);
+
+  useEffect(() => {
+    const checkWidth = () => {
+      setShowManifesto(window.innerWidth >= 800);
+    };
+    checkWidth();
+    window.addEventListener('resize', checkWidth);
+    return () => window.removeEventListener('resize', checkWidth);
+  }, []);
 
   const handleMouseEnter = (e: React.MouseEvent, id: string) => {
     if (!isMobile) {
@@ -50,6 +60,7 @@ export default function Footer() {
   };
   
   const currentTooltipText = activeTooltipId ? allLinks.find(l => l.id === activeTooltipId)?.tooltip : '';
+  const filteredResourceLinks = resourceLinks.filter(link => link.id !== 'manifesto' || showManifesto);
 
   return (
     <>
@@ -61,13 +72,14 @@ export default function Footer() {
             <div className="col-span-12 md:col-span-6 md:pr-12 space-y-4">
               {/* --- SVG/PNG Logo Placeholder --- */}
               {/* Replace src with your actual logo file path */}
-              <div className="flex items-start">
+                <div className="flex items-start">
                 <img 
                   src="/chinese_name_icon.png" 
-                  alt="Harry Chang Logo" 
+                  alt="Harry Chang/Chi-Wei Chang 張祺煒 Logo" 
                   className="h-12 w-auto pt-2" 
                 />
-              </div>
+                <span className="sr-only">Harry Chang/Chi-Wei Chang 張祺煒</span>
+                </div>
               <div className="font-ibm-plex text-sm text-secondary">
                 <p>Harry Chang 2025 © All rights reserved.</p>
                 <p>V2.2.0 | Last Updated: Aug. 2025</p>
@@ -110,7 +122,7 @@ export default function Footer() {
                     Personal & Resources
                   </h3>
                   <ul className="space-y-3">
-                    {resourceLinks.map(link => (
+                    {filteredResourceLinks.map(link => (
                       <li key={link.id}>
                         <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
                           <a
