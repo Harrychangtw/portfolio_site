@@ -24,10 +24,23 @@
     "title": "更新"
   },
   "projects": {
-    "title": "項目"
+    "title": "項目",
+    "backToProjects": "回到項目",
+    "noProjectsFound": "未找到項目。請在 content/projects 目錄中創建一些。",
+    "year": "年份",
+    "role": "角色",
+    "technologies": "技術",
+    "client": "客戶",
+    "website": "網站"
   },
   "gallery": {
-    "title": "畫廊"
+    "title": "攝影畫廊",
+    "backToGallery": "回到畫廊",
+    "noGalleryFound": "未找到畫廊項目。請在 content/gallery 目錄中創建一些。",
+    "camera": "相機",
+    "lens": "鏡頭",
+    "location": "位置",
+    "tags": "標籤"
   },
   "social": {
     "gmail": "Gmail",

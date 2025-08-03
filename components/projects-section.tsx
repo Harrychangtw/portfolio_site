@@ -4,8 +4,10 @@ import { useEffect, useState, useRef } from "react"
 import ProjectCard from "./project-card"
 import { ProjectMetadata } from "@/lib/markdown"
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 export default function ProjectsSection() {
+  const { language, t } = useLanguage()
   const [projects, setProjects] = useState<ProjectMetadata[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const sectionRef = useRef<HTMLElement>(null)
@@ -17,7 +19,7 @@ export default function ProjectsSection() {
   useEffect(() => {
     async function fetchProjects() {
       try {
-        const response = await fetch('/api/projects')
+        const response = await fetch(`/api/projects?locale=${language}`)
         const data = await response.json()
         setProjects(data)
       } catch (error) {
@@ -30,12 +32,12 @@ export default function ProjectsSection() {
     if (isVisible) {
       fetchProjects()
     }
-  }, [isVisible])
+  }, [isVisible, language])
 
   return (
     <section ref={sectionRef} id="projects" className="py-12 md:py-16 border-b border-border">
       <div className="container">
-        <h2 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">Projects</h2>
+        <h2 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">{t('projects.title')}</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-[var(--column-spacing)]">
           {isLoading ? (

@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server"
 import { getAllGalleryMetadata } from "@/lib/markdown"
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const galleryItems = getAllGalleryMetadata()
+    const { searchParams } = new URL(request.url)
+    const locale = searchParams.get('locale') || 'en'
+    const galleryItems = getAllGalleryMetadata(locale)
     return NextResponse.json(galleryItems)
   } catch (error) {
     console.error("Error fetching gallery items:", error)

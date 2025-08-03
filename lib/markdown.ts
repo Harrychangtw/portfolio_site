@@ -156,14 +156,31 @@ export function getAllGallerySlugs() {
 }
 
 // Get all projects metadata
-export function getAllProjectsMetadata(): ProjectMetadata[] {
+export function getAllProjectsMetadata(locale: string = 'en'): ProjectMetadata[] {
   ensureDirectoriesExist()
   try {
     if (!fs.existsSync(projectsDirectory)) {
       return []
     }
 
-    const fileNames = fs.readdirSync(projectsDirectory)
+let fileNames = fs.readdirSync(projectsDirectory)
+
+    // Filter files based on locale to show only one version
+    fileNames = fileNames.filter(fileName => {
+      if (locale === 'zh-TW') {
+        // For Chinese, prioritize _zh-tw files, fallback to base files if no Chinese version exists
+        if (fileName.includes('_zh-tw')) {
+          return true
+        }
+        // Check if Chinese version exists for this base file
+        const baseName = fileName.replace('.md', '')
+        const chineseVersion = `${baseName}_zh-tw.md`
+        return !fs.existsSync(path.join(projectsDirectory, chineseVersion)) && !fileName.includes('_')
+      } else {
+        // For English, only show files without locale suffix
+        return !fileName.includes('_zh-tw') && !fileName.includes('_zh-TW')
+      }
+    })
     const allProjectsData = fileNames
       .filter(fileName => fileName.endsWith('.md'))
       .map((fileName) => {
@@ -218,14 +235,31 @@ export function getAllProjectsMetadata(): ProjectMetadata[] {
 }
 
 // Get all gallery items metadata
-export function getAllGalleryMetadata(): GalleryItemMetadata[] {
+export function getAllGalleryMetadata(locale: string = 'en'): GalleryItemMetadata[] {
   ensureDirectoriesExist()
   try {
     if (!fs.existsSync(galleryDirectory)) {
       return []
     }
 
-    const fileNames = fs.readdirSync(galleryDirectory)
+let fileNames = fs.readdirSync(galleryDirectory)
+
+    // Filter files based on locale to show only one version
+    fileNames = fileNames.filter(fileName => {
+      if (locale === 'zh-TW') {
+        // For Chinese, prioritize _zh-tw files, fallback to base files if no Chinese version exists
+        if (fileName.includes('_zh-tw')) {
+          return true
+        }
+        // Check if Chinese version exists for this base file
+        const baseName = fileName.replace('.md', '')
+        const chineseVersion = `${baseName}_zh-tw.md`
+        return !fs.existsSync(path.join(galleryDirectory, chineseVersion)) && !fileName.includes('_')
+      } else {
+        // For English, only show files without locale suffix
+        return !fileName.includes('_zh-tw') && !fileName.includes('_zh-TW')
+      }
+    })
     const allGalleryData = fileNames
       .filter(fileName => fileName.endsWith('.md'))
       .map((fileName) => {

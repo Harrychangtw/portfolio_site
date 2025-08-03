@@ -19,7 +19,7 @@ SITCON is the biggest student-focused developer conference. I was first introduc
 
 Initially, I was reluctant—presenting a 40-minute-long speech at a conference I’d never attended felt daunting. But as time would tell, the experience turned out to be not only memorable but, dare I say, life-changing.
 
-![The behind-the-scenes documentary](https://www.youtube.com/watch?v=ujxlUTXlC04)
+![The official keynote recording](https://www.youtube.com/watch?v=ujxlUTXlC04)
 
 ---
 

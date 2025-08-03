@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { getGalleryItemData, getAllGallerySlugs } from "@/lib/markdown"
-import GalleryItemClient from "./GalleryItemClient"
+import GalleryItemPageClient from "@/components/gallery-item-page-client"
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const slug = params?.slug
@@ -36,6 +36,6 @@ export default async function GalleryItemPage({ params }: { params: { slug: stri
     notFound()
   }
 
-  return <GalleryItemClient item={item} />
+  return <GalleryItemPageClient initialItem={item} />
 }
 

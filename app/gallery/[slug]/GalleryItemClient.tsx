@@ -4,12 +4,15 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { GalleryImageContainer } from "@/components/gallery-image-container"
 import type { GalleryItemMetadata } from "@/lib/markdown"
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface GalleryItemClientProps {
   item: GalleryItemMetadata & { contentHtml: string }
 }
 
 export default function GalleryItemClient({ item }: GalleryItemClientProps) {
+  const { language, t } = useLanguage()
+  
   // Extract the full image URL (not thumbnail) for the main hero image
   const fullImageUrl = item.imageUrl?.replace('-thumb.webp', '.webp') || '/placeholder.svg';
 
@@ -43,12 +46,12 @@ export default function GalleryItemClient({ item }: GalleryItemClientProps) {
                     className="inline-flex items-center text-secondary hover:text-primary transition-colors"
                   >
                     <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back to gallery
+                    {t('gallery.backToGallery')}
                   </Link>
                   <div className="mt-8">
                     <h1 className="font-space-grotesk text-3xl md:text-4xl font-bold mb-4 md:mb-8">{item.title}</h1>
                     <p className="text-secondary mb-6 md:mb-12">
-                      {new Date(item.date).toLocaleDateString("en-US", {
+                      {new Date(item.date).toLocaleDateString(language === 'zh-TW' ? "zh-TW" : "en-US", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
@@ -74,25 +77,25 @@ export default function GalleryItemClient({ item }: GalleryItemClientProps) {
                   } text-secondary`}>
                     {item.camera && (
                       <div>
-                        <p className="uppercase text-xs mb-1">Camera</p>
+                        <p className="uppercase text-xs mb-1">{t('gallery.camera')}</p>
                         <p>{item.camera}</p>
                       </div>
                     )}
                     {item.lens && (
                       <div>
-                        <p className="uppercase text-xs mb-1">Lens</p>
+                        <p className="uppercase text-xs mb-1">{t('gallery.lens')}</p>
                         <p>{item.lens}</p>
                       </div>
                     )}
                     {item.location && (
                       <div>
-                        <p className="uppercase text-xs mb-1">Location</p>
+                        <p className="uppercase text-xs mb-1">{t('gallery.location')}</p>
                         <p>{item.location}</p>
                       </div>
                     )}
                     {item.tags && item.tags.length > 0 && (
                       <div>
-                        <p className="uppercase text-xs mb-1">Tags</p>
+                        <p className="uppercase text-xs mb-1">{t('gallery.tags')}</p>
                         <p>{item.tags.join(", ")}</p>
                       </div>
                     )}

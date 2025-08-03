@@ -24,10 +24,23 @@
     "title": "Updates"
   },
   "projects": {
-    "title": "Projects"
+    "title": "Projects",
+    "backToProjects": "Back to projects",
+    "noProjectsFound": "No projects found. Create some in the content/projects directory.",
+    "year": "Year",
+    "role": "Role", 
+    "technologies": "Technologies",
+    "client": "Client",
+    "website": "Website"
   },
   "gallery": {
-    "title": "Gallery"
+    "title": "Photo Gallery",
+    "backToGallery": "Back to gallery",
+    "noGalleryFound": "No gallery items found. Create some in the content/gallery directory.",
+    "camera": "Camera",
+    "lens": "Lens",
+    "location": "Location",
+    "tags": "Tags"
   },
   "social": {
     "gmail": "Gmail",
