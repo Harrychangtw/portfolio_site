@@ -9,6 +9,7 @@ interface LanguageContextType {
   setLanguage: (lang: Language) => void
   t: (key: string, namespace?: string) => string
   tHtml: (key: string, namespace?: string) => React.ReactNode
+  getTranslationData: (key: string, namespace?: string) => any
   isLoading: boolean
 }
 
@@ -76,7 +77,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const loadTranslations = async (lang: Language) => {
     setIsLoading(true)
     try {
-      const namespaces = ['common', 'about']
+      const namespaces = ['common', 'about', 'updates']
       const translationPromises = namespaces.map(async (namespace) => {
         const response = await fetch(`/locales/${lang}/${namespace}.json`)
         if (response.ok) {
@@ -123,6 +124,27 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return parseHtmlToReact(translatedText)
   }
 
+  // Function to get translation data (including arrays and objects)
+  const getTranslationData = (key: string, namespace: string = 'common'): any => {
+    let value: any = translations[namespace]
+    
+    // If key is empty, return the entire namespace
+    if (!key || key === '') {
+      return value
+    }
+    
+    const keys = key.split('.')
+    for (const k of keys) {
+      if (value && typeof value === 'object') {
+        value = value[k]
+      } else {
+        return null // Return null if translation not found
+      }
+    }
+
+    return value
+  }
+
   // Set language and load translations
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
@@ -157,6 +179,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         setLanguage,
         t,
         tHtml,
+        getTranslationData,
         isLoading,
       }}
     >

@@ -1,0 +1,52 @@
+{
+  "entries": [
+    {
+      "date": "2025-08-01",
+      "text": "[Update] Added support for Google Drive and YouTube video links"
+    },
+    {
+      "date": "2025-08-01", 
+      "text": "[Update] Made some layout improvements to the portfolio site"
+    },
+    {
+      "date": "2025-07-31",
+      "text": "[Event] Gave a speech for <a href=\"https://www.technice.com.tw/issues/ai/185561/\">AI WAVE Opening Ceramony</a> at TWTC"
+    },
+    {
+      "date": "2025-07-30",
+      "text": "[Research] PATCH has been submitted to ACL ARR July cycle after extensive revisions"
+    },
+    {
+      "date": "2025-07-04",
+      "text": "[Achievement] Participated in the AIGO program's one-day hackathon at NTU, won <a href=\"https://drive.google.com/file/d/1-Nm6tdic38YQcUcuploRbdpE28b4S9rS/view\">first prize</a>"
+    },
+    {
+      "date": "2025-07-05",
+      "text": "[Research] FORTRESS has underwent review for <a href=\"https://openreview.net/forum?id=lCn7RT9DGq\">TMLR</a>"
+    },
+    {
+      "date": "2025-06-30",
+      "text": "[Achievement] PATCH won first prize in school's research competition"
+    },
+    {
+      "date": "2025-06-15",
+      "text": "[Achievement] Won championship at Fushing Debate Open 2025 thanks to my amazing team!"
+    },
+    {
+      "date": "2025-06-11",
+      "text": "[Award] Excited to announce that I have been awarded the Harvard Prize Book!"
+    },
+    {
+      "date": "2025-05-18",
+      "text": "[Project] Kicked off the FORTRESS project, a RAG-inspired defense system"
+    },
+    {
+      "date": "2025-05-15",
+      "text": "[Research] PATCH has been submitted to ACL ARR May cycle"
+    },
+    {
+      "date": "2025-04-01",
+      "text": "[Milestone] Personal portfolio site launched 🎉"
+    }
+  ]
+}
