@@ -1,6 +1,7 @@
 "use client"
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 const updates = [
 	{ date: "2025-08-01", text: "[Update] Added support for Google Drive and YouTube video links" },
@@ -51,6 +52,7 @@ const parseTextWithLinks = (text: string) => {
 
 
 export default function UpdatesSection() {
+	const { t } = useLanguage()
 	const [currentPage, setCurrentPage] = useState(0)
 	const [isTransitioning, setIsTransitioning] = useState(false)
 	const [contentHeight, setContentHeight] = useState<number | 'auto'>('auto')
@@ -101,7 +103,7 @@ export default function UpdatesSection() {
 			<div className="container">
 				<div className="flex justify-between items-center mb-4">
 					<h2 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary">
-						Updates
+						{t('updates.title')}
 					</h2>
 					<div className="flex space-x-4">
 						<motion.div

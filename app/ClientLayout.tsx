@@ -9,6 +9,7 @@ import "@/styles/lcp-optimize.css"
 import { Analytics } from "@vercel/analytics/react"
 import ClickSpark from "@/components/ui/click-spark"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { LanguageProvider } from "@/contexts/LanguageContext"
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -40,22 +41,24 @@ export default function ClientLayout({
   return (
     <html lang="en" className={`dark ${pressStart2P.variable} ${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
       <body className={`bg-background text-primary antialiased min-h-screen flex flex-col`}>
-        <Header />
-        {isMobile ? (
-          children
-        ) : (
-          <ClickSpark
-            sparkColor="#ffffff"
-            sparkSize={8}
-            sparkRadius={15}
-            sparkCount={4}
-            duration={500}
-            extraScale={1.2}
-          >
-            {children}
-          </ClickSpark>
-        )}
-        <Analytics />
+        <LanguageProvider>
+          <Header />
+          {isMobile ? (
+            children
+          ) : (
+            <ClickSpark
+              sparkColor="#ffffff"
+              sparkSize={8}
+              sparkRadius={15}
+              sparkCount={4}
+              duration={500}
+              extraScale={1.2}
+            >
+              {children}
+            </ClickSpark>
+          )}
+          <Analytics />
+        </LanguageProvider>
       </body>
     </html>
   )

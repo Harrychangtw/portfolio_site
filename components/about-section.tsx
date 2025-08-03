@@ -1,19 +1,22 @@
+"use client"
+
+import { useLanguage } from '@/contexts/LanguageContext'
+
 export default function AboutSection() {
+  const { t, tHtml } = useLanguage()
   return (
     <section id="about" className="py-12 md:py-16 border-b border-border">
       <div className="container">
         <div className="grid grid-cols-12 gap-2">
           {/* About column - spans half the width on desktop */}
           <div className="col-span-12 md:col-span-6 pr-0 md:pr-12">
-            <h2 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">About</h2>
+            <h2 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">{t('about.title')}</h2>
             <p className="font-ibm-plex text-primary lcp-bio" style={{contain: "paint"}}>
-              
-              Hi, I'm Harry Chang 👋🏻 — a curious builder, storyteller, and explorer at heart. From building LEGO mechanisms at age 4 to researching LLM safety today, I'm driven by one question: "Where can this be applied?"
+              {t('bio1', 'about')}
               <br /><br />
-              My interests span AI research, filmmaking, and robotics. Currently in 12th grade at Chingshin Academy in Taipei, Taiwan, I balance academics with pursuing unconventional projects that fascinate me. But beyond the code and cameras, I believe the best creations are those that solve problems and open doors for others.
-              
+              {t('bio2', 'about')}
               <br /><br />
-              I learn by doing, teach by sharing, and stay rooted in the wonder of my five-year-old self. Currently wandering down various unconventional paths, because the road less traveled is where the best stories begin.
+              {t('bio3', 'about')}
             </p>
           </div>
 
@@ -21,101 +24,61 @@ export default function AboutSection() {
           <div className="col-span-12 md:col-span-6 mt-8 md:mt-0">
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-5">
-                <h2 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">Roles</h2>
+                <h2 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">{t('about.roles')}</h2>
               </div>
               <div className="col-span-7">
-                <h2 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">Description</h2>
+                <h2 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">{t('about.description')}</h2>
               </div>
             </div>
 
             <div className="space-y-6">
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-5">
-                  <h3 className="font-space-grotesk font-medium">LLM Researcher</h3>
-                  <p className="font-ibm-plex text-secondary">2024 - Present</p>
+                  <h3 className="font-space-grotesk font-medium">{t('roles.llmResearcher.title', 'about')}</h3>
+                  <p className="font-ibm-plex text-secondary">{t('roles.llmResearcher.period', 'about')}</p>
                 </div>
                 <div className="col-span-7">
-                  <p className="font-ibm-plex text-primary">Researching LLM safety through lightweight external classifiers, with two papers currently under review.</p>
+                  <p className="font-ibm-plex text-primary">{t('roles.llmResearcher.description', 'about')}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-5">
-                  <h3 className="font-space-grotesk font-medium">Speaker – AI WAVE SHOW, SITCON</h3>
-                  <p className="font-ibm-plex text-secondary">2024 - 2025</p>
+                  <h3 className="font-space-grotesk font-medium">{t('roles.speaker.title', 'about')}</h3>
+                  <p className="font-ibm-plex text-secondary">{t('roles.speaker.period', 'about')}</p>
                 </div>
                 <div className="col-span-7">
-                    <p className="font-ibm-plex text-primary">
-                    Spoke at the {" "}
-                    <a
-                      href="https://www.technice.com.tw/issues/ai/185561/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="link-external"
-                    >
-                      AI WAVE SHOW
-                    </a>
-                     and delivered keynote about RAG at {" "}
-                    <a
-                      href="https://www.youtube.com/watch?v=ujxlUTXlC04"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="link-external"
-                    >
-                      SITCON 2025
-                    </a>
-                    .
-                    </p>
+                  <p className="font-ibm-plex text-primary">{tHtml('roles.speaker.description', 'about')}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-5">
-                  <h3 className="font-space-grotesk font-medium">Designer & VP – Student Council</h3>
-                  <p className="font-ibm-plex text-secondary">2023 - 2024</p>
+                  <h3 className="font-space-grotesk font-medium">{t('roles.designer.title', 'about')}</h3>
+                  <p className="font-ibm-plex text-secondary">{t('roles.designer.period', 'about')}</p>
                 </div>
                 <div className="col-span-7">
-                  <p className="font-ibm-plex text-primary">Designed the school's anniversary clothing line, key visuals, and branding materials.</p>
+                  <p className="font-ibm-plex text-primary">{t('roles.designer.description', 'about')}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-5">
-                  <h3 className="font-space-grotesk font-medium">Developer - Chingshin RAG</h3>
-                  <p className="font-ibm-plex text-secondary">2023 - 2024</p>
+                  <h3 className="font-space-grotesk font-medium">{t('roles.developer.title', 'about')}</h3>
+                  <p className="font-ibm-plex text-secondary">{t('roles.developer.period', 'about')}</p>
                 </div>
                 <div className="col-span-7">
-                  <p className="font-ibm-plex text-primary">Involved heavily development of Chingshin's RAG chatbot. Won first prize in the {" "}
-                    <a
-                      href="https://genaistars.org.tw/2024/award/hackathon/28"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="link-external"
-                    >
-                      GenAI Star competition by NSTC
-                    </a>
-                    .</p>
+                  <p className="font-ibm-plex text-primary">{tHtml('roles.developer.description', 'about')}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-5">
-                  <h3 className="font-space-grotesk font-medium">Photographer & Editor</h3>
-                  <p className="font-ibm-plex text-secondary">2022 - Present</p>
+                  <h3 className="font-space-grotesk font-medium">{t('roles.photographer.title', 'about')}</h3>
+                  <p className="font-ibm-plex text-secondary">{t('roles.photographer.period', 'about')}</p>
                 </div>
                 <div className="col-span-7">
-                  <p className="font-ibm-plex text-primary">
-                    DaVinci Resolve editor with experience ranging from montages to educational videos for{" "}
-                    <a
-                      href="https://www.youtube.com/watch?v=eSuEhZpHesU&t=2s"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="link-external"
-                    >
-                      AAAI
-                    </a>
-                    .
-                  </p>
+                  <p className="font-ibm-plex text-primary">{tHtml('roles.photographer.description', 'about')}</p>
                 </div>
               </div>
             </div>
@@ -125,4 +88,4 @@ export default function AboutSection() {
     </section>
   )
 }
-
+           

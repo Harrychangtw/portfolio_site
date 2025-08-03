@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { useIsMobile } from "@/hooks/use-mobile" // Assuming this hook exists from your old code
+import { useLanguage } from "@/contexts/LanguageContext"
+import LanguageSwitcher from "@/components/language-switcher"
 
 // --- Link Data ---
 // Centralized data for easy management of links and their tooltips.
@@ -27,6 +29,7 @@ const allLinks = [...socialLinks, ...resourceLinks];
 
 export default function Footer() {
   const isMobile = useIsMobile();
+  const { t } = useLanguage();
   const [activeTooltipId, setActiveTooltipId] = useState<string | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const [showManifesto, setShowManifesto] = useState(false);
@@ -59,7 +62,7 @@ export default function Footer() {
     }
   };
   
-  const currentTooltipText = activeTooltipId ? allLinks.find(l => l.id === activeTooltipId)?.tooltip : '';
+  const currentTooltipText = activeTooltipId ? t(`tooltips.${activeTooltipId}`) : '';
   const filteredResourceLinks = resourceLinks.filter(link => link.id !== 'manifesto' || showManifesto);
 
   return (
@@ -80,9 +83,10 @@ export default function Footer() {
                 />
                 <span className="sr-only">Harry Chang/Chi-Wei Chang 張祺煒</span>
                 </div>
-              <div className="font-ibm-plex text-sm text-secondary">
-                <p>Harry Chang 2025 © All rights reserved.</p>
-                <p>V2.2.0 | Last Updated: Aug. 2025</p>
+              <div className="font-ibm-plex text-sm text-secondary space-y-2">
+                <p>{t('footer.copyright')}</p>
+                <p>{t('footer.version')}</p>
+                <LanguageSwitcher />
               </div>
             </div>
 
@@ -93,7 +97,7 @@ export default function Footer() {
                 {/* Column 2: Social & Contact - Aligns with "Roles" */}
                 <div className="col-span-12 sm:col-span-5">
                   <h3 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">
-                    Social & Contact
+                    {t('footer.socialContact')}
                   </h3>
                   <ul className="space-y-3">
                     {socialLinks.map(link => (
@@ -108,7 +112,7 @@ export default function Footer() {
                             onMouseMove={handleMouseMove}
                             onMouseLeave={handleMouseLeave}
                           >
-                            {link.name}
+                            {t(`social.${link.id}`)}
                           </a>
                         </motion.div>
                       </li>
@@ -119,7 +123,7 @@ export default function Footer() {
                 {/* Column 3: Personal & Resources - Aligns with "Description" */}
                 <div className="col-span-12 sm:col-span-7">
                   <h3 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">
-                    Personal & Resources
+                    {t('footer.personalResources')}
                   </h3>
                   <ul className="space-y-3">
                     {filteredResourceLinks.map(link => (
@@ -134,7 +138,7 @@ export default function Footer() {
                             onMouseMove={handleMouseMove}
                             onMouseLeave={handleMouseLeave}
                           >
-                            {link.name}
+                            {t(`resources.${link.id}`)}
                           </a>
                         </motion.div>
                       </li>

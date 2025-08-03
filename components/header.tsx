@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 // Define smooth scroll duration (adjust as needed, keep consistent with timeout)
 const SCROLL_ANIMATION_DURATION = 800; // ms
@@ -18,6 +19,7 @@ export default function Header() {
   const isManifestoPage = pathname?.startsWith('/manifesto');
   const isMobile = useIsMobile()
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null); // Ref to manage timeout
+  const { t } = useLanguage()
 
   // Function to determine if a path corresponds to the current page or section
   const isActive = (sectionId: string) => activeSection === sectionId;
@@ -198,7 +200,7 @@ export default function Header() {
                   exit={{ opacity: 0, y: -5 }}
                   transition={{ duration: 0.15, ease: "easeOut" }}
                 >
-                  {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}
+                  {t(`header.${activeSection}`)}
                 </motion.span>
               </motion.div>
             )}
@@ -252,19 +254,19 @@ export default function Header() {
           <nav className="flex space-x-8">
             <Link {...getLinkProps('about', '/')}>
               {isActive('about') && <Underline />}
-              About
+              {t('header.about')}
             </Link>
             <Link {...getLinkProps('updates', '/')}>
               {isActive('updates') && <Underline />}
-              Updates
+              {t('header.updates')}
             </Link>
             <Link {...getLinkProps('projects', '/projects')}>
               {isActive('projects') && <Underline />}
-              Projects
+              {t('header.projects')}
             </Link>
             <Link {...getLinkProps('gallery', '/gallery')}>
               {isActive('gallery') && <Underline />}
-              Gallery
+              {t('header.gallery')}
             </Link>
           </nav>
         )}

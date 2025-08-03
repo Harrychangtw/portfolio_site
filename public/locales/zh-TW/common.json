@@ -1,0 +1,58 @@
+{
+  "header": {
+    "name": "Harry Chang",
+    "about": "關於我",
+    "updates": "更新",
+    "projects": "項目",
+    "gallery": "畫廊",
+    "paperReading": "閱讀",
+    "manifesto": "宣言"
+  },
+  "footer": {
+    "socialContact": "社交和聯繫",
+    "personalResources": "個人資源",
+    "copyright": "Harry Chang 2025 © 版權所有。",
+    "version": "V2.2.0 | 最後更新：2025年8月",
+    "languageSwitch": "語言"
+  },
+  "about": {
+    "title": "關於我",
+    "roles": "角色",
+    "description": "描述"
+  },
+  "updates": {
+    "title": "更新"
+  },
+  "projects": {
+    "title": "項目"
+  },
+  "gallery": {
+    "title": "畫廊"
+  },
+  "social": {
+    "gmail": "Gmail",
+    "discord": "Discord", 
+    "github": "GitHub",
+    "instagram": "Instagram",
+    "letterboxd": "Letterboxd"
+  },
+  "resources": {
+    "resume": "簡歷",
+    "manifesto": "宣言",
+    "wallpapers": "壁紙",
+    "music": "音樂播放清單",
+    "reading": "閱讀清單"
+  },
+  "tooltips": {
+    "gmail": "隨時歡迎交流！",
+    "discord": "打個招呼，也許我會回覆",
+    "github": "查看我的 GitHub——倉庫的藏身之處",
+    "instagram": "請負責地追蹤",
+    "letterboxd": "嚴厲批評我的電影品味。",
+    "resume": "證明我具備成人技能",
+    "manifesto": "返回夢想的橋樑",
+    "wallpapers": "花太多時間在這些上...",
+    "music": "讓我興奮 :D",
+    "reading": "咖啡因激發的知識"
+  }
+}
