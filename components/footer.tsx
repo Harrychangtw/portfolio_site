@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { useIsMobile } from "@/hooks/use-mobile" // Assuming this hook exists from your old code
 import { useLanguage } from "@/contexts/LanguageContext"
-import LanguageSwitcher from "@/components/language-switcher"
 
 // --- Link Data ---
 // Centralized data for easy management of links and their tooltips.
@@ -84,7 +83,6 @@ export default function Footer() {
                 <span className="sr-only">Harry Chang/Chi-Wei Chang 張祺煒</span>
                 </div>
               <div className="font-ibm-plex text-sm text-secondary space-y-2">
-                <LanguageSwitcher />
                 <p>{t('footer.copyright')}</p>
               </div>
             </div>

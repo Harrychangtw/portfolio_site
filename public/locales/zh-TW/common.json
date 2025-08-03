@@ -56,16 +56,24 @@
     "music": "音樂播放清單",
     "reading": "論文閱讀清單"
   },
+  "readingList": {
+    "title": "論文閱讀清單",
+    "previous": "上一頁",
+    "next": "下一頁",
+    "page": "",
+    "authors": "作者",
+    "publishedOn": "發表於"
+  },
   "tooltips": {
     "gmail": "隨時歡迎交流！",
-    "discord": "打個招呼，也許我會回覆",
-    "github": "查看我的 GitHub—— Repo 藏身之處",
-    "instagram": "請負責地追蹤",
-    "letterboxd": "嚴厲批評我的電影品味。",
+    "discord": "隨時歡迎交流！",
+    "github": "Repo 藏身之處",
+    "instagram": "隨時歡迎交流！",
+    "letterboxd": "Films that make me go :D",
     "resume": "證明我具備成人技能",
     "manifesto": "返回夢想的橋樑",
     "wallpapers": "花太多時間在這些上...",
-    "music": "讓我興奮 :D",
+    "music": "Make me go :D",
     "reading": "咖啡因激發的知識"
   }
 }

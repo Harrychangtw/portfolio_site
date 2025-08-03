@@ -1,12 +1,10 @@
-import AnimatedPaperList from "@/components/animated-paper-list";
-import PaginationControls from "@/components/pagination-controls";
 import { fetchArxivPapers, getManualPapers } from "@/lib/arxiv";
 import { Paper } from "@/types/paper";
-
+import PaperReadingPageClient from "@/components/paper-reading-page-client";
 export default async function PaperReadingPage({
   searchParams,
 }: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const arxivPapers = await fetchArxivPapers([
     
@@ -99,8 +97,7 @@ export default async function PaperReadingPage({
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
-  const resolvedSearchParams = await searchParams;
-  const page = resolvedSearchParams["page"] ?? "1";
+  const page = searchParams["page"] ?? "1";
   const currentPage = Number(page);
   const papersPerPage = 15;
 
@@ -113,11 +110,10 @@ export default async function PaperReadingPage({
   const hasNextPage = allPapers.length > currentPage * papersPerPage;
 
   return (
-    <div className="page-transition-enter">
-      <div className="container mx-auto px-4 py-8">
-        <AnimatedPaperList papers={paginatedPapers} />
-        <PaginationControls hasNextPage={hasNextPage} hasPrevPage={hasPrevPage} />
-      </div>
-    </div>
+    <PaperReadingPageClient 
+      paginatedPapers={paginatedPapers}
+      hasNextPage={hasNextPage}
+      hasPrevPage={hasPrevPage}
+    />
   );
 }

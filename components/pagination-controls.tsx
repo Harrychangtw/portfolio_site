@@ -3,6 +3,7 @@
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface PaginationControlsProps {
   hasNextPage: boolean;
@@ -17,6 +18,7 @@ export default function PaginationControls({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
+  const { t } = useLanguage();
 
   const handlePrev = () => {
     const params = new URLSearchParams(searchParams);
@@ -38,13 +40,13 @@ export default function PaginationControls({
       transition={{ duration: 0.4, delay: 0.2 }}
     >
       <Button onClick={handlePrev} disabled={!hasPrevPage} variant="outline">
-        Previous
+        {t('readingList.previous')}
       </Button>
       <span className="text-sm text-muted-foreground">
-        Page {currentPage}
+        {t('readingList.page')} {currentPage}
       </span>
       <Button onClick={handleNext} disabled={!hasNextPage} variant="outline">
-        Next
+        {t('readingList.next')}
       </Button>
     </motion.div>
   );

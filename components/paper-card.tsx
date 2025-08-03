@@ -8,6 +8,12 @@ interface PaperCardProps {
 }
 
 export default function PaperCard({ paper }: PaperCardProps) {
+  // Format date as yyyy-mm-dd
+  const formatDate = (date: string) => {
+    const dateObj = new Date(date);
+    return dateObj.toISOString().split('T')[0];
+  };
+  
   return (
     <motion.div 
       className="border-b border-border py-4"
@@ -22,7 +28,7 @@ export default function PaperCard({ paper }: PaperCardProps) {
         </Link>
       </h3>
       <p className="text-sm text-gray-600">{paper.authors.join(", ")}</p>
-      <p className="text-sm text-gray-500">{new Date(paper.date).toLocaleDateString()}</p>
+      <p className="text-sm text-gray-500">{formatDate(paper.date)}</p>
     </motion.div>
   );
 }

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { useLanguage } from "@/contexts/LanguageContext"
+import LanguageSwitcher from "@/components/language-switcher"
 
 // Define smooth scroll duration (adjust as needed, keep consistent with timeout)
 const SCROLL_ANIMATION_DURATION = 800; // ms
@@ -249,27 +250,36 @@ export default function Header() {
           </AnimatePresence>
         </div>
 
-        {/* Navigation Links */}
-        {!isMobile && !isPaperReadingPage && !isManifestoPage && (
-          <nav className="flex space-x-8">
-            <Link {...getLinkProps('about', '/')}>
-              {isActive('about') && <Underline />}
-              {t('header.about')}
-            </Link>
-            <Link {...getLinkProps('updates', '/')}>
-              {isActive('updates') && <Underline />}
-              {t('header.updates')}
-            </Link>
-            <Link {...getLinkProps('projects', '/projects')}>
-              {isActive('projects') && <Underline />}
-              {t('header.projects')}
-            </Link>
-            <Link {...getLinkProps('gallery', '/gallery')}>
-              {isActive('gallery') && <Underline />}
-              {t('header.gallery')}
-            </Link>
-          </nav>
-        )}
+        {/* Right side - Language Switcher and Navigation */}
+        <div className="flex items-center space-x-4">
+          {/* Language Switcher - Always visible */}
+          <LanguageSwitcher />
+          
+          {/* Divider and Navigation - Only on desktop */}
+          {!isMobile && !isPaperReadingPage && !isManifestoPage && (
+            <>
+              <span className="text-secondary mx-1 text-xl">｜</span>
+              <nav className="flex space-x-8">
+                <Link {...getLinkProps('about', '/')}>
+                  {isActive('about') && <Underline />}
+                  {t('header.about')}
+                </Link>
+                <Link {...getLinkProps('updates', '/')}>
+                  {isActive('updates') && <Underline />}
+                  {t('header.updates')}
+                </Link>
+                <Link {...getLinkProps('projects', '/projects')}>
+                  {isActive('projects') && <Underline />}
+                  {t('header.projects')}
+                </Link>
+                <Link {...getLinkProps('gallery', '/gallery')}>
+                  {isActive('gallery') && <Underline />}
+                  {t('header.gallery')}
+                </Link>
+              </nav>
+            </>
+          )}
+        </div>
       </div>
     </header>
   )

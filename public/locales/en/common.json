@@ -56,6 +56,14 @@
     "music": "Music Playlists",
     "reading": "Paper Reading List"
   },
+  "readingList": {
+    "title": "Paper Reading List",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "authors": "Authors",
+    "publishedOn": "Published on"
+  },
   "tooltips": {
     "gmail": "Always happy for a chat!",
     "discord": "Ping me, maybe I'll ping back",
