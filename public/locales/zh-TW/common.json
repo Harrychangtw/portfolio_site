@@ -2,9 +2,9 @@
   "header": {
     "name": "Harry Chang",
     "about": "關於我",
-    "updates": "更新",
-    "projects": "項目",
-    "gallery": "畫廊",
+    "updates": "快訊",
+    "projects": "專案",
+    "gallery": "攝影畫廊",
     "paperReading": "閱讀",
     "manifesto": "宣言"
   },
@@ -21,12 +21,12 @@
     "description": "描述"
   },
   "updates": {
-    "title": "更新"
+    "title": "快訊"
   },
   "projects": {
-    "title": "項目",
-    "backToProjects": "回到項目",
-    "noProjectsFound": "未找到項目。請在 content/projects 目錄中創建一些。",
+    "title": "專案",
+    "backToProjects": "回到專案",
+    "noProjectsFound": "未找到專案。",
     "year": "年份",
     "role": "角色",
     "technologies": "技術",
@@ -36,7 +36,7 @@
   "gallery": {
     "title": "攝影畫廊",
     "backToGallery": "回到畫廊",
-    "noGalleryFound": "未找到畫廊項目。請在 content/gallery 目錄中創建一些。",
+    "noGalleryFound": "未找到畫廊項目。",
     "camera": "相機",
     "lens": "鏡頭",
     "location": "位置",
@@ -54,12 +54,12 @@
     "manifesto": "宣言",
     "wallpapers": "壁紙",
     "music": "音樂播放清單",
-    "reading": "閱讀清單"
+    "reading": "論文閱讀清單"
   },
   "tooltips": {
     "gmail": "隨時歡迎交流！",
     "discord": "打個招呼，也許我會回覆",
-    "github": "查看我的 GitHub——倉庫的藏身之處",
+    "github": "查看我的 GitHub—— Repo 藏身之處",
     "instagram": "請負責地追蹤",
     "letterboxd": "嚴厲批評我的電影品味。",
     "resume": "證明我具備成人技能",

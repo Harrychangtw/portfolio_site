@@ -26,7 +26,7 @@
   "projects": {
     "title": "Projects",
     "backToProjects": "Back to projects",
-    "noProjectsFound": "No projects found. Create some in the content/projects directory.",
+    "noProjectsFound": "No projects found.",
     "year": "Year",
     "role": "Role", 
     "technologies": "Technologies",
@@ -36,7 +36,7 @@
   "gallery": {
     "title": "Photo Gallery",
     "backToGallery": "Back to gallery",
-    "noGalleryFound": "No gallery items found. Create some in the content/gallery directory.",
+    "noGalleryFound": "No gallery items found.",
     "camera": "Camera",
     "lens": "Lens",
     "location": "Location",
