@@ -185,10 +185,8 @@ const headerOffset = document.querySelector('header')?.offsetHeight || 0;
   };
 
   return (
-    <motion.header 
-      layout 
+    <header 
       className="fixed top-0 left-0 right-0 border-b border-border py-4 z-50 bg-background"
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
       <div className="container flex justify-between items-center">
         <div className="flex items-center">
@@ -270,6 +268,7 @@ const headerOffset = document.querySelector('header')?.offsetHeight || 0;
 
         <motion.div 
           layout
+          layoutRoot
           className="flex items-center space-x-4"
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
@@ -279,11 +278,7 @@ const headerOffset = document.querySelector('header')?.offsetHeight || 0;
           {!isMobile && !isPaperReadingPage && !isManifestoPage && (
             <>
               <span className="text-secondary mx-1 text-xl">｜</span>
-              <motion.nav 
-                layout
-                className="flex space-x-8"
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              >
+              <nav className="flex space-x-8">
                 <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
                   <Link {...getLinkProps('about', '/')}>
                     {isActive('about') && <Underline />}
@@ -308,11 +303,11 @@ const headerOffset = document.querySelector('header')?.offsetHeight || 0;
                     {t('header.gallery')}
                   </Link>
                 </motion.div>
-              </motion.nav>
+              </nav>
             </>
           )}
         </motion.div>
       </div>
-    </motion.header>
+    </header>
   )
 }
