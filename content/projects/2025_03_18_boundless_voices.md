@@ -8,7 +8,7 @@ year: "2024"
 date: "2024-03-18"
 role: "Designer & Director"
 technologies: ["Davinci Resolve", "Affinity Designer"]
-pinned: 6
+pinned: 7
 locked: false
 featured: true
 tooltip: "Project Under Construction"
