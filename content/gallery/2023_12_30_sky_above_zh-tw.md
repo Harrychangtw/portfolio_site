@@ -8,7 +8,7 @@ lens: "FUJINON 100-400mm f/4.5-5.6"
 location: "陽明山, 台北"
 tags: ["風光攝影", "日落"]
 featured: true
-pinned: -1
+pinned: 7
 locked: false
 gallery:
 

@@ -31,7 +31,7 @@ featured: true
 
 ### 製作設備
 - **相機**: FUJIFILM X-T5
-- **鏡頭**: SIGMA 18-55mm f/2.8
+- **鏡頭**: SIGMA 18-50mmm f/2.8
 - **穩定器**: DJI RS3 Mini
 - **剪輯軟體**: DaVinci Resolve 19 studio
 - **設計軟體**: Affinity Designer

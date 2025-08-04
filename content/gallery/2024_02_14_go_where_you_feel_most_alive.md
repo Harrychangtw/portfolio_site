@@ -12,6 +12,7 @@ pinned: 5
 locked: false
 gallery:
     - url: "images/optimized/gallery/2024_02_14_go_where_you_feel_most_alive/DSCF0035 18 Edited-thumb.webp"
+    - url: "images/optimized/gallery/2024_02_14_go_where_you_feel_most_alive/DSCF0016 2 Edited.webp"
     - url: "images/optimized/gallery/2024_02_14_go_where_you_feel_most_alive/DSCF0036 19 Edited.webp"
     - url: "images/optimized/gallery/2024_02_14_go_where_you_feel_most_alive/DSCF0048 5 Edited.webp"
     - url: "images/optimized/gallery/2024_02_14_go_where_you_feel_most_alive/DSCF0042 3 Edited.webp"

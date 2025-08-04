@@ -31,7 +31,7 @@ Building on last year's filming experience, I once again took on the responsibil
 
 ### Production Equipment
 - **Camera**: FUJIFILM X-T5
-- **Lens**: SIGMA 18-55mm f/2.8
+- **Lens**: SIGMA 18-50mmm f/2.8
 - **Stabilizer**: DJI RS3 Mini
 - **Editing Software**: DaVinci Resolve 19 Studio
 - **Design Software**: Affinity Designer
