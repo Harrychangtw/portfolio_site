@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { useIsMobile } from "@/hooks/use-mobile" // Assuming this hook exists from your old code
 import { useLanguage } from "@/contexts/LanguageContext"
 import LanguageSwitcher from "@/components/language-switcher"
@@ -79,14 +80,19 @@ export default function Footer() {
             {/* Column 1: Logo & Info - Aligns with the "About" column */}
             <div className="col-span-12 md:col-span-6 md:pr-12 flex flex-col justify-between">
               <div className="space-y-4">
-                {/* --- SVG/PNG Logo Placeholder --- */}
-                {/* Replace src with your actual logo file path */}
+                {/* --- Logo with fixed dimensions to prevent layout shift --- */}
                 <div className="flex items-start">
-                  <img 
-                    src="/chinese_name_icon.png" 
-                    alt="Harry Chang/Chi-Wei Chang 張祺煒 Logo" 
-                    className="h-12 w-auto pt-2" 
-                  />
+                  <div className="relative h-12 pt-2">
+                    <Image
+                      src="/chinese_name_icon.png"
+                      alt="Harry Chang/Chi-Wei Chang 張祺煒 Logo"
+                      width={357} // Calculated from 1784/600 * 120 (h-12 = 48px, but accounting for pt-2)
+                      height={120}
+                      className="object-contain"
+                      priority
+                      style={{ width: 'auto', height: '40px' }} // h-12 minus pt-2
+                    />
+                  </div>
                   <span className="sr-only">Harry Chang/Chi-Wei Chang 張祺煒</span>
                 </div>
                 <div className="font-ibm-plex text-sm text-secondary space-y-2">
