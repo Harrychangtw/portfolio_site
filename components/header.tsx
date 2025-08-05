@@ -208,6 +208,7 @@ const headerOffset = document.querySelector('header')?.offsetHeight || 0;
                 exit={{ opacity: 0, y: -5 }}
                 transition={{ duration: 0.15, ease: "easeOut" }}
               >
+                <span className="text-secondary mx-1 text-xl text-secondary">｜</span>
                 <motion.span 
                   className="font-space-grotesk text-xl text-secondary"
                   key={activeSection}
@@ -228,6 +229,7 @@ const headerOffset = document.querySelector('header')?.offsetHeight || 0;
                 exit={{ opacity: 0, y: -5 }}
                 transition={{ duration: 0.15, ease: "easeOut" }}
               >
+                <span className="text-secondary mx-1 text-xl text-secondary">｜</span>
                 <motion.span 
                   className="font-space-grotesk text-xl text-secondary"
                   key="paper-reading"
@@ -248,6 +250,7 @@ const headerOffset = document.querySelector('header')?.offsetHeight || 0;
                 exit={{ opacity: 0, y: -5 }}
                 transition={{ duration: 0.15, ease: "easeOut" }}
               >
+                <span className="text-secondary mx-1 text-xl text-secondary">｜</span>
                 <motion.span 
                   className="font-space-grotesk text-xl text-secondary"
                   key="manifesto"
