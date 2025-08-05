@@ -91,6 +91,14 @@ export default function GalleryCard({
 
   const shouldLoad = isVisible || priority || index < 6 // Load first 6 images immediately
 
+  // Optimized sizes for responsive images
+  // Gallery cards display at:
+  // - Mobile: 100vw (full width)
+  // - Tablet: 50vw (2 columns)  
+  // - Desktop: ~448px (3 columns with 33vw but max 448px for 1440px screens)
+  const thumbnailSizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 448px"
+  const fullImageSizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 448px"
+
   return (
     <motion.div 
       ref={containerRef}
@@ -131,7 +139,7 @@ export default function GalleryCard({
                           (isPortrait && originalAspect < 0.8) || (!isPortrait && originalAspect > 1.25)
                             ? "object-contain" : "object-cover"
                         } object-center ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes={thumbnailSizes}
                         quality={20}
                       />
                     )}
@@ -144,9 +152,9 @@ export default function GalleryCard({
                         (isPortrait && originalAspect < 0.8) || (!isPortrait && originalAspect > 1.25)
                           ? "object-contain" : "object-cover"
                       } object-center ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      sizes={fullImageSizes}
                       priority={priority || index < 3}
-                      quality={90}
+                      quality={70}
                       onLoad={() => setBlurComplete(true)}
                     />
                   </>

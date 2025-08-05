@@ -43,6 +43,7 @@ export default function ProjectCard({
   const [blurComplete, setBlurComplete] = useState(false)
   const [hasLoadedOnce, setHasLoadedOnce] = useState(false)
 
+  // Progressive image loading strategy
   const thumbnailSrc = imageUrl
   const fullImageUrl = imageUrl ? imageUrl.replace('-thumb.webp', '.webp') : "/placeholder.svg"
 
@@ -50,6 +51,14 @@ export default function ProjectCard({
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
   const shouldLoad = shouldLoadImmediately || (mounted && isVisible) || hasLoadedOnce
+
+  // Optimized sizes for responsive images
+  // Project cards display at:
+  // - Mobile: 100vw (full width)
+  // - Tablet: 50vw (2 columns)
+  // - Desktop: ~448px (3 columns with 33vw but max 448px for 1440px screens)
+  const thumbnailSizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 448px"
+  const fullImageSizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 448px"
 
   const isMobile = useIsMobile();
   const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0 });
@@ -85,7 +94,7 @@ export default function ProjectCard({
                     alt={`${title} thumbnail`}
                     fill
                     className={`object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-0' : 'opacity-100'}`}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    sizes={thumbnailSizes}
                     quality={20}
                     onLoad={() => {
                       if (!hasLoadedOnce) setHasLoadedOnce(true);
@@ -97,9 +106,9 @@ export default function ProjectCard({
                   alt={title}
                   fill
                   className={`object-cover transition-opacity duration-500 ${blurComplete ? 'opacity-100' : 'opacity-0'}`}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes={fullImageSizes}
                   priority={shouldLoadImmediately}
-                  quality={90}
+                  quality={70}
                   loading={shouldLoadImmediately ? 'eager' : 'lazy'}
                   onLoad={() => setBlurComplete(true)}
                   onError={(e) => {
