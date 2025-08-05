@@ -272,9 +272,8 @@ const headerOffset = document.querySelector('header')?.offsetHeight || 0;
           className="flex items-center space-x-4"
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
-          <LanguageSwitcher />
-          
-          {/* Divider and Navigation - Only on desktop */}
+
+          {/* Navigation - Only on desktop */}
           {!isMobile && !isPaperReadingPage && !isManifestoPage && (
             <>
               <span className="text-secondary mx-1 text-xl">｜</span>

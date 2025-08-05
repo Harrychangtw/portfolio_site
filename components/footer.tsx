@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { useIsMobile } from "@/hooks/use-mobile" // Assuming this hook exists from your old code
 import { useLanguage } from "@/contexts/LanguageContext"
+import LanguageSwitcher from "@/components/language-switcher"
 
 // --- Link Data ---
 // Centralized data for easy management of links and their tooltips.
@@ -64,6 +65,11 @@ export default function Footer() {
   const currentTooltipText = activeTooltipId ? t(`tooltips.${activeTooltipId}`) : '';
   const filteredResourceLinks = resourceLinks.filter(link => link.id !== 'manifesto' || showManifesto);
 
+  // Helper function to determine if a link is internal
+  const isInternalLink = (href: string) => {
+    return href.startsWith('/');
+  };
+
   return (
     <>
       <footer className="bg-[#1a1a1a] text-primary py-12 md:py-16 border-t border-border">
@@ -71,19 +77,26 @@ export default function Footer() {
           <div className="grid grid-cols-12 gap-y-10 md:gap-x-2">
 
             {/* Column 1: Logo & Info - Aligns with the "About" column */}
-            <div className="col-span-12 md:col-span-6 md:pr-12 space-y-4">
-              {/* --- SVG/PNG Logo Placeholder --- */}
-              {/* Replace src with your actual logo file path */}
+            <div className="col-span-12 md:col-span-6 md:pr-12 flex flex-col justify-between">
+              <div className="space-y-4">
+                {/* --- SVG/PNG Logo Placeholder --- */}
+                {/* Replace src with your actual logo file path */}
                 <div className="flex items-start">
-                <img 
-                  src="/chinese_name_icon.png" 
-                  alt="Harry Chang/Chi-Wei Chang 張祺煒 Logo" 
-                  className="h-12 w-auto pt-2" 
-                />
-                <span className="sr-only">Harry Chang/Chi-Wei Chang 張祺煒</span>
+                  <img 
+                    src="/chinese_name_icon.png" 
+                    alt="Harry Chang/Chi-Wei Chang 張祺煒 Logo" 
+                    className="h-12 w-auto pt-2" 
+                  />
+                  <span className="sr-only">Harry Chang/Chi-Wei Chang 張祺煒</span>
                 </div>
-              <div className="font-ibm-plex text-sm text-secondary space-y-2">
-                <p>{t('footer.copyright')}</p>
+                <div className="font-ibm-plex text-sm text-secondary space-y-2">
+                  <p>{t('footer.copyright')}</p>
+                </div>
+              </div>
+              
+              {/* Language Switcher - Bottom Left, aligned with column bottom on desktop */}
+              <div className="mt-8 md:mt-0 flex justify-start">
+                <LanguageSwitcher />
               </div>
             </div>
 
@@ -102,8 +115,10 @@ export default function Footer() {
                         <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
                           <a
                             href={link.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            {...(!isInternalLink(link.href) && {
+                              target: "_blank",
+                              rel: "noopener noreferrer"
+                            })}
                             className="font-ibm-plex text-primary hover:text-[#D8F600] transition-colors"
                             onMouseEnter={(e) => handleMouseEnter(e, link.id)}
                             onMouseMove={handleMouseMove}
@@ -128,8 +143,10 @@ export default function Footer() {
                         <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
                           <a
                             href={link.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            {...(!isInternalLink(link.href) && {
+                              target: "_blank",
+                              rel: "noopener noreferrer"
+                            })}
                             className="font-ibm-plex text-primary hover:text-[#D8F600] transition-colors"
                             onMouseEnter={(e) => handleMouseEnter(e, link.id)}
                             onMouseMove={handleMouseMove}

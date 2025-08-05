@@ -4,7 +4,7 @@ import { getGalleryItemData, getAllGallerySlugs } from "@/lib/markdown"
 import GalleryItemPageClient from "@/components/gallery-item-page-client"
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const slug = params?.slug
+  const { slug } = params
   if (!slug) return { title: "Gallery Item Not Found" }
   
   const item = await getGalleryItemData(slug)
@@ -27,7 +27,7 @@ export async function generateStaticParams() {
 }
 
 export default async function GalleryItemPage({ params }: { params: { slug: string } }) {
-  const slug = params?.slug
+  const { slug } = params
   if (!slug) notFound()
   
   const item = await getGalleryItemData(slug)
