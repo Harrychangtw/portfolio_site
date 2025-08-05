@@ -110,21 +110,45 @@ const headerOffset = document.querySelector('header')?.offsetHeight || 0;
       }
       // --- END CRITICAL CHECK ---
 
-      const scrollPosition = window.scrollY + window.innerHeight / 2.5;
+      const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+      const scrollY = window.scrollY;
+      
+      // Get all sections with their positions
       const sections = [
-        { id: 'gallery', element: document.getElementById('gallery') },
-        { id: 'projects', element: document.getElementById('projects') },
-        { id: 'updates', element: document.getElementById('updates') },
         { id: 'about', element: document.getElementById('about') },
+        { id: 'updates', element: document.getElementById('updates') },
+        { id: 'projects', element: document.getElementById('projects') },
+        { id: 'gallery', element: document.getElementById('gallery') },
       ];
 
       let currentSection = 'about'; // Default
-      for (const section of sections) {
-        if (section.element && scrollPosition >= section.element.offsetTop) {
+      
+      // Find the current section based on which section's top is closest to being above the header bottom
+      // but still visible (i.e., its top hasn't passed the bottom of the header by too much)
+      for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
+        if (!section.element) continue;
+        
+        const sectionTop = section.element.offsetTop;
+        const sectionBottom = sectionTop + section.element.offsetHeight;
+        
+        // Check if we're currently viewing this section:
+        // - The section top should be at or above the bottom of header (with some tolerance)
+        // - OR we're somewhere within the section bounds
+        const isInSection = (
+          // Case 1: Section top is visible just below header or we've scrolled past it slightly
+          (sectionTop <= scrollY + headerHeight + 50) &&
+          // Case 2: We haven't scrolled past the section completely
+          (sectionBottom > scrollY + headerHeight)
+        );
+        
+        if (isInSection) {
           currentSection = section.id;
-          break;
+          // Don't break here - continue to find the most appropriate section
+          // The last matching section will be the active one
         }
       }
+      
       // Only update state if the section actually changed
       setActiveSection(prevSection => {
           if (prevSection !== currentSection) {
