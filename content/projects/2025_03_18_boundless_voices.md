@@ -1,14 +1,14 @@
 ---
 title: "Boundless Voices Charity Concert"
-category: "Charity"
-subcategory: "Event Hosting"
+category: "Charity Event Hosting"
+subcategory: "Video Production"
 description: ""
 imageUrl: "images/optimized/projects/2024_03_18_boundless_voices/titlecard.webp"
 year: "2024"
 date: "2024-03-18"
 role: "Designer & Director"
 technologies: ["Davinci Resolve", "Affinity Designer"]
-pinned: 7
+pinned: 9
 locked: false
 featured: true
 tooltip: "Project Under Construction"

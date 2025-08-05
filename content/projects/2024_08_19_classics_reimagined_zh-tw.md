@@ -1,14 +1,14 @@
 ---
 title: "古韻今唱戲劇演出"
 category: "戲劇演出"
-subcategory: "年度活動"
+subcategory: "影片製作"
 description: ""
 imageUrl: "images/optimized/projects/2024_08_19_classics_reimagined/titlecard.webp"
 year: "2024"
 date: "2024-08-19"
 role: "影片拍攝, 剪輯, 攝影"
 technologies: ["Affinity Designer", "DaVinci Resolve"]
-pinned: 6
+pinned: 7
 featured: true
 ---
 

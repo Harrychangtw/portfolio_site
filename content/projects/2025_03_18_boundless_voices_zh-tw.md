@@ -1,14 +1,14 @@
 ---
 title: "無界之聲慈善音樂會"
-category: "慈善"
-subcategory: "活動主辦"
+category: "慈善活動主辦"
+subcategory: "影片製作"
 description: ""
 imageUrl: "images/optimized/projects/2024_03_18_boundless_voices/titlecard.webp"
 year: "2024"
 date: "2024-03-18"
 role: "設計師與導演"
 technologies: ["Davinci Resolve", "Affinity Designer"]
-pinned: 6
+pinned: 9
 locked: false
 featured: true
 ---

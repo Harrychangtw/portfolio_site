@@ -1,14 +1,14 @@
 ---
 title: "Classics Reimagined: A Theatrical Performance"
 category: "Theatrical Performance"
-subcategory: "Annual Event"
+subcategory: "Video Production"
 description: ""
 imageUrl: "images/optimized/projects/2024_08_19_classics_reimagined/titlecard.webp"
 year: "2024"
 date: "2024-08-19"
 role: "Filming, Editing, Photography"
 technologies: ["Affinity Designer", "DaVinci Resolve"]
-pinned: 6
+pinned: 7
 featured: true
 ---
 
