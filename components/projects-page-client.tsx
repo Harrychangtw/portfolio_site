@@ -42,10 +42,22 @@ export default function ProjectsPageClient() {
           <h1 className="font-space-grotesk text-4xl font-bold mb-12">{t('projects.title')}</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="animate-pulse">
-                <div className="bg-gray-300 aspect-[4/3] rounded mb-4"></div>
-                <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                <div className="h-3 bg-gray-300 rounded w-3/4"></div>
+              <div key={i} className="group relative flex flex-col">
+                <div className="relative overflow-hidden bg-muted">
+                  {/* Strict 3:2 aspect ratio container - matches ProjectCard */}
+                  <div className="relative w-full aspect-[3/2]" style={{ paddingBottom: "66.67%" }}>
+                    <div className="absolute inset-0">
+                      <div className="absolute inset-0 bg-muted animate-pulse">
+                        <div className="animate-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-muted via-muted/50 to-muted" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Content area with padding that matches ProjectCard */}
+                <div className="pt-3">
+                  <div className="h-7 w-3/4 bg-muted animate-pulse rounded-md mb-2"></div>
+                  <div className="h-4 w-1/2 bg-muted animate-pulse rounded-md mb-4"></div>
+                </div>
               </div>
             ))}
           </div>

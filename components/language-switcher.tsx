@@ -32,6 +32,8 @@ export default function LanguageSwitcher() {
             alt="Language"
             width={14}
             height={14}
+            priority
+            style={{ width: '14px', height: '14px' }}
           />
           <span className="tracking-wider">
             {language === 'en' ? 'English' : '繁體中文'}
