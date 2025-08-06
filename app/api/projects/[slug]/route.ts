@@ -3,10 +3,10 @@ import { getProjectData } from "@/lib/markdown"
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const slug = params.slug
+    const { slug } = await params
     if (!slug) {
       return NextResponse.json({ error: "Slug is required" }, { status: 400 })
     }
