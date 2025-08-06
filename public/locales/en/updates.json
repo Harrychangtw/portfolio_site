@@ -1,6 +1,10 @@
 {
   "entries": [
     {
+      "date": "2025-08-04",
+      "text": "[Update] Phase 1 project content has been curated, more will be retroactively added soon!"
+    },
+    {
       "date": "2025-08-02",
       "text": "[Update] Added full language support for English and Traditional Chinese using i18n!"
     },

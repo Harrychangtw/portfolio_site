@@ -97,6 +97,7 @@ export default function Footer() {
                 </div>
                 <div className="font-ibm-plex text-sm text-secondary space-y-2">
                   <p>{t('footer.copyright')}</p>
+                  <p>{t('footer.portraitDisclaimer')}</p>
                 </div>
               </div>
               
