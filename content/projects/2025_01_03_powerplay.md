@@ -44,7 +44,7 @@ Building on the success of my last project, "[Classics Reimagined](https://www.h
 - **Camera**: FUJIFILM X-T5
 - **Lens**: SIGMA 18-50mmm f/2.8
 - **Stabilizer**: DJI RS3 Mini
-- **Editing Software**: DaVinci Resolve 19 Studio
+- **Editing Software**: DaVinci Resolve Studio 19
 - **Design Software**: Affinity Designer
 - **Music Source**: Epidemic Sound & Motion Array
 
@@ -105,3 +105,7 @@ In the final stages of the video, I focused on the following details to enhance 
 Compared to the last project, we had more preparation time for POWERPLAY, which allowed us to realize more ambitious creative ideas. Besides the actors' excellent performances, the biggest highlight from our class was undoubtedly the motorized train prop and the dynamic backdrops created by Raymond using After Effects. Every time the electric train made its entrance, it instantly became the center of attention. The work on the dynamic backdrops was even more massive, and I have immense respect for Raymond's perseverance. He managed to quickly make revisions despite frequent changes to the script and visuals, which was incredibly impressive.
 
 For me personally, this video production was a valuable learning experience. By implementing Camera Tracker and 3D space integration in Fusion, I gained a deeper understanding of DaVinci Resolve's powerful capabilities. This project not only honed my editing skills but also gave me a more profound appreciation for the possibilities of visual storytelling.
+
+
+## Acknowledgements
+Thank you to all the students who participated in this performance. From scriptwriting and directing to acting, everyone poured countless efforts into this production. Special thanks to Raymond, Allie, and others for their hard work, making our train prop and dynamic backdrops the highlights of the show. A heartfelt thanks also to Henry & Kai for filming and producing the behind-the-scenes featurette, allowing us to comprehensively document this remarkable performance. This experience will forever remain in my heart and inspire me to continue exploring the endless possibilities of video production in the future.

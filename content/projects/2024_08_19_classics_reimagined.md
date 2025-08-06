@@ -33,7 +33,7 @@ Building on last year's filming experience, I once again took on the responsibil
 - **Camera**: FUJIFILM X-T5
 - **Lens**: SIGMA 18-50mmm f/2.8
 - **Stabilizer**: DJI RS3 Mini
-- **Editing Software**: DaVinci Resolve 19 Studio
+- **Editing Software**: DaVinci Resolve Studio 19
 - **Design Software**: Affinity Designer
 - **Music Source**: From Motion Array
 
@@ -58,7 +58,7 @@ The overall aim for the video was to present the entire production process with 
     - During the screen zoom-out, I added Color Correction and Motion Blur to the screen content to make the transition more natural.
     - In the Color Page, I used the Magic Mask to add the Mask Transition.
 5.  **Sound Design**: At each transition point, I layered Riser, Whoosh, and Impact sounds as basic transition elements. To add more character, I also used sounds like Gear Wind or high-voltage electrical currents.
-6.  **Color Grading**: The footage was originally shot in 10-bit 4:2:2 F-log2 codec. For color grading this time, I primarily used the new Film Looks Creator feature in DaVinci Resolve 19 Studio, which not only simplified the workflow but also made the grading process more efficient and enjoyable.
+6.  **Color Grading**: The footage was originally shot in 10-bit 4:2:2 F-log2 codec. For color grading this time, I primarily used the new Film Looks Creator feature in DaVinci Resolve Studio 19, which not only simplified the workflow but also made the grading process more efficient and enjoyable.
 
 ![Fusion Node Tree for the Closing Transition](images/optimized/projects/2024_08_19_classics_reimagined/closing_squence_fusion_comp.webp)
 
@@ -88,3 +88,6 @@ Although my main role during the preparation was as a documentarian rather than 
 
 Despite the challenges of filming, the moment the video ended and I heard the applause from the entire audience, I was convinced that all the effort poured into that short minute and a half was worthwhile and had no regrets.
 
+
+## Acknowledgments
+Special thanks to all the students who participated in this performance, especially the directors, scriptwriters, and all the partners who worked tirelessly behind the scenes. Your efforts and creativity made this performance possible and gave me the opportunity to capture these wonderful memories through video.

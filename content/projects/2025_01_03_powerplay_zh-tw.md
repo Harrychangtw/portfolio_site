@@ -44,7 +44,7 @@ locked: false
 - **相機**: FUJIFILM X-T5
 - **鏡頭**: SIGMA 18-50mmm f/2.8
 - **穩定器**: DJI RS3 Mini
-- **剪輯軟體**: DaVinci Resolve 19 studio
+- **剪輯軟體**: DaVinci Resolve Studio 19
 - **設計軟體**: Affinity Designer
 - **音樂來源**: 取自 Epidemic Sound & Motion Array
 
@@ -106,3 +106,5 @@ locked: false
 
 對我個人而言，這次的影片製作是一次寶貴的學習歷程。透過在 Fusion 中實踐 Camera Tracker 與 3D 空間的整合，我對 DaVinci Resolve 的強大功能有了更深的理解。這次的專案不僅讓我磨練了剪輯技巧，更讓我對視覺敘事的可能性，有了更深刻的領悟。
 
+## 致謝
+感謝所有參與這次演出的同學們，從編劇、導演到演員，每個人都為這部作品付出了無數心血。特別感謝 Raymond, Allie 等人的努力，讓我們的火車道具與動態背板成為全場的亮點。也特別感謝 Henry & Kai 拍攝及製作的幕後花絮，讓我們能夠更全面地記錄這次的精彩演出。這次的經歷將永遠留在我的心中，並激勵我在未來繼續探索影像製作的無限可能。 

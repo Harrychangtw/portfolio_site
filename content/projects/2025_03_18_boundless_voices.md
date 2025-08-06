@@ -42,7 +42,10 @@ For the editing, I relied heavily on "match cuts" to create a fluid and rhythmic
 
 ---
 
-## A Final Reflection
+## Reflection
 
 From interviewing the incredibly optimistic ocarina player, Ms. Wei Hsiao-chieh, to seeing the final, packed performance at the [Chiang Kai-shek Memorial Hall](https://www.opentix.life/event/1783033841754939392), this project was a profound learning experience. It pushed my skills in design, video production, and teamwork. More importantly, it was a powerful reminder that art and music have the power to transcend barriers and connect us all. Seeing the audience's heartfelt reaction was the greatest reward, affirming that our message of resilience and hope had resonated with many.
 
+## Acknowledgments
+
+Thank you to all the core directors, performers, staff members, and school administrators who supported this charity concert. A special thanks to Mr. Wu Po-yi for his inspiration, giving us the opportunity to share love and hope through music and storytelling. This experience will forever remain in my heart and motivate me to continue exploring the boundless possibilities of art in the future.

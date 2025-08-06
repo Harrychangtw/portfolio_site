@@ -33,7 +33,7 @@ featured: true
 - **相機**: FUJIFILM X-T5
 - **鏡頭**: SIGMA 18-50mmm f/2.8
 - **穩定器**: DJI RS3 Mini
-- **剪輯軟體**: DaVinci Resolve 19 studio
+- **剪輯軟體**: DaVinci Resolve Studio 19
 - **設計軟體**: Affinity Designer
 - **音樂來源**: 取自 Motion Array
 
@@ -59,7 +59,7 @@ featured: true
     - 在螢幕縮放過程，為螢幕上的畫面加上 Color Correction 跟 Motion Blur，讓整個轉場更自然。
     - 轉到 Color Page 用 Magic Mask 加上 Mask Transition。
 5. **音效設計**: 在每個銜接點都會疊接 Riser, Whoosh, Impact 作為基本的轉場銜接，為了加深一些特色，或使用 Gear Wind 或高壓電的電流聲。
-6. **影片調色**: 影片拍攝原為 10 bit 4:2:2 F-log2 格式，這次調色主要嘗試了 DaVinci Resolve 19 Studio 新增的 Film Looks Creator 功能，不僅簡化了流程，也讓調色工作變得更高效、更愉快。
+6. **影片調色**: 影片拍攝原為 10 bit 4:2:2 F-log2 格式，這次調色主要嘗試了 DaVinci Resolve Studio 19 新增的 Film Looks Creator 功能，不僅簡化了流程，也讓調色工作變得更高效、更愉快。
 
 ![片尾轉場的 Fusion Node Tree](images/optimized/projects/2024_08_19_classics_reimagined/closing_squence_fusion_comp.webp)
     
@@ -92,6 +92,9 @@ featured: true
 雖然在籌備過程中，我的主要角色是記錄者而非表演者，但這也讓我有幸能以獨特的視角，見證班級團隊合作的每一個精彩瞬間——從背板設計、服裝挑選，到導演指導、演員詮釋，乃至音樂編排，同學間齊心協力的光景至今仍歷歷在目。
 
 儘管拍攝過程充滿挑戰，但當影片播畢、聽見全場掌聲的那一刻，我深信為這短短一分半鐘所付出的所有心力，都是值得且無悔的。
+
+## 致謝
+感謝所有參與這次演出的同學們，特別是兩位導演、編劇、以及所有在幕後默默付出的夥伴們。你們的努力和創意讓這次演出成為可能，也讓我有機會用影像記錄下這段美好的回憶。
 
 
 
