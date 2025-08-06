@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 interface LetterGlitchProps {
   glitchColors?: string[];
@@ -14,6 +15,7 @@ const LetterGlitch = ({
   smooth = true,
   onAnimationComplete
 }: LetterGlitchProps) => {
+  const { t } = useLanguage();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationRef = useRef<number | null>(null);
   const letters = useRef<{
@@ -371,8 +373,8 @@ const LetterGlitch = ({
       case 1:
         setTimeout(() => {
           clearText(false);
-          const line1 = "I live not for applause or accolades,";
-          const line2 = "But for the five-year-old who rode uncertain bicycles";
+          const line1 = t("letterGlitch.line1");
+          const line2 = t("letterGlitch.line2");
 
           const { textRow: row1, startCol: col1 } = getTextPosition(line1, grid.current.columns, grid.current.rows, -1);
           const { textRow: row2, startCol: col2 } = getTextPosition(line2, grid.current.columns, grid.current.rows, 0);
@@ -380,15 +382,15 @@ const LetterGlitch = ({
           morphTextInGrid(line1, row1, col1, true);
           morphTextInGrid(line2, row2, col2, true);
 
-          setTimeout(() => setAnimationPhase(2), 4000);
+          setTimeout(() => setAnimationPhase(2), 3000);
         }, 100);
         break;
 
       case 2:
         setTimeout(() => {
           clearText(false);
-          const line1 = "I am building a bridge back to wonder,";
-          const line2 = "A bridge others might cross";
+          const line1 = t("letterGlitch.line3");
+          const line2 = t("letterGlitch.line4");
 
           const { textRow: row1, startCol: col1 } = getTextPosition(line1, grid.current.columns, grid.current.rows, -1);
           const { textRow: row2, startCol: col2 } = getTextPosition(line2, grid.current.columns, grid.current.rows, 0);
@@ -396,7 +398,7 @@ const LetterGlitch = ({
           morphTextInGrid(line1, row1, col1, true);
           morphTextInGrid(line2, row2, col2, true);
           
-          setTimeout(() => setAnimationPhase(3), 4000);
+          setTimeout(() => setAnimationPhase(3), 3000);
         }, 100);
         break;
 
@@ -420,7 +422,7 @@ const LetterGlitch = ({
       case 4: 
         break;
     }
-  }, [animationPhase, isInitialized, animationCompleted, isWideEnough]);
+  }, [animationPhase, isInitialized, animationCompleted, isWideEnough, t]);
 
   useEffect(() => {
     if (!isWideEnough) return;

@@ -40,7 +40,7 @@ const manifestoChunksEn = [
         "I refuse to let expertise become arrogance,",
         "To let achievement build walls where curiosity built bridges.",
         "The boy who dismantled locks to understand their secrets",
-        "Still lives in the very person who unlocks AI's mysteries."
+        "Still lives in the very person who unlocks technology's mysteries."
     ],
     [
         "When breath came hard in hospital beds,",
@@ -109,7 +109,8 @@ const manifestoChunksZhTw = [
         "而是為了那個五歲的自己",
         "騎著搖晃的單車，穿梭在上海的工廠",
         "對著那些會呼吸、會歌唱的機器，滿眼驚奇",
-        "有人說，燃燒得加倍明亮的火焰，持續的時間也只有一半。而我，選擇光芒。"
+        "有人說，燃燒得加倍明亮的火焰，持續的時間也只有一半",
+        "而我，選擇光芒"
     ],
     [
         "我緬懷那個孩子，卻非出於自戀",
@@ -127,7 +128,7 @@ const manifestoChunksZhTw = [
         "我拒絕讓專業變成傲慢",
         "拒絕讓成就築起高牆，隔絕了曾用好奇心搭建的橋樑",
         "那個拆解門鎖，只為理解其中奧秘的男孩",
-        "依然活在今日，這個解開 AI 之謎的青年心中"
+        "依然活在今日，這個解開科技之謎的青年心中"
     ],
     [
         "當呼吸在病床上變得艱難",
