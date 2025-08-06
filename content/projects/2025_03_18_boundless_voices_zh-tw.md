@@ -2,7 +2,7 @@
 title: "無界之聲慈善音樂會"
 category: "慈善活動主辦"
 subcategory: "影片製作"
-description: ""
+description: "一場由學生主導的慈善音樂會，旨在透過音樂劇形式分享身障藝術家的生命故事。"
 imageUrl: "images/optimized/projects/2024_03_18_boundless_voices/titlecard.webp"
 year: "2024"
 date: "2024-03-18"

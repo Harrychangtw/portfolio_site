@@ -476,7 +476,7 @@ function transformMedia() {
       const driveMatch = url.match(driveRegex)
 
       // Check if it's a YouTube video link
-      const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+      const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})|(?:https?:\/\/)?(?:www\.)?youtube\.com\/.*[?&]v=([a-zA-Z0-9_-]{11})/
       const youtubeMatch = url.match(youtubeRegex)
 
       if (driveMatch) {
@@ -486,41 +486,37 @@ function transformMedia() {
         const videoNode: HTML = {
           type: 'html',
           value: `
-            <figure>
-              <div style="position: relative; width: 100%; padding-bottom: 56.25%;">
-                <iframe 
-                  src=\"${embedUrl}\" 
-                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                  allow=\"autoplay; encrypted-media;\"
-                  frameborder=\"0\"
-                  title=\"${alt}\"
-                ></iframe>
+            <div class="video-embed-container" data-type="googledrive" data-src="${embedUrl}" data-title="${alt}">
+              <div class="video-placeholder">
+                <div class="video-placeholder-content">
+                  <div class="video-placeholder-icon">▶</div>
+                  <p class="video-placeholder-text">Google Drive Video</p>
+                  <p class="video-placeholder-subtitle" style="text-align: left;">${alt}</p>
+                </div>
               </div>
-              <figcaption>${alt}</figcaption>
-            </figure>
+            </div>
           `
         }
         parent.children.splice(index, 1, videoNode)
       } else if (youtubeMatch) {
-        const videoId = youtubeMatch[1]
+        const videoId = youtubeMatch[1] || youtubeMatch[2] // Handle both match groups
         const embedUrl = `https://www.youtube.com/embed/${videoId}`
         
         const videoNode: HTML = {
           type: 'html',
           value: `
-            <figure>
-              <div style="position: relative; width: 100%; padding-bottom: 56.25%;">
-                <iframe
-                  src=\"${embedUrl}\"
-                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                  frameBorder=\"0\"
-                  allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\"
-                  allowFullScreen
-                  title=\"${alt}\">
-                </iframe>
+            <div class="video-embed-container" data-type="youtube" data-src="${embedUrl}" data-title="${alt}">
+              <div class="video-placeholder" style="background-image: url('https://img.youtube.com/vi/${videoId}/maxresdefault.jpg')">
+                <div class="video-placeholder-overlay">
+                  <button class="video-play-button" aria-label="Play video">
+                    <svg class="video-play-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </button>
+                </div>
+                <div class="video-placeholder-title" style="text-align: left;">${alt}</div>
               </div>
-              <figcaption>${alt}</figcaption>
-            </figure>
+            </div>
           `
         }
         parent.children.splice(index, 1, videoNode)
@@ -542,4 +538,5 @@ function transformMedia() {
     })
   }
 }
+
 

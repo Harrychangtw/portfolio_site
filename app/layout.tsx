@@ -1,5 +1,6 @@
 import './globals.css'
 import '@/styles/lcp-optimize.css'
+import '@/styles/video-embed.css'
 import type React from 'react'
 import type { Metadata } from 'next'
 import { SpeedInsights } from '@vercel/speed-insights/next'

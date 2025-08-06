@@ -2,7 +2,7 @@
 title: "古韻今唱戲劇演出"
 category: "戲劇演出"
 subcategory: "影片製作"
-description: ""
+description: "年度戲劇盛事，學生重新詮釋中華文學經典，展現十一愛班獲獎作品的精彩演出。"
 imageUrl: "images/optimized/projects/2024_08_19_classics_reimagined/titlecard.webp"
 year: "2024"
 date: "2024-08-19"

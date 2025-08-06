@@ -2,7 +2,7 @@
 title: "2025 POWERPLAY"
 category: "戲劇演出"
 subcategory: "影片製作"
-description: ""
+description: "十一愛學生主導的年度英文戲劇盛事，旨在展現對愛情的見解。"
 imageUrl: "images/optimized/projects/2025_01_08_powerplay/titlecard.webp"
 year: "2025"
 date: "2025-01-05"

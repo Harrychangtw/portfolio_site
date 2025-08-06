@@ -2,7 +2,7 @@
 title: "Boundless Voices Charity Concert"
 category: "Charity Event Hosting"
 subcategory: "Video Production"
-description: ""
+description: "A student-led charity concert that shares the life stories of artists with disabilities through a musical theater format."
 imageUrl: "images/optimized/projects/2024_03_18_boundless_voices/titlecard.webp"
 year: "2024"
 date: "2024-03-18"

@@ -2,7 +2,7 @@
 title: "Classics Reimagined: A Theatrical Performance"
 category: "Theatrical Performance"
 subcategory: "Video Production"
-description: ""
+description: "An annual drama extravaganza where students reinterpret Chinese literary classics, featuring our award-winning play."
 imageUrl: "images/optimized/projects/2024_08_19_classics_reimagined/titlecard.webp"
 year: "2024"
 date: "2024-08-19"

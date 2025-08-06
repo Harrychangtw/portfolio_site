@@ -2,7 +2,7 @@
 title: "2025 POWERPLAY"
 category: "Thetrical Performance"
 subcategory: "Video Production"
-description: ""
+description: "An annual English drama extravaganza led by the eleventh-grade students, showcasing their unique interpretation into love."
 imageUrl: "images/optimized/projects/2025_01_08_powerplay/titlecard.webp"
 year: "2025"
 date: "2025-01-05"

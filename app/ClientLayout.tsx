@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/react"
 import ClickSpark from "@/components/ui/click-spark"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { LanguageProvider } from "@/contexts/LanguageContext"
+import VideoInitializer from "@/components/video-initializer"
 
 export default function ClientLayout({
   children,
@@ -31,6 +32,7 @@ export default function ClientLayout({
           {children}
         </ClickSpark>
       )}
+      <VideoInitializer />
       <Analytics />
     </LanguageProvider>
   )
