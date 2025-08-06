@@ -329,7 +329,7 @@ const LetterGlitch = ({
     }
 
     // Use the ref to check phase for glitching.
-    if (animationPhaseRef.current >= 5) {
+    if (animationPhaseRef.current >= 4) {
       if (now - lastGlitchTime.current >= glitchSpeed) {
         updateBackgroundGlitch();
         lastGlitchTime.current = now;
@@ -364,34 +364,49 @@ const LetterGlitch = ({
   useEffect(() => {
     if (!isWideEnough || !isInitialized || grid.current.columns === 0) return;
     switch (animationPhase) {
-      case 0: setTimeout(() => setAnimationPhase(1), 2000); break;
+      case 0:
+        setTimeout(() => setAnimationPhase(1), 2000);
+        break;
+      
       case 1:
         setTimeout(() => {
-          const { textRow, startCol } = getTextPosition("Who do we live for?", grid.current.columns, grid.current.rows);
-          morphTextInGrid("Who do we live for?", textRow, startCol, true);
-          setTimeout(() => setAnimationPhase(2), 3000);
+          clearText(false);
+          const line1 = "I live not for applause or accolades,";
+          const line2 = "But for the five-year-old who rode uncertain bicycles";
+
+          const { textRow: row1, startCol: col1 } = getTextPosition(line1, grid.current.columns, grid.current.rows, -1);
+          const { textRow: row2, startCol: col2 } = getTextPosition(line2, grid.current.columns, grid.current.rows, 0);
+
+          morphTextInGrid(line1, row1, col1, true);
+          morphTextInGrid(line2, row2, col2, true);
+
+          setTimeout(() => setAnimationPhase(2), 4000);
         }, 100);
         break;
+
       case 2:
         setTimeout(() => {
-          const { textRow, startCol } = getTextPosition("For me, it's the 5 year old me who dreamed without limits", grid.current.columns, grid.current.rows);
-          morphTextInGrid("For me, it's the 5 year old me who dreamed without limits", textRow, startCol, true);
-          setTimeout(() => setAnimationPhase(3), 3000);
+          clearText(false);
+          const line1 = "I am building a bridge back to wonder,";
+          const line2 = "A bridge others might cross";
+
+          const { textRow: row1, startCol: col1 } = getTextPosition(line1, grid.current.columns, grid.current.rows, -1);
+          const { textRow: row2, startCol: col2 } = getTextPosition(line2, grid.current.columns, grid.current.rows, 0);
+          
+          morphTextInGrid(line1, row1, col1, true);
+          morphTextInGrid(line2, row2, col2, true);
+          
+          setTimeout(() => setAnimationPhase(3), 4000);
         }, 100);
         break;
+
       case 3:
         setTimeout(() => {
-          const { textRow, startCol } = getTextPosition("The five 5 year old me who believe in magic, the child i once was...", grid.current.columns, grid.current.rows);
-          morphTextInGrid("The five 5 year old me who believe in magic, the child i once was...", textRow, startCol, true);
-          setTimeout(() => setAnimationPhase(4), 3000);
-        }, 100);
-        break;
-      case 4:
-        setTimeout(() => {
+          clearText(false);
           setAsciiInGrid(true);
           setTimeout(() => {
             setScrollIndicator();
-            setAnimationPhase(5);
+            setAnimationPhase(4);
             setTimeout(() => {
               if (!animationCompleted) {
                 setAnimationCompleted(true);
@@ -401,7 +416,8 @@ const LetterGlitch = ({
           }, 1500);
         }, 100);
         break;
-      case 5: 
+
+      case 4: 
         break;
     }
   }, [animationPhase, isInitialized, animationCompleted, isWideEnough]);
