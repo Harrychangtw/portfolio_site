@@ -262,7 +262,7 @@ const headerOffset = document.querySelector('header')?.offsetHeight || 0;
                   exit={{ opacity: 0, y: -5 }}
                   transition={{ duration: 0.15, ease: "easeOut" }}
                 >
-                  Paper Reading
+                  {t('header.paperReading')}
                 </motion.span>
               </motion.div>
             )}
@@ -283,7 +283,7 @@ const headerOffset = document.querySelector('header')?.offsetHeight || 0;
                   exit={{ opacity: 0, y: -5 }}
                   transition={{ duration: 0.15, ease: "easeOut" }}
                 >
-                  Manifesto
+                  {t('header.manifesto')}
                 </motion.span>
               </motion.div>
             )}
