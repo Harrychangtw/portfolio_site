@@ -506,14 +506,7 @@ function transformMedia() {
           type: 'html',
           value: `
             <div class="video-embed-container" data-type="youtube" data-src="${embedUrl}" data-title="${alt}">
-              <div class="video-placeholder" style="background-image: url('https://img.youtube.com/vi/${videoId}/maxresdefault.jpg')">
-                <div class="video-placeholder-overlay">
-                  <button class="video-play-button" aria-label="Play video">
-                    <svg class="video-play-icon" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
-                  </button>
-                </div>
+              <div class="video-placeholder">
                 <div class="video-placeholder-title" style="text-align: left;">${alt}</div>
               </div>
             </div>
