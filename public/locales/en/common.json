@@ -12,6 +12,7 @@
     "socialContact": "Social & Contact",
     "personalResources": "Personal & Resources",
     "copyright": "Harry Chang 2025 © All rights reserved.",
+    "portraitDisclaimer": "Portrait rights respected. Contact for removal.",
     "version": "V2.2.0 | Last Updated: Aug. 2025",
     "languageSwitch": "Language"
   },
@@ -53,7 +54,7 @@
     "resume": "Resume",
     "manifesto": "Manifesto",
     "wallpapers": "Wallpapers",
-    "music": "Music Playlists",
+    "music": "Spotify Playlists",
     "reading": "Paper Reading List"
   },
   "readingList": {
