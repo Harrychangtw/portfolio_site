@@ -5,6 +5,7 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { useLanguage } from '@/contexts/LanguageContext'
 import { GalleryImageContainer } from "@/components/gallery-image-container"
+import { useImagePreloader } from '@/hooks/use-image-preloader'
 import type { ProjectMetadata } from '@/lib/markdown'
 
 interface ProjectPageClientProps {
@@ -15,6 +16,9 @@ export default function ProjectPageClient({ initialProject }: ProjectPageClientP
   const { language, t } = useLanguage()
   const [project, setProject] = useState(initialProject)
   const [loading, setLoading] = useState(false) // remains false unless fetching new language
+  
+  // Preload the hero image with high priority for better LCP
+  useImagePreloader({ src: project.imageUrl, priority: true })
 
   useEffect(() => {
     async function fetchLocalizedProject() {
@@ -93,8 +97,9 @@ export default function ProjectPageClient({ initialProject }: ProjectPageClientP
               src={project.imageUrl}
               alt={project.title}
               priority={true}
-              quality={90}
+              quality={95}
               noInsetPadding={true}
+              aspectRatio={1.5} // Default 3:2 aspect ratio to prevent layout shift
             />
           </div>
         </div>

@@ -21,6 +21,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${project.title} | Projects`,
     description: project.description,
+    openGraph: {
+      title: project.title,
+      description: project.description,
+      images: [project.imageUrl],
+    },
+    other: {
+      // Preload the hero image for better LCP
+      'preload-hero-image': project.imageUrl,
+    }
   }
 }
 

@@ -33,9 +33,11 @@ export default function Footer() {
   const { t } = useLanguage();
   const [activeTooltipId, setActiveTooltipId] = useState<string | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-  const [showManifesto, setShowManifesto] = useState(false);
+  const [showManifesto, setShowManifesto] = useState(true); // Default to true to prevent layout shift
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
     const checkWidth = () => {
       setShowManifesto(window.innerWidth >= 800);
     };
@@ -145,8 +147,15 @@ export default function Footer() {
                     {t('footer.personalResources')}
                   </h3>
                   <ul className="space-y-3">
-                    {filteredResourceLinks.map(link => (
-                      <li key={link.id}>
+                    {resourceLinks.map(link => (
+                      <li 
+                        key={link.id} 
+                        className={link.id === 'manifesto' && !showManifesto ? 'opacity-0 pointer-events-none' : ''}
+                        style={{
+                          // Reserve space for manifesto link to prevent layout shift
+                          visibility: link.id === 'manifesto' && !showManifesto && isClient ? 'hidden' : 'visible'
+                        }}
+                      >
                         <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
                           <a
                             href={link.href}
@@ -158,6 +167,7 @@ export default function Footer() {
                             onMouseEnter={(e) => handleMouseEnter(e, link.id)}
                             onMouseMove={handleMouseMove}
                             onMouseLeave={handleMouseLeave}
+                            tabIndex={link.id === 'manifesto' && !showManifesto ? -1 : 0}
                           >
                             {t(`resources.${link.id}`)}
                           </a>

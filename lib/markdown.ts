@@ -514,15 +514,33 @@ function transformMedia() {
         }
         parent.children.splice(index, 1, videoNode)
       } else {
-        // It's a regular image, so wrap it in a figure with a figcaption
+        // It's a regular image with optimized loading and dimensions to prevent CLS
         const imageUrl = getFullResolutionPath(url)
         
         const imageNode: HTML = {
           type: 'html',
           value: `
-            <figure>
-              <img src="${imageUrl}" alt="${alt}" />
-              <figcaption>${alt}</figcaption>
+            <figure class="gallery-figure" style="margin: 2rem 0;">
+              <div class="image-container" style="position: relative; width: 100%; overflow: hidden;">
+                <div class="aspect-ratio-placeholder" style="padding-bottom: 66.67%; position: relative;">
+                  <img 
+                    src="${imageUrl}" 
+                    alt="${alt}" 
+                    loading="lazy" 
+                    decoding="async"
+                    style="
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      width: 100%;
+                      height: 100%;
+                      object-fit: contain;
+                      object-position: center;
+                    " 
+                  />
+                </div>
+              </div>
+              ${alt ? `<figcaption style="text-align: center; padding: 0.75rem 0; font-size: 0.9rem; color: #666; margin-top: 0.75rem;">${alt}</figcaption>` : ''}
             </figure>
           `
         }
