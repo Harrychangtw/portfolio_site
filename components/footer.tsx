@@ -147,33 +147,32 @@ export default function Footer() {
                     {t('footer.personalResources')}
                   </h3>
                   <ul className="space-y-3">
-                    {resourceLinks.map(link => (
-                      <li 
-                        key={link.id} 
-                        className={link.id === 'manifesto' && !showManifesto ? 'opacity-0 pointer-events-none' : ''}
-                        style={{
-                          // Reserve space for manifesto link to prevent layout shift
-                          visibility: link.id === 'manifesto' && !showManifesto && isClient ? 'hidden' : 'visible'
-                        }}
-                      >
-                        <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
-                          <a
-                            href={link.href}
-                            {...(!isInternalLink(link.href) && {
-                              target: "_blank",
-                              rel: "noopener noreferrer"
-                            })}
-                            className="font-ibm-plex text-primary hover:text-[#D8F600] transition-colors"
-                            onMouseEnter={(e) => handleMouseEnter(e, link.id)}
-                            onMouseMove={handleMouseMove}
-                            onMouseLeave={handleMouseLeave}
-                            tabIndex={link.id === 'manifesto' && !showManifesto ? -1 : 0}
-                          >
-                            {t(`resources.${link.id}`)}
-                          </a>
-                        </motion.div>
-                      </li>
-                    ))}
+                    {resourceLinks.map(link => {
+                      // Don't render manifesto link when showManifesto is false
+                      if (link.id === 'manifesto' && !showManifesto) {
+                        return null;
+                      }
+                      
+                      return (
+                        <li key={link.id}>
+                          <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+                            <a
+                              href={link.href}
+                              {...(!isInternalLink(link.href) && {
+                                target: "_blank",
+                                rel: "noopener noreferrer"
+                              })}
+                              className="font-ibm-plex text-primary hover:text-[#D8F600] transition-colors"
+                              onMouseEnter={(e) => handleMouseEnter(e, link.id)}
+                              onMouseMove={handleMouseMove}
+                              onMouseLeave={handleMouseLeave}
+                            >
+                              {t(`resources.${link.id}`)}
+                            </a>
+                          </motion.div>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
 
