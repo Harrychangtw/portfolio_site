@@ -169,9 +169,9 @@ export function GalleryImageContainer({
         </div>
       </div>
       {caption && (
-        <p className="mt-2 text-sm text-secondary italic text-center max-w-prose mx-auto">
+        <figcaption className="mt-2 text-sm text-muted-foreground text-left">
           {caption}
-        </p>
+        </figcaption>
       )}
     </figure>
   )

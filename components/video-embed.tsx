@@ -114,7 +114,7 @@ export const VideoEmbed: React.FC<VideoEmbedProps> = ({ src, title, type }) => {
         )}
       </div>
       {title && (
-        <figcaption className="mt-2 text-sm text-gray-600 dark:text-gray-400 text-left">
+        <figcaption className="mt-2 text-sm text-muted-foreground text-left">
           {title}
         </figcaption>
       )}

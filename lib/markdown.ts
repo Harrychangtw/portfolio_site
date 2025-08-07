@@ -540,7 +540,7 @@ function transformMedia() {
                   />
                 </div>
               </div>
-              ${alt ? `<figcaption style="text-align: center; padding: 0.75rem 0; font-size: 0.9rem; color: #666; margin-top: 0.75rem;">${alt}</figcaption>` : ''}
+              ${alt ? `<figcaption class="mt-2 text-sm text-muted-foreground text-left">${alt}</figcaption>` : ''}
             </figure>
           `
         }

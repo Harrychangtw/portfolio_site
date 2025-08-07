@@ -82,13 +82,12 @@
     linear-gradient(45deg, transparent 25%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 50%, transparent 50%, transparent 75%, rgba(255,255,255,0.05) 75%);
 }
 
-/* Figcaption styling - LEFT ALIGNED as originally intended */
+/* Figcaption styling - use consistent muted-foreground */
 .prose figcaption {
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
   text-align: left;
   font-size: 0.875rem;
-  color: hsl(var(--secondary));
-  font-style: italic;
+  color: hsl(var(--muted-foreground));
   max-width: 100%;
   margin-left: 0;
   margin-right: 0;

@@ -98,7 +98,7 @@ const GalleryImage = ({ src, caption, priority = false }) => {
           </div>
         )}
       </div>
-      {caption && <figcaption className="mt-3 text-sm text-center italic">{caption}</figcaption>}
+      {caption && <figcaption className="mt-2 text-sm text-muted-foreground text-left">{caption}</figcaption>}
     </figure>
   );
 };

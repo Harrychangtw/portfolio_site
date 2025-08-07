@@ -35,12 +35,12 @@
 }
 
 figcaption {
-  text-align: center;
-  padding: 0.75rem 0;
-  font-size: 0.9rem;
-  color: #666;
+  text-align: left;
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
   min-height: 1.5em;
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
 }
 
 /* Prevent text jump during load */
