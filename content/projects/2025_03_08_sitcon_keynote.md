@@ -67,5 +67,6 @@ Their love for hosting such an event was especially apparent during the **revisi
 I’m so grateful for everyone who was there along the way and helped shape such a meaningful and unforgettable experience.
 
 ## Acknowledgments
+
 My sincere thanks to the SITCON 2025 organizing team, especially AK, Danny, and all the participants who provided feedback during the practice sessions. Your support and encouragement made this keynote possible.
 ---
