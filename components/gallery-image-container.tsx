@@ -99,9 +99,18 @@ export function GalleryImageContainer({
   let containerClass = ""
   
   if (isPortrait) {
-    containerPadding = `${(1 / rawAspectRatio) * 100}%`
-    const relativeWidth = (rawAspectRatio / targetRatio) * 100
-    horizontalPadding = `${(100 - relativeWidth) / 2}%`
+    // On mobile, portrait images should span full width without horizontal padding
+    // On desktop, maintain the target ratio with horizontal padding
+    if (isMobile && noInsetPadding) {
+      // For title images on mobile, use full width
+      containerPadding = `${(1 / rawAspectRatio) * 100}%`
+      horizontalPadding = '0px'
+    } else {
+      // For desktop or non-title images, maintain target ratio
+      containerPadding = `${(1 / rawAspectRatio) * 100}%`
+      const relativeWidth = (rawAspectRatio / targetRatio) * 100
+      horizontalPadding = `${(100 - relativeWidth) / 2}%`
+    }
     containerClass = `border-t-[${borderThickness}] border-b-[${borderThickness}] border-white`
   } else if (isCinematic) {
     containerPadding = `${(1 / targetRatio) * 100}%`
