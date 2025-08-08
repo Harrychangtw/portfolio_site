@@ -3,8 +3,8 @@ import { notFound } from "next/navigation"
 import { getGalleryItemData, getAllGallerySlugs } from "@/lib/markdown"
 import GalleryItemPageClient from "@/components/gallery-item-page-client"
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const { slug } = params
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
   if (!slug) return { title: "Gallery Item Not Found" }
   
   const item = await getGalleryItemData(slug)
@@ -26,8 +26,8 @@ export async function generateStaticParams() {
   return paths
 }
 
-export default async function GalleryItemPage({ params }: { params: { slug: string } }) {
-  const { slug } = params
+export default async function GalleryItemPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   if (!slug) notFound()
   
   const item = await getGalleryItemData(slug)
