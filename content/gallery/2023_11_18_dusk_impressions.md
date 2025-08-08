@@ -18,3 +18,6 @@ gallery:
 
 ---
 
+There is a brief, benevolent light that bathes the world in gold just before it surrenders to the night. In these moments, the city's sharp edges soften. Ordinary scenes, a footstep on the pavement, a stranger crossing the street, the silhouette of leaves on a brick wall, are transformed into something cinematic. The shadow becomes a silent witness, stretching and trailing behind every movement like a memory made visible.
+
+We walk through this fleeting warmth, perhaps heading home, or perhaps just wandering. As we move alongside our own elongated shadows, we are in conversation with a part of ourselves, reflecting on a past we can still see so clearly, yet can never hold again.

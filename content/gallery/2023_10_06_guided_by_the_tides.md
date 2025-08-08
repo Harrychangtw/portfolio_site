@@ -15,20 +15,10 @@ gallery:
 
 ---
 
-<!-- ## About This Collection
+> "We're just here to be memories for our kids."
+>
+> — Interstellar
 
-This collection explores the geometric patterns, lines, and shapes found in modern urban architecture. Through careful framing and composition, I aim to highlight the mathematical precision and artistic elements present in structures we often pass by without notice.
+There is a path for us, etched between the shimmering tides. It is a road of liquid light, a way forward into the quiet vastness. Here, with a small hand held in a larger one, they walk not towards a destination, but deeper into a shared silence.
 
-## The Story Behind the Photos
-
-Walking through cities with a camera forces you to look up, down, and around in ways that daily commuters rarely do. These photographs were taken over a period of six months across several major metropolitan areas. Each image represents a moment where the built environment revealed its underlying design principles.
-
-## Technical Details
-
-All images were shot with a Sony A7III camera paired with a 24-70mm f/2.8 GM lens. I primarily used apertures between f/8 and f/11 to maintain sharpness across the frame, often employing a tripod for the lowest ISO possible. Post-processing was minimal, focusing on contrast adjustment and perspective correction to emphasize the geometric elements.
-
-## Location Notes
-
-The photographs span several locations including New York, Chicago, and San Francisco. Each city offers its own architectural character - from New York's mixture of historic and ultra-modern, to Chicago's pioneering skyscrapers, to San Francisco's unique blend of styles influenced by its geography.
-
-![Looking up at a glass skyscraper](/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp) -->
+Perhaps life is like this sea, vast and uncertain. Yet, there is always a trail of light, paved by love and companionship. This single moment of togetherness will become the warmest guidance in the countless days to come, a gentle echo on the shores of memory.

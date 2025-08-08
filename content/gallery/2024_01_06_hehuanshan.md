@@ -12,29 +12,18 @@ pinned: 4
 locked: false
 gallery:
   - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0038.webp"
-    caption: ""
   - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0182.webp"
-    caption: ""
   - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0037.webp"
-     # Portrait orientation (2:3)
   - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0008.webp"
 
 ---
 
-<!-- ## About This Collection
+> To see the world, things dangerous to come to, to see behind walls, draw closer, to find each other, and to feel. That is the purpose of life.
+>
+> — The Secret Life of Walter Mitty
 
-This collection explores the geometric patterns, lines, and shapes found in modern urban architecture. Through careful framing and composition, I aim to highlight the mathematical precision and artistic elements present in structures we often pass by without notice.
+This road unwinds like a ribbon through the ranges, a path laid between the sky and the earth. Up here, where the world unfolds in layers of blue and grey, one feels like a solitary traveler on a grand quest.
 
-## The Story Behind the Photos
+We all search for our own peak. A summit to conquer, a view to behold, a quiet place to understand it all. The journey is marked by signs, by limits and by crossings, but the destination, that small red-roofed house nestled in the valley, is a reminder of the life that persists, of the peace that awaits.
 
-Walking through cities with a camera forces you to look up, down, and around in ways that daily commuters rarely do. These photographs were taken over a period of six months across several major metropolitan areas. Each image represents a moment where the built environment revealed its underlying design principles.
-
-## Technical Details
-
-All images were shot with a Sony A7III camera paired with a 24-70mm f/2.8 GM lens. I primarily used apertures between f/8 and f/11 to maintain sharpness across the frame, often employing a tripod for the lowest ISO possible. Post-processing was minimal, focusing on contrast adjustment and perspective correction to emphasize the geometric elements.
-
-## Location Notes
-
-The photographs span several locations including New York, Chicago, and San Francisco. Each city offers its own architectural character - from New York's mixture of historic and ultra-modern, to Chicago's pioneering skyscrapers, to San Francisco's unique blend of styles influenced by its geography.
-
-![Looking up at a glass skyscraper](/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp) -->
+It is a quiet testament to finding your own place in this vast, beautiful world.

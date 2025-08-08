@@ -24,20 +24,6 @@ gallery:
 
 ---
 
-<!-- ## About This Collection
+我們在清晨的微光中啟程，在薄暮的餘暉裡返航，穿梭在城市的經緯，探尋著讓靈魂悸動的瞬間。或許是市場裡鏡中的一瞥，是巷弄深處不期而遇的風景，是晨曦下無限延伸的公路，也是積水倒映的城市霓虹。
 
-This collection explores the geometric patterns, lines, and shapes found in modern urban architecture. Through careful framing and composition, I aim to highlight the mathematical precision and artistic elements present in structures we often pass by without notice.
-
-## The Story Behind the Photos
-
-Walking through cities with a camera forces you to look up, down, and around in ways that daily commuters rarely do. These photographs were taken over a period of six months across several major metropolitan areas. Each image represents a moment where the built environment revealed its underlying design principles.
-
-## Technical Details
-
-All images were shot with a Sony A7III camera paired with a 24-70mm f/2.8 GM lens. I primarily used apertures between f/8 and f/11 to maintain sharpness across the frame, often employing a tripod for the lowest ISO possible. Post-processing was minimal, focusing on contrast adjustment and perspective correction to emphasize the geometric elements.
-
-## Location Notes
-
-The photographs span several locations including New York, Chicago, and San Francisco. Each city offers its own architectural character - from New York's mixture of historic and ultra-modern, to Chicago's pioneering skyscrapers, to San Francisco's unique blend of styles influenced by its geography.
-
-![Looking up at a glass skyscraper](/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp) -->
+正如《愛在黎明破曉時》所言：「我們的時間只屬於我們，是我們自己的創造。」或許，攝影，便是在這稍縱即逝的時間裡，捕捉那些與我們共鳴的吉光片羽。每一次快門，都是對「活在當下」的註解，是一場獻給自己的，心之所向的旅行。

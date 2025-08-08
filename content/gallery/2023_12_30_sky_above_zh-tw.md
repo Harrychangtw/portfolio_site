@@ -15,20 +15,6 @@ gallery:
 
 ---
 
-<!-- ## About This Collection
+遠眺那座雲霧之城，讓人不禁想起蘇軾的詞句：「我欲乘風歸去，又恐瓊樓玉宇，高處不勝寒。」
 
-This collection explores the geometric patterns, lines, and shapes found in modern urban architecture. Through careful framing and composition, I aim to highlight the mathematical precision and artistic elements present in structures we often pass by without notice.
-
-## The Story Behind the Photos
-
-Walking through cities with a camera forces you to look up, down, and around in ways that daily commuters rarely do. These photographs were taken over a period of six months across several major metropolitan areas. Each image represents a moment where the built environment revealed its underlying design principles.
-
-## Technical Details
-
-All images were shot with a Sony A7III camera paired with a 24-70mm f/2.8 GM lens. I primarily used apertures between f/8 and f/11 to maintain sharpness across the frame, often employing a tripod for the lowest ISO possible. Post-processing was minimal, focusing on contrast adjustment and perspective correction to emphasize the geometric elements.
-
-## Location Notes
-
-The photographs span several locations including New York, Chicago, and San Francisco. Each city offers its own architectural character - from New York's mixture of historic and ultra-modern, to Chicago's pioneering skyscrapers, to San Francisco's unique blend of styles influenced by its geography.
-
-![Looking up at a glass skyscraper](/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp) -->
+暮色四合，雲海翻湧，台北彷彿一座漂浮於天空的城池。那座熟悉的孤塔，此刻是唯一的座標，刺破迷霧，指向蒼穹。山下的萬家燈火，此刻化作一片朦朧的星屑，在那片靜謐的雲海下，溫柔地閃爍著，彷彿一個遙遠而溫暖的夢境。

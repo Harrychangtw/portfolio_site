@@ -20,3 +20,12 @@ gallery:
   - url: "images/optimized/gallery/2023_10_05_solitary_glow/DSCF0104 40 Edited.webp"
 
 ---
+
+
+> We are all lonely for something we don't know we're lonely for.
+>
+> — Tennessee Williams, The Glass Menagerie
+
+Here, light does not illuminate. It sculpts. It carves figures from the urban mass, creating stark silhouettes against the sun and lonely beacons in the night. In the stark contrast of black and white, the city's rhythm finds its pause.
+
+Each frame is a short story whispered in the language of shadow and form. A figure paused at a crosswalk, a fleeting gesture against the sky, a couple embraced by a commercial glow. They are strangers, caught in their own quiet moment, their brief passage a poem written on the pavement. They are the solitary glows that give the city its soul.

@@ -1,5 +1,5 @@
 ---
-title: "City of Tears"
+title: "Tears in Rain"
 description: ""
 imageUrl: "images/optimized/gallery/2024_04_06_city_of_tears/DSCF1482 7 Edited.webp" 
 date: "2024-04-06"
@@ -22,3 +22,4 @@ gallery:
 
 ---
 
+"All those moments will be lost in time, like tears in rain." The city whispers its own tales, not of distant galaxies, but of fleeting moments on wet asphalt. A lone umbrella against the urban sprawl, fishermen standing against the grey sea, a splash of color from a raincoat in a monochrome world. Each drop of rain is a story, every reflection a memory, all soon to be lost, like tears in the downpour.

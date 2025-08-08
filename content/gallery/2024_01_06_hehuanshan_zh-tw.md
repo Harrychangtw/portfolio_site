@@ -12,29 +12,21 @@ pinned: 4
 locked: false
 gallery:
   - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0038.webp"
-    caption: ""
   - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0182.webp"
-    caption: ""
   - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0037.webp"
-     # Portrait orientation (2:3)
   - url: "images/optimized/gallery/2024_01_06_hehuanshan/DSCF0008.webp"
 
 ---
 
-<!-- ## About This Collection
 
-This collection explores the geometric patterns, lines, and shapes found in modern urban architecture. Through careful framing and composition, I aim to highlight the mathematical precision and artistic elements present in structures we often pass by without notice.
+> 仰觀宇宙之大，俯察品類之盛，所以遊目騁懷，足以極視聽之娛，信可樂也。
+> 
+> — 王羲之《蘭亭集序》
 
-## The Story Behind the Photos
+行走在蜿蜒的山路上，我們是旅人，也是過客。
 
-Walking through cities with a camera forces you to look up, down, and around in ways that daily commuters rarely do. These photographs were taken over a period of six months across several major metropolitan areas. Each image represents a moment where the built environment revealed its underlying design principles.
+在這高聳入雲的公路之巔，每一次的俯仰，都是一場與天地的對話。遠方的山巒層層疊疊，如水墨般靜默展開，而佇立在觀景台上的身影，渺小卻無比清晰。我們究竟在尋找什麼？是眼前的極致風光，還是心中那片寧靜的迴響？
 
-## Technical Details
+或許，人生正如這條公路，有速限，有禁止停留的標誌，指引著方向卻也設下框架。但總有那麼一處紅頂小屋，安靜地座落在山谷間，提醒著我們心之所向的歸宿。
 
-All images were shot with a Sony A7III camera paired with a 24-70mm f/2.8 GM lens. I primarily used apertures between f/8 and f/11 to maintain sharpness across the frame, often employing a tripod for the lowest ISO possible. Post-processing was minimal, focusing on contrast adjustment and perspective correction to emphasize the geometric elements.
-
-## Location Notes
-
-The photographs span several locations including New York, Chicago, and San Francisco. Each city offers its own architectural character - from New York's mixture of historic and ultra-modern, to Chicago's pioneering skyscrapers, to San Francisco's unique blend of styles influenced by its geography.
-
-![Looking up at a glass skyscraper](/images/optimized/gallery/test1/amanda-marie-xgn822lnt4Q-unsplash.webp) -->
+在這俯仰之間，塵世顯得遼闊，而我們終將找到自己的位置。
