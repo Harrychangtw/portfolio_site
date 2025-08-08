@@ -15,6 +15,8 @@ featured: true
 ## 專案概覽
 「古韻今唱」是我們學校的年度戲劇盛事，由高中十年級與十一年級學生以班級為單位參與。活動旨在鼓勵學生以創新的方式重新詮釋中華文學經典，並將音樂表演作為核心元素。在這次競賽中，我們班（十一年愛班）的作品《亂世殘陽》最終榮獲第一名，演出獲得評審團的高度肯定。
 
+---
+
 ## 劇本概覽
 
 本劇名為《亂世殘陽》，以明末清初的亂世為背景，圍繞著吳三桂、李自成與名妓陳圓圓三人之間的情感糾葛與命運交錯，重新演繹了這段波瀾壯闊的歷史。
@@ -24,7 +26,9 @@ featured: true
 全劇在多年後的一場相會中達到高潮。化身為僧的李自成與被冷落的陳圓圓再次相遇，兩人共同感嘆在時代洪流中「是非成敗轉頭空」的無奈與滄桑。故事最終在英雄末路、紅顏寂寥的悲劇氛圍中落下帷幕。
 
 ---
+
 ## 謝幕影片製作
+
 延續去年拍攝的經驗，我在今年也是持續負責整個謝幕花絮的拍攝及剪輯工作，希望用有點「過於炫技」的方式來呈現演出背後每位同學的負責工作。
 
 ![最後的成片](https://drive.google.com/file/d/1aGQ9TryQcT7zw273gwb_uJrxAr64fmaa/view?usp=sharing)
@@ -64,34 +68,29 @@ featured: true
 ![片尾轉場的 Fusion Node Tree](images/optimized/projects/2024_08_19_classics_reimagined/closing_squence_fusion_comp.webp)
     
 
-    
-
 ### 拍立得拍攝
 在影片製作之外，為了讓片頭更具溫度與紀念意義，我額外使用閃光燈為每位同學拍攝了拍立得風格的照片，並記錄下他們想說的話，將這些珍貴的瞬間融入影片之中。
 ![拍立得照片整理在 Affinity Designer](images/optimized/projects/2024_08_19_classics_reimagined/polaroid_design.webp)
 
 ---
+
 ## 劇照
-
 ![](images/optimized/projects/2024_08_19_classics_reimagined/_DSF3005%2086%20Edited.webp)
-
 ![](images/optimized/projects/2024_08_19_classics_reimagined/_DSF3072%2090%20Edited.webp)
-
 ![](images/optimized/projects/2024_08_19_classics_reimagined/DSCF1949%206%20Edited.webp)
-
 ![](images/optimized/projects/2024_08_19_classics_reimagined/DSCF2915%2024%20Edited.webp)
-
 ![](images/optimized/projects/2024_08_19_classics_reimagined/DSCF2930%2029%20Edited.webp)
-
 ![](images/optimized/projects/2024_08_19_classics_reimagined/DSCF4477%2018%20Edited.webp)
-
 ![](images/optimized/projects/2024_08_19_classics_reimagined/DSCF4551%2022%20Edited.webp)
 
+---
 
 ## 心得
 雖然在籌備過程中，我的主要角色是記錄者而非表演者，但這也讓我有幸能以獨特的視角，見證班級團隊合作的每一個精彩瞬間——從背板設計、服裝挑選，到導演指導、演員詮釋，乃至音樂編排，同學間齊心協力的光景至今仍歷歷在目。
 
 儘管拍攝過程充滿挑戰，但當影片播畢、聽見全場掌聲的那一刻，我深信為這短短一分半鐘所付出的所有心力，都是值得且無悔的。
+
+---
 
 ## 致謝
 感謝所有參與這次演出的同學們，特別是兩位導演、編劇、以及所有在幕後默默付出的夥伴們。你們的努力和創意讓這次演出成為可能，也讓我有機會用影像記錄下這段美好的回憶。

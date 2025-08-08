@@ -15,6 +15,8 @@ featured: true
 ## Project Overview
 "Classics Reimagined" is our school's annual drama extravaganza, featuring class-based participation from 10th and 11th-grade students. The event encourages students to creatively reinterpret Chinese literary classics, with musical performance as a core element. In this year's competition, our class (11th Grade, Ai Class) won first place with our production, "Remnants of a Tumultuous Sun," which received high praise from the judges.
 
+---
+
 ## Synopsis
 
 Our play, titled "Remnants of a Tumultuous Sun," is set against the chaotic backdrop of the late Ming and early Qing dynasties. It reinterprets the dramatic history surrounding the emotional entanglements and intertwined fates of three figures: Wu Sangui, Li Zicheng, and the famous courtesan Chen Yuanyuan.
@@ -24,6 +26,7 @@ The story begins at the end of the Ming Dynasty. The rebel leader Li Zicheng's a
 The play reaches its climax years later in a reunion. Li Zicheng, now a monk, meets the neglected Chen Yuanyuan again. Together, they lament the helplessness and vicissitudes of life, where "right and wrong, success and failure, all turn to nothing in the end" in the great tide of history. The story concludes in a tragic atmosphere of a fallen hero and a lonely beauty.
 
 ---
+
 ## Curtain Call Video Production
 Building on last year's filming experience, I once again took on the responsibility for filming and editing the entire behind-the-scenes curtain call video. My goal was to present the hard work of every student involved in a style that was a bit "overly flashy."
 
@@ -67,27 +70,24 @@ In addition to the video production, to give the intro a warmer and more commemo
 ![Polaroid photos organized in Affinity Designer](images/optimized/projects/2024_08_19_classics_reimagined/polaroid_design.webp)
 
 ---
+
 ## Stills
-
 ![](images/optimized/projects/2024_08_19_classics_reimagined/_DSF3005%2086%20Edited.webp)
-
 ![](images/optimized/projects/2024_08_19_classics_reimagined/_DSF3072%2090%20Edited.webp)
-
 ![](images/optimized/projects/2024_08_19_classics_reimagined/DSCF1949%206%20Edited.webp)
-
 ![](images/optimized/projects/2024_08_19_classics_reimagined/DSCF2915%2024%20Edited.webp)
-
 ![](images/optimized/projects/2024_08_19_classics_reimagined/DSCF2930%2029%20Edited.webp)
-
 ![](images/optimized/projects/2024_08_19_classics_reimagined/DSCF4477%2018%20Edited.webp)
-
 ![](images/optimized/projects/2024_08_19_classics_reimagined/DSCF4551%2022%20Edited.webp)
+
+---
 
 ## Reflection
 Although my main role during the preparation was as a documentarian rather than a performer, it gave me the unique privilege of witnessing every brilliant moment of our class's teamwork—from set design and costume selection to directing, acting, and musical arrangement. The sight of my classmates working together in harmony is still vivid in my memory.
 
 Despite the challenges of filming, the moment the video ended and I heard the applause from the entire audience, I was convinced that all the effort poured into that short minute and a half was worthwhile and had no regrets.
 
+---
 
 ## Acknowledgments
 Special thanks to all the students who participated in this performance, especially the directors, scriptwriters, and all the partners who worked tirelessly behind the scenes. Your efforts and creativity made this performance possible and gave me the opportunity to capture these wonderful memories through video.

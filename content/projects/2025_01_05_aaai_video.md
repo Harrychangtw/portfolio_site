@@ -18,6 +18,8 @@ locked: false
 
 ![The final video published by AAAI](https://www.youtube.com/watch?v=eSuEhZpHesU&t=2s&pp=ygUZYWFhaSBlZHVjYXRpb25hbCBhaSB2aWRlbw%3D%3D)
 
+---
+
 ## Video Content
 The core objective of this video was to clearly explain "Jailbreak Attacks" and their defense mechanisms in large language model security to a non-expert audience within three minutes. To achieve this, I adopted the classic "problem-solution" narrative structure, using concrete examples and vivid analogies to transform complex technical concepts into easily digestible content.
 
@@ -52,10 +54,14 @@ Among these, the opening animation sequence was the most time-consuming part of 
 
 Although this was my first time tackling this type of video, the entire process went surprisingly smoothly, and it took only about two weeks to complete all the post-production work. In the end, this video not only received recognition in the AAAI competition but also deepened my passion for and understanding of visual storytelling.
 
-## Reflections
+---
+
+## Reflection
 I am grateful for this opportunity to merge my research in language model security with my love for video creation. Throughout the process, I not only learned valuable motion graphics skills but also gained a profound appreciation for the immense effort behind top-tier channels like [Vox](https://www.youtube.com/@Vox) and [Kurzgesagt](https://www.youtube.com/@kurzgesagt). Even with professional teams, an unimaginable amount of time and energy is poured into every polished frame.
 
 I hope to apply the experience gained from this project to more creations in the future and continue to hone my skills. I believe this experience is not just a successful project but a starting point for exploring the possibilities of science communication and visual narrative.
+
+---
 
 ## Acknowledgements
 Special thanks to Ak for forwarding information about this competition with me and for his advice during the initial script-writing phase, which helped me articulate the core concepts more clearly.

@@ -17,6 +17,8 @@ locked: false
 ## Project Overview
 "POWERPLAY" is our school's annual English drama extravaganza, entirely student-led. From scriptwriting and casting to stage design, every aspect was handled by the eleventh-grade students. This year's theme was "LOVE." Our class blended the technical prowess of science-track students with unique insights into love, exploring its diversity and complexity through three interconnected stories.
 
+---
+
 ## Synopsis
 
 - **Theme**: To explore the complexities of "friendship," "trust," and "white lies" in love through three independent yet interconnected stories.
@@ -35,6 +37,7 @@ locked: false
 The train arrives at its final destination. The conductor concludes that love is a deep connection built on friendship, trust, and honesty. It's about values, care, and companionship, leading the passengers toward "Hope."
 
 ---
+
 ## Credits Video Production
 Building on the success of my last project, "[Classics Reimagined](https://www.harrychang.me/projects/2024_08_19_classics_reimagined)," I once again took on the role of shooting and editing the one-minute credits video. This time, I also tried to assist a classmate who was passionate about editing, and he independently completed an eight-minute behind-the-scenes featurette.
 
@@ -86,9 +89,8 @@ In the final stages of the video, I focused on the following details to enhance 
 ![Using Magic Mask to isolate the chair element for the final horizontal transition](images/optimized/projects/2025_01_08_powerplay/credit-v2_01_01_16_20.webp)
 ![Adding masks of chairs and microphones to the floating Polaroids in the auditorium to enhance spatial depth](images/optimized/projects/2025_01_08_powerplay/credit-v2_01_01_14_21.webp)
 
-
-
 ---
+
 ## Production Stills
 
 ![](images/optimized/projects/2025_01_08_powerplay/DSCF2377.webp)
@@ -100,12 +102,14 @@ In the final stages of the video, I focused on the following details to enhance 
 ![](images/optimized/projects/2025_01_08_powerplay/DSCF4080.webp)
 ![](images/optimized/projects/2025_01_08_powerplay/DSCF4089.webp)
 
+---
 
 ## Reflection
 Compared to the last project, we had more preparation time for POWERPLAY, which allowed us to realize more ambitious creative ideas. Besides the actors' excellent performances, the biggest highlight from our class was undoubtedly the motorized train prop and the dynamic backdrops created by Raymond using After Effects. Every time the electric train made its entrance, it instantly became the center of attention. The work on the dynamic backdrops was even more massive, and I have immense respect for Raymond's perseverance. He managed to quickly make revisions despite frequent changes to the script and visuals, which was incredibly impressive.
 
 For me personally, this video production was a valuable learning experience. By implementing Camera Tracker and 3D space integration in Fusion, I gained a deeper understanding of DaVinci Resolve's powerful capabilities. This project not only honed my editing skills but also gave me a more profound appreciation for the possibilities of visual storytelling.
 
+---
 
 ## Acknowledgements
 Thank you to all the students who participated in this performance. From scriptwriting and directing to acting, everyone poured countless efforts into this production. Special thanks to Raymond, Allie, and others for their hard work, making our train prop and dynamic backdrops the highlights of the show. A heartfelt thanks also to Henry & Kai for filming and producing the behind-the-scenes featurette, allowing us to comprehensively document this remarkable performance. This experience will forever remain in my heart and inspire me to continue exploring the endless possibilities of video production in the future.

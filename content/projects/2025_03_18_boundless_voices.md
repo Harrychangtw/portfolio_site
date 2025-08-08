@@ -28,6 +28,8 @@ One of the most significant challenges was creating the program booklet. The ini
 
 The cover design was a truly memorable experience. After many discussions and revisions with the team, we decided on a concept that would visually represent the concert's theme. We chose an image of a vast blue sky with white clouds to evoke a sense of the "boundless" world we envisioned. Soaring musical notes were added to convey a feeling of light, elegant, and joyful energy, perfectly capturing the spirit of our musical theater.
 
+---
+
 ## Directing the Documentary
 
 The behind-the-scenes documentary was a solo project for me, from filming and editing to sound design and color grading. I wanted the video to have a strong narrative and emotional impact.
@@ -45,6 +47,8 @@ For the editing, I relied heavily on "match cuts" to create a fluid and rhythmic
 ## Reflection
 
 From interviewing the incredibly optimistic ocarina player, Ms. Wei Hsiao-chieh, to seeing the final, packed performance at the [Chiang Kai-shek Memorial Hall](https://www.opentix.life/event/1783033841754939392), this project was a profound learning experience. It pushed my skills in design, video production, and teamwork. More importantly, it was a powerful reminder that art and music have the power to transcend barriers and connect us all. Seeing the audience's heartfelt reaction was the greatest reward, affirming that our message of resilience and hope had resonated with many.
+
+---
 
 ## Acknowledgments
 
