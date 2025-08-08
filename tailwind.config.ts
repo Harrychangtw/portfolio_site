@@ -109,6 +109,21 @@ const config: Config = {
               borderTopWidth: "2px",
               marginTop: "2em",
               marginBottom: "2em"
+            },
+            blockquote: {
+              quotes: "none",
+              fontStyle: "normal",
+              borderLeftColor: "hsl(var(--primary))",
+              borderLeftWidth: "4px",
+              paddingLeft: "1.5em",
+              color: "hsl(var(--foreground))",
+              fontFamily: "var(--font-ibm-plex-sans)",
+            },
+            "blockquote p:first-of-type::before": {
+              content: "none"
+            },
+            "blockquote p:last-of-type::after": {
+              content: "none"
             }
           },
         },
