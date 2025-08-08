@@ -99,14 +99,14 @@ export function GalleryImageContainer({
   let containerClass = ""
   
   if (isPortrait) {
-    // On mobile, portrait images should span full width without horizontal padding
+    // On mobile, portrait images should always span full width
     // On desktop, maintain the target ratio with horizontal padding
-    if (isMobile && noInsetPadding) {
-      // For title images on mobile, use full width
+    if (isMobile) {
+      // For all vertical images on mobile, use full width
       containerPadding = `${(1 / rawAspectRatio) * 100}%`
       horizontalPadding = '0px'
     } else {
-      // For desktop or non-title images, maintain target ratio
+      // For desktop, maintain target ratio with horizontal padding
       containerPadding = `${(1 / rawAspectRatio) * 100}%`
       const relativeWidth = (rawAspectRatio / targetRatio) * 100
       horizontalPadding = `${(100 - relativeWidth) / 2}%`
