@@ -93,8 +93,19 @@
   margin-right: 0;
 }
 
-.prose figure {
-  margin: 2rem 0;
+/* Unified container spacing for both images and videos */
+.image-embed-container,
+.video-embed-container {
+  margin: 1.5rem 0;
+}
+
+/* Ensure consistent caption spacing */
+.image-embed-container p,
+.video-placeholder-subtitle {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  text-align: left;
 }
 
 /* Responsive sizing for smaller screens */

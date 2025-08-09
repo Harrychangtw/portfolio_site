@@ -520,26 +520,19 @@ function transformMedia() {
         const imageNode: HTML = {
           type: 'html',
           value: `
-            <figure class="gallery-figure" style="margin: 2rem 0;">
-              <div class="image-container" style="position: relative; width: 100%; overflow: hidden;">
-                <div class="aspect-ratio-placeholder" style="padding-bottom: 66.67%; position: relative;">
-                  <img 
-                    src="${imageUrl}" 
-                    alt="${alt}" 
-                    loading="lazy" 
-                    decoding="async"
-                    style="
-                      position: absolute;
-                      top: 0;
-                      left: 0;
-                      width: 100%;
-                      height: 100%;
-                      object-fit: contain;
-                      object-position: center;
-                    " 
-                  />
-                </div>
-              </div>
+            <figure class="my-6">
+              <img 
+                src="${imageUrl}" 
+                alt="${alt}" 
+                loading="lazy" 
+                decoding="async"
+                style="
+                  width: 100%;
+                  height: auto;
+                  display: block;
+                  object-fit: contain;
+                " 
+              />
               ${alt ? `<figcaption class="mt-2 text-sm text-muted-foreground text-left">${alt}</figcaption>` : ''}
             </figure>
           `
