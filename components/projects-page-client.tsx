@@ -40,7 +40,7 @@ export default function ProjectsPageClient() {
       <div className="page-transition-enter">
         <div className="container py-16 md:py-24">
           <h1 className="font-space-grotesk text-4xl font-bold mb-12">{t('projects.title')}</h1>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[var(--column-spacing)]">
             {[...Array(6)].map((_, i) => (
               <div key={i} className="group relative flex flex-col">
                 <div className="relative overflow-hidden bg-muted">
@@ -73,7 +73,7 @@ export default function ProjectsPageClient() {
         {projects.length === 0 ? (
           <p className="font-ibm-plex text-muted-foreground">{t('projects.noProjectsFound')}</p>
         ) : (
-          <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 transition-opacity duration-300 ${isLanguageChanging ? 'opacity-70' : 'opacity-100'}`}>
+          <div className={`grid grid-cols-1 md:grid-cols-3 gap-[var(--column-spacing)] transition-opacity duration-300 ${isLanguageChanging ? 'opacity-70' : 'opacity-100'}`}>
             {projects.map((project, index) => (
               <ProjectCard
                 key={project.slug}

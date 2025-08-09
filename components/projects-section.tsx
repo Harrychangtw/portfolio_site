@@ -40,7 +40,7 @@ export default function ProjectsSection() {
         <h2 className="font-space-grotesk text-lg uppercase tracking-wider text-secondary mb-4">{t('projects.title')}</h2>
         
         {/* Reserve space to prevent layout shift */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-[var(--column-spacing)]" style={{ minHeight: isLoading ? '600px' : 'auto' }}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-[var(--column-spacing)]" style={{ minHeight: isLoading ? '600px' : 'auto' }}>
           {isLoading ? (
             // Placeholder cards while loading - match exact project card structure
             [...Array(6)].map((_, i) => (
