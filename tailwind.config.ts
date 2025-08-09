@@ -124,6 +124,31 @@ const config: Config = {
             },
             "blockquote p:last-of-type::after": {
               content: "none"
+            },
+            code: {
+              color: "hsl(var(--foreground))",
+              backgroundColor: "#4F4F4F",
+              borderRadius: "0.25rem",
+              paddingLeft: "0.25rem",
+              paddingRight: "0.25rem",
+              paddingTop: "0.125rem",
+              paddingBottom: "0.125rem",
+              fontFamily: "ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace",
+              fontSize: "0.875em",
+              fontWeight: "400",
+            },
+            "code::before": {
+              content: "none"
+            },
+            "code::after": {
+              content: "none"
+            },
+            // Ensure pre > code blocks don't get the inline styling
+            "pre code": {
+              backgroundColor: "transparent",
+              borderRadius: "0",
+              padding: "0",
+              fontSize: "1em",
             }
           },
         },
