@@ -26,7 +26,7 @@ const manifestoChunksEn = [
     [
         "While I honor the child I once was,",
         "This is not a self-centered reverence—",
-        "I am profoundly grateful for the progressive family that nurtured that child,",
+        "I am profoundly grateful for the family that nurtured that child,",
         "Who saw in dismantled locks not destruction but discovery,",
         "Who understood that wonder needs both freedom and foundation."
     ],

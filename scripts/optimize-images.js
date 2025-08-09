@@ -33,6 +33,11 @@ const config = {
       width: 2560,
       quality: 95,
     },
+    // Higher quality for title images (titlecard or first image in folder)
+    title: {
+      width: 3200,
+      quality: 98,
+    },
     thumbnail: {
       width: 20,  // Very small for blur-up effect
       quality: 60,
@@ -52,6 +57,11 @@ const config = {
     fullscreen: {
       width: 3200,
       quality: 95,
+    },
+    // Higher quality for gallery title images (first image or main display)
+    title: {
+      width: 3840,  // 4K width for crisp display
+      quality: 98,
     },
     thumbnail: {
       width: 20,
@@ -116,7 +126,8 @@ async function processGalleryImages() {
       /\.(jpg|jpeg|png)$/i.test(file)
     );
     
-    for (const image of images) {
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i];
       const imagePath = path.join(galleryPath, image);
       const outputPath = path.join(config.directories.optimized, 'gallery', galleryFolder);
       
@@ -125,6 +136,8 @@ async function processGalleryImages() {
       }
       
       const isFullscreen = image.includes('fullscreen') || image.includes('hero');
+      // First image in the gallery is typically the title image
+      const isTitleImage = i === 0;
       const outputFilename = path.join(outputPath, image.replace(/\.[^.]+$/, '.webp'));
       const replacementMsg = checkFileReplacement(outputFilename);
       
@@ -134,7 +147,19 @@ async function processGalleryImages() {
         const isPortrait = metadata.height > metadata.width;
         
         // Generate optimized full-size image
-        if (isFullscreen) {
+        if (isTitleImage) {
+          // Use higher quality settings for title images
+          await sharp(imagePath)
+            .resize({
+              width: config.gallery.title.width,
+              fit: 'inside',
+              withoutEnlargement: true
+            })
+            .webp({ quality: config.gallery.title.quality })
+            .toFile(outputFilename);
+            
+          console.log(`  Optimized title image (high quality): ${image} -> ${path.basename(outputFilename)}${replacementMsg}`);
+        } else if (isFullscreen) {
           await sharp(imagePath)
             .resize({
               width: config.gallery.fullscreen.width,
@@ -223,9 +248,22 @@ async function processProjectImages() {
       const metadata = await sharp(imagePath).metadata();
       const isPortrait = metadata.height > metadata.width;
       const isHero = imagePath.toLowerCase().includes('hero') || path.basename(imagePath).startsWith('hero');
+      const isTitleCard = imagePath.toLowerCase().includes('titlecard') || path.basename(imagePath).toLowerCase().includes('title');
       
       // Generate optimized full-size image
-      if (isHero) {
+      if (isTitleCard) {
+        // Use highest quality settings for title cards
+        await sharp(imagePath)
+          .resize({
+            width: config.projects.title.width,
+            fit: 'inside',
+            withoutEnlargement: true
+          })
+          .webp({ quality: config.projects.title.quality })
+          .toFile(outputFilename);
+          
+        console.log(`  Optimized title card (high quality): ${relativePath} -> ${path.basename(outputFilename)}${replacementMsg}`);
+      } else if (isHero) {
         await sharp(imagePath)
           .resize({
             width: config.projects.hero.width,
