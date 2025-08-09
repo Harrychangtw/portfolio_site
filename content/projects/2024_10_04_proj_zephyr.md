@@ -1,79 +1,76 @@
 ---
-title: "Zephyr: 全自動搶票機器人"
-category: "網頁自動化"
-subcategory: "電腦視覺"
-description: "一個專為拓元售票網站設計的全自動搶票機器人，整合了 Selenium 與客製化訓練的 CNN 模型來自動破解 CAPTCHA。"
+title: "Zephyr: Fully Automated Ticket-Grabbing Bot"
+category: "Web Automation"
+subcategory: "Computer Vision"
+description: "A fully automated ticket-grabbing bot designed specifically for the Tixcraft ticketing website, integrating Selenium and a custom-trained CNN model to automatically solve CAPTCHAs."
 imageUrl: "images/optimized/projects/2024_10_04_zephyr/titlecard.webp"
 year: "2024"
 date: "2024-10-04"
-role: ""
+role: "Sole Developer"
+technologies: ["PyTorch", "Selenium"]
 pinned: 10
 featured: true
 ---
 
-## 專案概覽
+## Project Overview
 
-Zephyr 是一個全自動的搶票機器人，專為 Tixcraft 拓元售票網站設計。整合了 Selenium 自動化工具，並搭載一個客製化訓練的 CNN 模型，能夠自動化執行從選擇場次、區域、票數到破解 CAPTCHA 驗證碼並進入結帳頁面的完整流程。
+Zephyr is a fully automated ticket-grabbing bot designed for the Tixcraft ticketing website. It integrates the Selenium automation tool with a custom-trained CNN model to automate the entire process, from selecting the event, area, and number of tickets to solving the CAPTCHA and proceeding to the checkout page.
 
-這個專案的設計核心是高效率與高穩定性，透過多執行緒處理、模擬人類行為的隨機延遲，以及精密的錯誤處理機制，最大化搶票成功的機率。
+The core design of this project focuses on high efficiency and stability. It maximizes the probability of successfully purchasing tickets through multithreading, random delays to simulate human behavior, and a sophisticated error-handling mechanism.
 
-![Zephyr 運作展示（未登入）](https://drive.google.com/file/d/1imDvKqCPAYGSzrnU0QTaSFk43AdxTkBc/view?usp=sharing)
-
----
-
-## 實作細節
-
-### 模型訓練
-
-CAPTCHA 驗證碼是搶票流程中最關鍵的挑戰。為了克服這一點，我開發了一個高效的 CNN 模型，其訓練過程分為幾個階段：
-
--   **基礎訓練資料來源**:
-    1.  **網路爬蟲**: 編寫了自動化爬蟲，大量抓取 Tixcraft [驗證碼訓練網站](https://webbboxx.com/)上的真實 CAPTCHA 圖片，建立基礎資料庫。
-    2.  **資料生成**: 為了擴充資料集並確保標籤的正確性，我還開發了一額外的程式來生成外觀特徵與真實 CAPTCHA 極為相似的合成圖片。
-
--   **模型架構**:
-    模型的核心是一個卷積神經網路。專案從初版後架構不斷優化。後期版本引入了更深的網路層、Batch Normalization 來加速收斂，以及 Dropout 層來防止過擬合，都為提升模型的準確度與泛化能力。
-
--   **後期訓練方法 (Fine-Tuning)**:
-    為了應對模型在實戰中遇到的困難案例，我設計了一套半自動的改進流程：
-    1.  **錯誤案例收集**: Zephyr 在執行過程中若遇到驗證碼辨識錯誤，會自動將該 CAPTCHA 圖片儲存至特定資料夾。
-    2.  **人工標記與再訓練**: 我會手動標記這些收集到的「錯題」，並將它們加入訓練集中，對現有模型進行 Fine-tuning。這個持續的迭代過程讓模型能夠學習到更多複雜與模糊的圖形，使其準確率趨近完美。
-
--   **最終達成的效能**:
-    經過多輪訓練與優化，模型最終達到了極高的辨識準確率與極快的預測速度。這確保了在爭分奪秒的搶票環節中，驗證碼破解步驟不會成為流程的瓶頸。
-
-![Zephyr 訓練時的畫面](images/optimized/projects/2024_10_04_zephyr/zephyr_training_screen_shot.webp)
-
-### 運行流程
-
-Zephyr 的自動化流程經過精心設計，以確保穩定性與效率。
-
--   **設定方法**:
-    機器人的所有行為都由 JSON 設定檔驅動。使用者可以自訂：
-    -   `event_url`: 活動頁面的網址。
-    -   `ticket_number`: 欲購買的票券數量。
-    -   `desired_areas`: 一個包含理想區域關鍵字的列表，按優先順序排列。
-    -   `shift`: 與 `desired_areas` 對應的列表。這個參數解決了許多區域名稱重複的問題（例如多個「A區」連結）。`shift: [0]` 代表點擊第一個匹配的區域，`shift: [1]` 則代表點擊第二個，依此類推，提供了極高的點擊精準度。
-
--   **為了穩定而增加的功能**:
-    相較於單純追求速度，Zephyr 更注重在真實環境下的穩定性。為此，我加入了多項機制來模擬人類操作並處理預期外的狀況：
-    1.  **模擬人類行為**: 在點擊、輸入等操作之間，程式會插入 `random_sleep`，用微小且隨機的延遲，以避免被網站偵測為機器人。
-    2.  **多執行緒處理**: 在選擇票數的同時，程式會在另一個執行緒中呼叫 CNN 模型來辨識驗證碼。這兩個耗時的操作並行執行，顯著縮短了整體流程的時間。
-    3.  **精密的錯誤與警報處理**: 程式碼中包含了大量的錯誤處理邏輯。例如，用 `@alert_handler` 來自動處理網頁跳出的各種警告視窗（如「驗證碼錯誤」、「此區域已無連續座位」），並根據警報內容決定下一步動作（例如，重新輸入驗證碼或更換區域）。
-    4.  **穩定的元素互動**: 用 Selenium 的 `WebDriverWait` 等待元素完全載入後再進行互動，並透過 `ActionChains` 模擬滑鼠懸停等操作，來應對動態載入的網頁內容，有效避免了 `ElementClickInterceptedException` 等常見錯誤。
-
-![作為概念驗證的成功運行範例](images/optimized/projects/2024_10_04_zephyr/successful_purchase.webp)
-
-
+![Zephyr in Action (Logged Out)](https://drive.google.com/file/d/1imDvKqCPAYGSzrnU0QTaSFk43AdxTkBc/view?usp=sharing)
 
 ---
 
-## 聲明
+## Implementation Details
 
-本專案「Zephyr」僅為個人學習與技術研究之用，旨在探索網頁自動化、電腦視覺與機器學習領域的整合應用。開發此專案的目的純粹是為了學術探討和提升個人開發能力。
+### Model Training
 
-專案中展示的任何成功結果（例如票券截圖），皆為功能性測試與概念驗證的一部分，並非用於實際商業或個人牟利。所有展示圖片中的敏感資訊皆經過模糊化處理，以符合本聲明的學術研究目的。
+CAPTCHA authentication is the most critical challenge in the ticket-grabbing process, and often the most challenging and time-consuming phase for human users. To overcome this, I developed an efficient CNN model, with a training process divided into several stages:
 
-所有程式碼與相關資源皆由開發者保留，請勿詢問索取原始碼或成品。任何將此專案概念或技術應用於實際搶票、或任何違反售票平台使用者條款的行為，皆與本人無關。
+-   **Sources of Base Training Data**:
+    1.  **Web Scraper**: I wrote an automated scraper to collect a large number of real CAPTCHA images from the Tixcraft [CAPTCHA training website](https://webbboxx.com/), creating a foundational database.
+    2.  **Data Generation**: To expand the dataset and ensure label accuracy, I also developed an additional program to generate synthetic images with features closely resembling real CAPTCHAs.
 
+-   **Model Architecture**:
+    The core of the model is a Convolutional Neural Network. The architecture has been continuously optimized since the initial version. Later versions introduced deeper network layers, Batch Normalization to accelerate convergence, and Dropout layers to prevent overfitting, all of which improved the model's accuracy and generalization capabilities.
 
+-   **Later Stage Training Method (Fine-Tuning)**:
+    To handle difficult cases encountered by the model in real-world scenarios, I designed a semi-automated improvement workflow:
+    1.  **Error Case Collection**: If Zephyr fails to recognize a CAPTCHA during execution, it automatically saves the image to a specific folder.
+    2.  **Manual Labeling and Retraining**: I would manually label these collected "error cases" and add them to the training set to fine-tune the existing model. This continuous iterative process allowed the model to learn more complex and ambiguous patterns, pushing its accuracy toward perfection.
+
+-   **Final Achieved Performance**:
+    After multiple rounds of training and optimization, the model achieved extremely high recognition accuracy and very fast prediction speeds. This ensures that the CAPTCHA-solving step does not become a bottleneck in the time-sensitive ticket-grabbing process.
+
+![Zephyr Training Screenshot](images/optimized/projects/2024_10_04_zephyr/zephyr_training_screen_shot.webp)
+
+### Execution Flow
+
+Zephyr's automated workflow is meticulously designed to ensure stability and efficiency.
+
+-   **Configuration Method**:
+    The bot's behavior is driven by a JSON configuration file. Users can customize:
+    -   `event_url`: The URL of the event page.
+    -   `ticket_number`: The number of tickets to purchase.
+    -   `desired_areas`: A list of keywords for desired seating areas, arranged in order of priority.
+    -   `shift`: A list corresponding to `desired_areas`. This parameter solves the problem of duplicate area names (for example, multiple "Area A" links). `shift: [0]` means clicking the first matching area, while `shift: [1]` means clicking the second, and so on.
+
+-   **Features Added for Stability**:
+    Rather than purely pursuing speed, Zephyr prioritizes stability in a real-world environment. To achieve this, I incorporated several mechanisms to simulate human actions and handle unexpected situations:
+    1.  **Simulating Human Behavior**: The program inserts a `random_sleep` with a small, random delay between operations like clicking and typing to avoid being detected as a bot.
+    2.  **Multithreading**: While selecting the number of tickets, the program calls the CNN model in a separate thread to recognize the CAPTCHA. These two time-consuming operations run in parallel, significantly reducing the overall process time.
+    3.  **Sophisticated Error and Alert Handling**: The code includes extensive error-handling logic. For example, an `@alert_handler` is used to automatically manage various web alerts (like "Incorrect CAPTCHA" or "No contiguous seats available in this area") and determines the next action based on the alert's content (for example, re-entering the CAPTCHA or switching to another area).
+    4.  **Robust Element Interaction**: It uses Selenium's `WebDriverWait` to ensure elements are fully loaded before interaction and employs `ActionChains` to simulate mouse hovering and other actions. This handles dynamically loaded web content and effectively avoids common errors like `ElementClickInterceptedException`.
+
+![Example of a successful run as a proof-of-concept](images/optimized/projects/2024_10_04_zephyr/successful_purchase.webp)
+
+---
+
+## Disclaimer
+
+This project, "Zephyr," is intended for personal learning and technical research only. It aims to explore the integrated application of web automation, computer vision, and machine learning. The purpose of developing this project is purely for academic exploration and to enhance personal development skills.
+
+Any successful results shown in the project (such as ticket screenshots) are part of functional testing and proof-of-concept, not for actual commercial or personal gain. All sensitive information in the displayed images has been blurred to align with the academic research purpose of this disclaimer.
+
+All code and related resources are retained by the developer. Please refrain from asking for the source code or the final product. Any application of this project's concepts or techniques to actual ticket purchasing, or any action that violates the terms of use of the ticketing platform, is not associated with the developer.
