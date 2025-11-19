@@ -1,6 +1,11 @@
+
+<p align="center">
+  <img src="public/images/og-image.png" alt="Harry Chang Portfolio Site" width="2400" />
+</p>
+
 # Harry Chang Portfolio Site
 
-A modern, performant portfolio website built with Next.js 15, featuring a dual-domain architecture, custom i18n implementation, file-based CMS, and advanced image optimization.
+A modern, performant portfolio website built with Next.js 15, featuring a dual-domain architecture, custom i18n implementation, file-based CMS, and advanced image optimization. Note: This repository has been deprecated in favor of a new architecture using Turborepo. Check out the new repo [here](https://github.com/Harrychangtw/portfolio-monorepo).
 
 ## Key Features
 
